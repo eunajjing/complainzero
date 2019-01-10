@@ -46,7 +46,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.bit.newdeal" />
+	<context:component-scan base-package="com.bit.newdeal.controller" />
 	
 	<!-- Tiles 사용 -->
   	<beans:bean id="tilesviewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
