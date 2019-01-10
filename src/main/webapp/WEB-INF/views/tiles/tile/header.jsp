@@ -33,6 +33,7 @@ Date : 19-01-10
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				헤더헤더헤더
 				<div class="modal-body">
 					<form class="navbar-form navbar-left">
 						<div class="form-group">
