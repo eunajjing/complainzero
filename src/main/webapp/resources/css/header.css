@@ -1,0 +1,15 @@
+/* 
+Date : 19-01-10
+작성자 : 고은아
+내용 : header 부분 css 커스터마이징 */
+
+#profile {
+	width: 25px;
+	height:25px;
+	border-radius: 12px;
+	object-fit: cover;
+}
+
+#loginBtn {
+	cursor: pointer;
+}
