@@ -24,7 +24,7 @@ public class suggestService {
     return session.getMapper(suggestDao.class).insertSuggest(suggest);
   }
   
-  public int updateSuggest(Suggest suggest) {
-    return session.getMapper(suggestDao.class).updateSuggest(suggest);
+  public int updateSuggest(int sno) {
+    return session.getMapper(suggestDao.class).updateSuggest(sno);
   }
 }
