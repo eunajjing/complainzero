@@ -69,10 +69,11 @@ public class memberController {
   }
   
   @RequestMapping("userMyPage.do")
-  public String userMyPage(String id, Model model) {
+  public String userMyPage(/*String id,*/ Model model) {
+	  String id = "test@test.com";
     model.addAttribute("member", memberService.selectOneMember(id));
     
-    return "userMyPage_update";
+    return "userMyPage";
   }
   
   @RequestMapping("myPage.do")

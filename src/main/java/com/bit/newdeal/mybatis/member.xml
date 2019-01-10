@@ -5,7 +5,7 @@
   
   <mapper namespace="com.bit.newdeal.dao.memberDao">
   	<select id="selectOneMember" parameterType="String" resultType="Member">
-	    
+	    select * from member where id=#{id};
 	</select>
 	
 	<select id="selectAllMember" resultType="Member">
