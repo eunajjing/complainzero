@@ -11,10 +11,10 @@
       logAbandoned="true" />
  -->      
       <Resource name="jdbc_maria" auth="Container" type="javax.sql.DataSource"
-        driverClassName="org.mariadb.jdbc.Driver" loginTimeout="10" maxWait="5000"
+        driverClassName="org.mariadb.jdbc.Driver" loginTimeout="10" maxWait="-1"
         username="host" password="1111" testOnBorrow="true"
-        maxActive="500" maxIdle="100"
-        url="jdbc:mysql://192.168.0.6:3306/newdeal" />
+        maxActive="20" maxIdle="10"
+        url="jdbc:mariadb://192.168.0.6:3306/newdeal" />
 
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
 
