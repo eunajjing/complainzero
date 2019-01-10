@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- MyBatis(Maria DB)와 Spring 연결 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="org.mariadb.jdbc.Driver" />
+		<property name="url" value="jdbc:mariadb://192.168.0.6:3306/newdeal" />
+		<property name="username" value="host" />
+		<property name="password" value="1111" />
+	</bean>
+
+	<!-- MyBatis(Maria DB)와 Spring 연결 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:com/bit/newdeal/mybatis/album.xml"></property>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- tiles -->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
+		<property name="order" value="2"></property>
+	</bean>
+
+</beans>
