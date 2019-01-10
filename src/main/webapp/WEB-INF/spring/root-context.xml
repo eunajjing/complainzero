@@ -25,7 +25,6 @@
 		<property name="configLocation" value="classpath:com/bit/newdeal/mybatis/configuration.xml"></property>
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:com/bit/newdeal/mybatis/album.xml</value> <!-- 임시 -->
 				<value>classpath:com/bit/newdeal/mybatis/alarm.xml</value>
 				<value>classpath:com/bit/newdeal/mybatis/board.xml</value>
 				<value>classpath:com/bit/newdeal/mybatis/comment.xml</value>

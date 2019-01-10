@@ -6,7 +6,6 @@
 <configuration>
   
   <typeAliases>
-    <typeAlias alias="memberDto" type="com.bit.newdeal.dto.memberDto"/> <!-- 임시 -->
     <typeAlias alias="Alarm" type="com.bit.newdeal.dto.Alarm"/>
     <typeAlias alias="Board" type="com.bit.newdeal.dto.Board"/>
     <typeAlias alias="Comment" type="com.bit.newdeal.dto.Comment"/>
