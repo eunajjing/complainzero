@@ -7,5 +7,5 @@ public interface suggestDao {
   public List<Suggest> selectOneSuggest(String id);
   public List<Suggest> selectAllSuggest();
   public int insertSuggest(Suggest suggest);
-  public int updateSuggest(Suggest suggest);
+  public int updateSuggest(int sno);
 }
