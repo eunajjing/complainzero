@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.bit.newdeal.dao.boardDao">
+  	<select id="containerOne" resultType="Board">
+  	
+  	</select>
+  	
+  	<select id="containerTwo" resultType="Board">
+  	
+  	</select>
+  	
+  	<select id="selectOneBoard" parameterType="int" resultType="Board">
+  	
+  	</select>
+  
+  	<select id="selectAllBoard" resultType="Board">
+  	
+  	</select>
+  
+  	<insert id="insertBoard" parameterType="Board">
+  	
+  	</insert>
+  	
+  	<update id="updateBoard" parameterType="Board">
+  	
+  	</update>
+  	
+  	<select id="searchBoard" parameterType="String" resultType="Board">
+  	
+  	</select>
+  	
+  </mapper>

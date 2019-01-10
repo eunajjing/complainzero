@@ -5,7 +5,7 @@
   
 <mapper namespace="com.bit.newdeal.dao.testDao">
   
-  <select id="test" resultType="com.bit.newdeal.dto.memberDto">
+  <select id="test" resultType="memberDto">
     select * from test where no=1
   </select>
   

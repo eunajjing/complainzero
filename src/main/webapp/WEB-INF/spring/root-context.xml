@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- MyBatis(Maria DB)와 Spring 연결 -->
+	<!-- 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="org.mariadb.jdbc.Driver" />
@@ -11,11 +12,26 @@
 		<property name="username" value="host" />
 		<property name="password" value="1111" />
 	</bean>
+ -->
+ 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+      <property name="jndiName" value="java:comp/env/jdbc_maria"></property>
+    </bean>
 
 	<!-- MyBatis(Maria DB)와 Spring 연결 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations" value="classpath:com/bit/newdeal/mybatis/album.xml"></property>
+		<property name="configLocation" value="classpath:com/bit/newdeal/mybatis/configuration.xml"></property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/bit/newdeal/mybatis/album.xml</value> <!-- 임시 -->
+				<value>classpath:com/bit/newdeal/mybatis/alarm.xml</value>
+				<value>classpath:com/bit/newdeal/mybatis/board.xml</value>
+				<value>classpath:com/bit/newdeal/mybatis/comment.xml</value>
+				<value>classpath:com/bit/newdeal/mybatis/member.xml</value>
+				<value>classpath:com/bit/newdeal/mybatis/report.xml</value>
+				<value>classpath:com/bit/newdeal/mybatis/suggest.xml</value>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

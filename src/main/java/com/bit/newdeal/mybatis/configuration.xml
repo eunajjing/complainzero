@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+  
+  <typeAliases>
+    <typeAlias alias="memberDto" type="com.bit.newdeal.dto.memberDto"/> <!-- 임시 -->
+    <typeAlias alias="Alarm" type="com.bit.newdeal.dto.Alarm"/>
+    <typeAlias alias="Board" type="com.bit.newdeal.dto.Board"/>
+    <typeAlias alias="Comment" type="com.bit.newdeal.dto.Comment"/>
+    <typeAlias alias="Member" type="com.bit.newdeal.dto.Member"/>
+    <typeAlias alias="Report" type="com.bit.newdeal.dto.Report"/>
+    <typeAlias alias="Suggest" type="com.bit.newdeal.dto.Suggest"/>
+    
+  </typeAliases>
+  
+</configuration>

@@ -18,18 +18,13 @@ import com.bit.newdeal.service.testService;
 
 @Controller
 public class HomeController {
-	
+	/*
 	  @Autowired
 	  private testService test;
-	
+	*/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) {
-		/*
-		ArrayList<memberDto> map = new ArrayList<>();
-		map.add(test.test());
-		
-		session.setAttribute("session", map);
-		*/
+		/*System.out.println(test.test());*/
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
