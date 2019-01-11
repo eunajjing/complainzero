@@ -1,0 +1,17 @@
+/* 
+Date : 19-01-11
+작성자 : 고은아
+내용 : joinForm css 커스터마이징
+*/
+
+#profilePrew {
+	width: 100px;
+	height:100px;
+	border-radius: 50px;
+	object-fit: cover;
+	display: inline-block;
+}
+
+#profilePrewDiv {
+	text-align: center;
+}
