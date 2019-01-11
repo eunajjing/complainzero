@@ -81,7 +81,7 @@ public class memberController {
 	  String id = "test@test.com";
     model.addAttribute("member", memberService.selectOneMember(id));
     
-    return "userMyPage";
+    return "userMyPage_update";
   }
   
   @RequestMapping("myPage.do")

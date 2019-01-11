@@ -11,7 +11,7 @@
         <li class="breadcrumb-item">
           <a href="main.do">Home</a>
         </li>
-        <li class="breadcrumb-item active">회원탈퇴</li>
+        <li class="breadcrumb-item active">글조회</li>
       </ol>
 
       <!-- Content Row -->
@@ -26,22 +26,22 @@
         </div>
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
-          <h2>회원탈퇴</h2>
-
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><img src="#"></span>
-              </div>
-              <input type="text" class="form-control" placeholder="Username">
-          </div>
-
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><img src="#"></span>
-              </div>
-              <input type="password" class="form-control" placeholder="Password">
-          </div>
-
+          <h2>글조회</h2>
+          	<h3>게시글</h3>
+          	<c:forEach items="${board}" var="board">
+				${board.title}
+				${board.bcontent}
+				${board.writeDate}
+				${board.readCount}
+          	</c:forEach>
+          	
+          	<h3>댓글</h3>
+          	<c:forEach items="${comment}" var="comment">
+				${comment.cContent}
+				${comment.writeDate}
+				${comment.title}
+          	</c:forEach>
+          	
         </div>
       </div>
       <!-- /.row -->

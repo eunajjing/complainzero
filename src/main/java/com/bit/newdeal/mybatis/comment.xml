@@ -9,8 +9,11 @@
   	
   	</select>
   	
-  	<select id="mySelectComment" parameterType="int" resultType="Comment">
-  	
+  	<select id="mySelectComment" parameterType="String" resultType="Comment">
+  		select c.cContent, c.writeDate, b.title
+		from comment c join board b
+		where c.bno = b.bno
+		and mid = #{id}
   	</select>
   	
   	<insert id="insertComment" parameterType="Comment">

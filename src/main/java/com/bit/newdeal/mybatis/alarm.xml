@@ -5,7 +5,7 @@
   
   <mapper namespace="com.bit.newdeal.dao.alarmDao">
   
-  	<select id="selectAlarm" parameterType="int" resultType="Alarm">
+  	<select id="selectAlarm" parameterType="String" resultType="Alarm">
   	
   	</select>
   	

@@ -21,7 +21,7 @@ public class mainController {
   @Autowired
   private reportService reportService;
   
-  @RequestMapping("main.do")
+  @RequestMapping(value= {"main.do", "/"})
   public ModelAndView main() {
     ModelAndView mav = new ModelAndView();
     
