@@ -74,7 +74,7 @@ Date : 19-01-10
 
 					<!-- 세션 값이 있으면 -->
 
-					<li class="nav-item"><a class="nav-link" href="#">게시판</a></li>
+					<li class="nav-item"><a class="nav-link" href="boardForm.do">게시판</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
