@@ -21,7 +21,7 @@
           <div class="list-group">
             <a href="sidebar3333.html" class="list-group-item">개인정보수정</a>
             <a href="sidebar4444.html" class="list-group-item">글조회</a>
-            <a href="sidebar5555.html" class="list-group-item">회원탈퇴</a>
+            <a href="deleteMember.do" class="list-group-item">회원탈퇴</a>
           </div>
         </div>
         <!-- Content Column -->

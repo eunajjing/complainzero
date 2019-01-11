@@ -1,10 +1,13 @@
 package com.bit.newdeal.controller;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.bit.newdeal.dto.Member;
 import com.bit.newdeal.service.memberService;
 
@@ -41,7 +44,12 @@ public class memberController {
     return "redirect:main.do";
   }
   
-  @RequestMapping("deleteMember.do")
+  @RequestMapping(value="deleteMember.do", method=RequestMethod.GET)
+  public String deleteMember() {
+    return "deleteMember";
+  }
+  
+  @RequestMapping(value="deleteMember.do", method=RequestMethod.POST)
   public String deleteMember(String id, HttpSession session) {
     // 서비스, dao delete 추가해야함
     session.invalidate();
