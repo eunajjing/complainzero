@@ -120,7 +120,7 @@ date : 19-01-10
           </div>
         </div>
         
-        <div>
+        <div class="rightOutDiv">
           	<a class="btn btn-secondary" href="#">더보기</a>
       	</div>
       
