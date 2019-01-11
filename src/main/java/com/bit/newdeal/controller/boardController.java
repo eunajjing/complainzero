@@ -26,7 +26,7 @@ public class boardController {
   public ModelAndView boardForm() {
     ModelAndView mav = new ModelAndView();
     
-    mav.addObject("boardList", boardService.selectAllBoard());
+   // mav.addObject("boardList", boardService.selectAllBoard());
     mav.setViewName("boardForm");
     
     return mav;
