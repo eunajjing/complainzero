@@ -10,16 +10,18 @@
 <meta name="author" content="">
 <title>회원 목록</title>
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/modern-business.css" rel="stylesheet">
+<!-- datatable css -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
 </head>
 
-<body>
-    <!-- Page Content -->
+<body>  
+<!--     Page Content -->
     <div class="container">
 
-      <!-- Page Heading/Breadcrumbs -->
+      Page Heading/Breadcrumbs
       <h1 class="mt-4 mb-3">Sidebar Page
         <small>Subheading</small>
       </h1>
@@ -41,69 +43,144 @@
             <a href="services.html" class="list-group-item">신고 관리</a>
           </div>
         </div>
-        
+      
         <!-- Content Column -->
-        <table class="col-lg-3 mb-4">
+        <table class="table table-striped table-bordered table-hover" id="dt">
           <thead>
             <tr>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Email</th>
+              <th class="text-center">Firstname</th>
+              <th class="text-center">Lastname</th>
+              <th class="text-center">Email</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Default</td>
-              <td>Defaultson</td>
-              <td>def@somemail.com</td>
-            </tr>      
-            <c:forEach var="member" items="${memberList }">
-            <tr class="table-primary">
-              <td>${member.id }</td>
-              <td>Joe</td>
-              <td>joe@example.com</td>
-            </tr>
-            </c:forEach>
-            <tr class="table-success">
-              <td>Success</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-            </tr>
-            <tr class="table-danger">
-              <td>Danger</td>
-              <td>Moe</td>
-              <td>mary@example.com</td>
-            </tr>
-            <tr class="table-info">
-			        <td>Info</td>
-			        <td>Dooley</td>
-			        <td>july@example.com</td>
-            </tr>
-            <tr class="table-warning">
-			        <td>Warning</td>
-			        <td>Refs</td>
-			        <td>bo@example.com</td>
-            </tr>
-            <tr class="table-active">
-			        <td>Active</td>
-			        <td>Activeson</td>
-			        <td>act@example.com</td>
-            </tr>
-            <tr class="table-secondary">
-              <td>Secondary</td>
-              <td>Secondson</td>
-              <td>sec@example.com</td>
-            </tr>
-			      <tr class="table-light">
-			        <td>Light</td>
-			        <td>Angie</td>
-			        <td>angie@example.com</td>
-			      </tr>
-			      <tr class="table-dark text-dark">
-			        <td>Dark</td>
-			        <td>Bo</td>
-			        <td>bo@example.com</td>
-			      </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+<!--             <tr> -->
+<!--               <td>Default</td> -->
+<!--               <td>Defaultson</td> -->
+<!--               <td>def@somemail.com</td> -->
+<!--             </tr>       -->
+<%--             <c:forEach var="member" items="${memberList }"> --%>
+<!--             <tr class="table-primary"> -->
+<%--               <td>${member.id }</td> --%>
+<!--               <td>Joe</td> -->
+<!--               <td>joe@example.com</td> -->
+<!--             </tr> -->
+<%--             </c:forEach> --%>
+<!--             <tr class="table-success"> -->
+<!--               <td>Success</td> -->
+<!--               <td>Doe</td> -->
+<!--               <td>john@example.com</td> -->
+<!--             </tr> -->
+<!--             <tr class="table-danger"> -->
+<!--               <td>Danger</td> -->
+<!--               <td>Moe</td> -->
+<!--               <td>mary@example.com</td> -->
+<!--             </tr> -->
+<!--             <tr class="table-info"> -->
+<!-- 			        <td>Info</td> -->
+<!-- 			        <td>Dooley</td> -->
+<!-- 			        <td>july@example.com</td> -->
+<!--             </tr> -->
+<!--             <tr class="table-warning"> -->
+<!-- 			        <td>Warning</td> -->
+<!-- 			        <td>Refs</td> -->
+<!-- 			        <td>bo@example.com</td> -->
+<!--             </tr> -->
+<!--             <tr class="table-active"> -->
+<!-- 			        <td>Active</td> -->
+<!-- 			        <td>Activeson</td> -->
+<!-- 			        <td>act@example.com</td> -->
+<!--             </tr> -->
+<!--             <tr class="table-secondary"> -->
+<!--               <td>Secondary</td> -->
+<!--               <td>Secondson</td> -->
+<!--               <td>sec@example.com</td> -->
+<!--             </tr> -->
+<!-- 			      <tr class="table-light"> -->
+<!-- 			        <td>Light</td> -->
+<!-- 			        <td>Angie</td> -->
+<!-- 			        <td>angie@example.com</td> -->
+<!-- 			      </tr> -->
+<!-- 			      <tr class="table-dark text-dark"> -->
+<!-- 			        <td>Dark</td> -->
+<!-- 			        <td>Bo</td> -->
+<!-- 			        <td>bo@example.com</td> -->
+<!-- 			      </tr> -->
           </tbody>
         </table>
       </div>
@@ -113,7 +190,20 @@
     <!-- /.container -->
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery/jquery.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- datatable js -->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    
+    <script type="text/javascript">
+     $(document).ready(function() { 
+     	$('#dt').DataTable({
+//      		responsive: true,
+//         searching: true,
+//         bAutoWidth: true,
+//         bPaginate: true
+     	}); 
+     }); 
+    </script>
   </body>
 </html>
