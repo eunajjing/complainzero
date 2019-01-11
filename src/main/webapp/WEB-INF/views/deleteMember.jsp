@@ -9,10 +9,10 @@
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
+          <a href="main.do">Home</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="sidebar2222.html">개인정보</a>
+            <a href="userMyPage.do">개인정보</a>
         </li>
         <li class="breadcrumb-item active">회원탈퇴</li>
       </ol>
@@ -22,9 +22,9 @@
         <!-- Sidebar Column -->
         <div class="col-lg-3 mb-4">
           <div class="list-group">
-            <a href="sidebar3333.html" class="list-group-item">개인정보수정</a>
-            <a href="sidebar4444.html" class="list-group-item">글조회</a>
-            <a href="sidebar5555.html" class="list-group-item">회원탈퇴</a>
+            <a href="#" class="list-group-item">개인정보수정</a>
+            <a href="#" class="list-group-item">글조회</a>
+            <a href="deleteMember.do" class="list-group-item">회원탈퇴</a>
           </div>
         </div>
         <!-- Content Column -->
@@ -33,14 +33,14 @@
 
           <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text"><img src="bx-user.svg"></span>
+                <span class="input-group-text"><img src="#"></span>
               </div>
               <input type="text" class="form-control" placeholder="Username">
           </div>
 
           <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text"><img src="bxs-key.svg"></span>
+                <span class="input-group-text"><img src="#"></span>
               </div>
               <input type="password" class="form-control" placeholder="Password">
           </div>

@@ -9,7 +9,7 @@
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
+          <a href="main.do">Home</a>
         </li>
         <li class="breadcrumb-item active">개인정보</li>
       </ol>
@@ -19,17 +19,21 @@
         <!-- Sidebar Column -->
         <div class="col-lg-3 mb-4">
           <div class="list-group">
-            <a href="sidebar3333.html" class="list-group-item">개인정보수정</a>
-            <a href="sidebar4444.html" class="list-group-item">글조회</a>
+            <a href="#" class="list-group-item">개인정보수정</a>
+            <a href="#" class="list-group-item">글조회</a>
             <a href="deleteMember.do" class="list-group-item">회원탈퇴</a>
           </div>
         </div>
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
           <h2>개인정보</h2>
-          	아이디:${member.id}
-          	닉네임:${member.nickname}
-          	
+          <div class="card h-100 text-center">
+            <img class="card-img-top" src="http://placehold.it/750x450" alt="">
+            <div class="card-body">
+              <h4 class="card-title">${member.id}</h4>
+              <p class="card-text">${member.nickname}</p>
+            </div>
+          </div>
         </div>
       </div>
       <!-- /.row -->
