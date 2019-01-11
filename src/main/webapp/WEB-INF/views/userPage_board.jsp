@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+	
 <!-- Page Content -->
     <div class="container">
 
@@ -29,26 +31,57 @@
         <div class="col-lg-9 mb-4">
           <h2>글조회</h2>
           	<h3>게시글</h3>
+          	<table class="dt" class="table table-striped table-bordered table-hover">
+          	<thead>
+          		<tr>
+          			<th>제목</th>
+          			<th>내용</th>
+          			<th>작성시간</th>
+          			<th>조회수</th>
+          		</tr>
+       		</thead>
+       		<tbody>
           	<c:forEach items="${myBoard.board}" var="board">
-          		${board.title}
-          		<br>
-				${board.bContent}
-				<br>
-				${board.writeDate}
-				<br>
-				${board.readCount}
-				<br>
+          		<tr>
+          			<td>${board.title}</td>
+					<td>${board.bContent}</td>
+					<td>${board.writeDate}</td>
+					<td>${board.readCount}</td>
+				</tr>
           	</c:forEach>
+          	</tbody>
+          	</table>
           	
           	<h3>댓글</h3>
+          	<table class="dt">
+          	<thead>
+          		<tr>
+          			<th>내용</th>
+          			<th>작성시간</th>
+          			<th>게시글제목</th>
+          		</tr>
+          	</thead>
+          	<tbody>
           	<c:forEach items="${myBoard.comment}" var="comment">
-				${comment.cContent}
-				<br>
-				${comment.writeDate}
-				<br>
-				<%-- ${comment.title} --%>
-				<br>
+          		<tr>
+					<td>${comment.cContent}</td>
+					<td>${comment.writeDate}</td>
+					<td>aaaa</td>
+					<%-- <td>${comment.title}</td> --%>
+				</tr>
           	</c:forEach>
+          	</tbody>
+          	</table>
         </div>
       </div>
+      </div>
       <!-- /.row -->
+      <script src="vendor/jquery/jquery.js"></script>
+      <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('.dt').DataTable({
+		
+	});
+});
+</script>
