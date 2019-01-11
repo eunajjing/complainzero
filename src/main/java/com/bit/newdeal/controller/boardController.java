@@ -44,7 +44,7 @@ public class boardController {
   public ModelAndView selectOneBoard(int bno) {
     ModelAndView mav = new ModelAndView();
     
-    mav.addObject("boardDetail", boardService.selectOneBoard(bno));
+    // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.setViewName("boardDetail");
     
     return mav;
