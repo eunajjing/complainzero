@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="selectAllMember" resultType="Member">
-	    
+	    select * from member
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">

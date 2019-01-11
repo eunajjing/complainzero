@@ -85,9 +85,10 @@ Date : 19-01-10
 					</a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPortfolio">
-							<a class="dropdown-item" href="#">작성 글 확인</a> <a
-								class="dropdown-item" href="userMyPage.do">내 정보 수정</a> <a
-								class="dropdown-item" href="#">로그아웃</a>
+							<a class="dropdown-item" href="#">작성 글 확인</a> 
+							<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a> 
+							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
+							<a class="dropdown-item" href="#">로그아웃</a>
 						</div></li>
 						
 											<li class="nav-item"><a class="nav-link" href="#"> <i
