@@ -101,12 +101,10 @@ public class boardController {
     ModelAndView mav = new ModelAndView();
     HashMap<String, Object> params = new HashMap<String, Object>();
     
-//  id로 내 글 찾는 메소드 필요
-    /*params.put("board", boardService.selectAllBoard()); */
     id = "test@test.com";
+    params.put("board", boardService.selectMyBoard(id));
     params.put("comment", commentService.mySelectComment(id));
 //    params.put("likes", ); id로 찾고 글 번호로 조인해서 리스트 뽑아옴
-    
     mav.addObject("myBoard", params);
     mav.setViewName("userPage_board");
     
@@ -116,8 +114,8 @@ public class boardController {
   @RequestMapping("mySuggest.do")
   public ModelAndView mySuggest(String id) {
     ModelAndView mav = new ModelAndView();
-    
-    mav.addObject("mySuggest", suggestService.selectOneSuggest(id));
+    id = "test@test.com";
+    /*mav.addObject("mySuggest", suggestService.selectOneSuggest(id));*/
     mav.setViewName("enterUserPage_suggest");
     
     return mav;

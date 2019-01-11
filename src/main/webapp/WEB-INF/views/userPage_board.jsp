@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Page Content -->
     <div class="container">
 
@@ -28,20 +29,26 @@
         <div class="col-lg-9 mb-4">
           <h2>글조회</h2>
           	<h3>게시글</h3>
-          	<c:forEach items="${board}" var="board">
-				${board.title}
-				${board.bcontent}
+          	<c:forEach items="${myBoard.board}" var="board">
+          		${board.title}
+          		<br>
+				${board.bContent}
+				<br>
 				${board.writeDate}
+				<br>
 				${board.readCount}
+				<br>
           	</c:forEach>
           	
           	<h3>댓글</h3>
-          	<c:forEach items="${comment}" var="comment">
+          	<c:forEach items="${myBoard.comment}" var="comment">
 				${comment.cContent}
+				<br>
 				${comment.writeDate}
-				${comment.title}
+				<br>
+				<%-- ${comment.title} --%>
+				<br>
           	</c:forEach>
-          	
         </div>
       </div>
       <!-- /.row -->

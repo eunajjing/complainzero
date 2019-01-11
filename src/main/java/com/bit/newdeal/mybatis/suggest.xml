@@ -6,7 +6,7 @@
   <mapper namespace="com.bit.newdeal.dao.suggestDao">
   
   	<select id="selectOneSuggest" parameterType="String" resultType="Suggest">
-  	
+  		
   	</select>
   	
   	<select id="selectAllSuggest" resultType="Suggest">
