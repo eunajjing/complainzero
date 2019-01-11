@@ -33,7 +33,6 @@ Date : 19-01-10
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				헤더헤더헤더
 				<div class="modal-body">
 					<form class="navbar-form navbar-left">
 						<div class="form-group">
@@ -71,7 +70,7 @@ Date : 19-01-10
 					<!-- 시큐리티 적용할 때 session 값이 없으면 -->
 					<li class="nav-item"><a class="nav-link" data-toggle="modal"
 						data-target="#loginModal" id="loginBtn">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" href="joinForm">회원가입</a></li>
+					<li class="nav-item"><a class="nav-link" href="joinForm.do">회원가입</a></li>
 
 					<!-- 세션 값이 있으면 -->
 
