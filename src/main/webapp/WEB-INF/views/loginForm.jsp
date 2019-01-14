@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-    <!-- 주석~ -->
+    <!-- 
+    date : 19-01-14
+     작성자 : 고은아
+     내용 : 로그인 페이지 작성
+     -->
     
     <div>
 	<div class="modal-dialog modal-sm">
