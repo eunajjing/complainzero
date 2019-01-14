@@ -7,13 +7,16 @@
 
 	<security:http auto-config="true">
 		<!-- pattern=접근주소, access=권한 -->
-		<security:intercept-url pattern="/**" access="ROLE_USER" />
+		<security:form-login login-page="/loginForm.do"/>
+		<security:logout logout-success-url="/main.do"/>
+		<security:intercept-url pattern="/boardForm.do" access="ROLE_USER" />
 	</security:http>
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
 				<security:user name="guest" password="guest" authorities="ROLE_USER" />
+				<security:user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_USER" />
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
