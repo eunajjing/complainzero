@@ -51,9 +51,7 @@ public class boardController {
   }
   
   @RequestMapping("updateBoardForm.do")
-  public String updateBoardForm() {
-	  return "writeBoardForm";
-  }
+  public void updateBoardForm() {}
   
   @RequestMapping("updateBoard.do")
   public String updateBoard(Board board) {

@@ -4,8 +4,6 @@
 date : 19-01-14
 작성자 : 고은아
 내용 : 글쓰기 폼 작성
-
-
 일부 스크립트 소스가 하단에 있습니다(네이버 스마트 에디터기가 textarea 밑에 있어야 한다는 트러블 슈팅이 있길래)
 -->
 <script type="text/javascript" src="vendor/smarteditor/js/service/HuskyEZCreator.js"></script>
@@ -52,5 +50,4 @@ date : 19-01-14
         sSkinURI: "vendor/smarteditor/SmartEditor2Skin.html",
         fCreator: "createSEditor2"
     });
-
 </script>
