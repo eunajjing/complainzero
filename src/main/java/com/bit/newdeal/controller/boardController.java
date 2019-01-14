@@ -27,7 +27,7 @@ public class boardController {
     ModelAndView mav = new ModelAndView();
     
    // mav.addObject("boardList", boardService.selectAllBoard());
-    mav.setViewName("boardForm");
+    mav.setViewName("board/boardForm");
     
     return mav;
   }
@@ -45,7 +45,7 @@ public class boardController {
     ModelAndView mav = new ModelAndView();
     
     // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
-    mav.setViewName("boardDetail");
+    mav.setViewName("board/boardDetail");
     
     return mav;
   }

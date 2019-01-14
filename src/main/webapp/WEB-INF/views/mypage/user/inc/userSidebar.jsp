@@ -21,6 +21,31 @@
           <div class="list-group">
             <a href="userMyPage.do" class="list-group-item">정보 수정</a>
             <a href="myBoard.do" class="list-group-item">글조회</a>
-            <a href="deleteMember.do" class="list-group-item">회원탈퇴</a>
+            <a href="#" data-toggle="modal"
+						data-target="#deleteModal"  class="list-group-item">회원탈퇴</a>
           </div>
         </div>
+        
+        <div id="deleteModal" class="modal fade bs-example-modal-sm">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>회원탈퇴</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="navbar-form navbar-left">
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="password" required="required">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>

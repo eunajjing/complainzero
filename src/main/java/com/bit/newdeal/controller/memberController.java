@@ -21,7 +21,7 @@ public class memberController {
   
   @RequestMapping("joinForm.do")
   public String joinForm() {
-    return "joinForm_guest";
+    return "member/joinForm_guest";
   }
   
   @RequestMapping("joinFormEnter.do")
@@ -44,12 +44,7 @@ public class memberController {
     return "redirect:main.do";
   }
   
-  @RequestMapping(value="deleteMember.do", method=RequestMethod.GET)
-  public String deleteMember() {
-    return "deleteMember";
-  }
-  
-  @RequestMapping(value="deleteMember.do", method=RequestMethod.POST)
+  @RequestMapping("deleteMember.do")
   public String deleteMember(String id, HttpSession session) {
     // 서비스, dao delete 추가해야함
     session.invalidate();
