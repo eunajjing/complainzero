@@ -74,7 +74,7 @@ public class memberController {
     id = "test@test.com";
     model.addAttribute("member", memberService.selectOneMember(id));
     
-    return "enterUserMyPage_update";
+    return "mypage/enter/enterUserMyPage_update";
   }
   
   @RequestMapping("userMyPage.do")
@@ -82,7 +82,7 @@ public class memberController {
 	id = "test@test.com";
     model.addAttribute("member", memberService.selectOneMember(id));
     
-    return "userMyPage_update";
+    return "mypage/user/userMyPage_update";
   }
   
   @RequestMapping("myPage.do")

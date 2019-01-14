@@ -106,7 +106,7 @@ public class boardController {
     params.put("comment", commentService.mySelectComment(id));
 //    params.put("likes", ); id로 찾고 글 번호로 조인해서 리스트 뽑아옴
     mav.addObject("myBoard", params);
-    mav.setViewName("userPage_board");
+    mav.setViewName("mypage/user/userMyPage_board");
     
     return mav;
   }
@@ -116,7 +116,7 @@ public class boardController {
     ModelAndView mav = new ModelAndView();
     id = "test@test.com";
     /*mav.addObject("mySuggest", suggestService.selectOneSuggest(id));*/
-    mav.setViewName("enterUserPage_suggest");
+    mav.setViewName("mypage/enter/enterUserMyPage_suggest");
     
     return mav;
   }

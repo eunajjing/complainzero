@@ -3,9 +3,9 @@
   "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
+	<!-- 전체헤더 -->
 	<definition name="layout" template="/WEB-INF/views/tiles/layout/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/tile/header.jsp"/>
-		<put-attribute name="footer" value="/WEB-INF/views/tiles/tile/footer.jsp"/>
 	</definition>
 	
 	<definition name="*" extends="layout">
@@ -19,4 +19,35 @@
 	<definition name="*/*/*" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
 	</definition>
+	
+	<!-- admin페이지 사이드바 -->
+	<definition name="adminpage" template="/WEB-INF/views/mypage/admin/inc/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/tile/header.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/admin/inc/adminSidebar.jsp"/>
+	</definition>
+	
+	<definition name="*/*/*" extends="adminpage">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
+	<!-- 유저페이지 사이드바 -->
+	<definition name="mypage" template="/WEB-INF/views/mypage/admin/inc/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/tile/header.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/user/inc/userSidebar.jsp"/>
+	</definition>
+	
+	<definition name="*/*/*" extends="mypage">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
+	<!-- 엔터페이지 사이드바 -->
+	<definition name="enterpage" template="/WEB-INF/views/mypage/admin/inc/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/tile/header.jsp"/>
+		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/enter/inc/enterSidebar.jsp"/>
+	</definition>
+	
+	<definition name="*/*/*" extends="enterpage">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>
