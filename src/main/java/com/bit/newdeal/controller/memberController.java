@@ -14,7 +14,10 @@ public class memberController {
   private memberService memberService;
   
   @RequestMapping("loginForm.do")
-  public void loginForm() {}
+  public String loginForm() {
+	  System.out.println("컨트롤러!");
+	  return "loginForm";
+  }
   
   @RequestMapping("joinForm.do")
   public String joinForm() {

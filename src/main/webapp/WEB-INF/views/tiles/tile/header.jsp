@@ -22,37 +22,7 @@ Date : 19-01-10
 	crossorigin="anonymous">
 </head>
 
-<body>
-<!-- 로그인 모달 시작 -->
-	<div id="loginModal" class="modal fade bs-example-modal-sm">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form class="navbar-form navbar-left">
-						<div class="form-group">
-							<input type="email" class="form-control" placeholder="Email" required="required">
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" placeholder="password" required="required">
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default">비밀번호 찾기</button>
-					<!-- 비밀번호 찾기 단 구현 안됨 -->
-					<button type="submit" class="btn btn-primary">로그인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 로그인 모달 끝 -->
-	
+<body>	
 	<!-- Navigation -->
 	<nav
 		class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -68,8 +38,7 @@ Date : 19-01-10
 				<ul class="navbar-nav ml-auto">
 
 					<!-- 시큐리티 적용할 때 session 값이 없으면 -->
-					<li class="nav-item"><a class="nav-link" data-toggle="modal"
-						data-target="#loginModal" id="loginBtn">로그인</a></li>
+					<li class="nav-item"><a href="loginForm.do" class="nav-link" id="loginBtn">로그인</a></li>
 					<li class="nav-item"><a class="nav-link" href="joinForm.do">회원가입</a></li>
 
 					<!-- 세션 값이 있으면 -->

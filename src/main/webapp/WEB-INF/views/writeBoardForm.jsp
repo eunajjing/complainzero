@@ -1,23 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-    <!-- 
-    date : 2019-01-11
-     작성자 : 고은아
-     내용 : 게시물 작성 페이지 초기 뷰단 제작 -->
-<div class="container">
-	<div class="card my-4">
-		<form action="">
-			<h5 class="card-header">댓글을 남겨보세요</h5>
-			<div class="card-body">
-				<form>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!--
+date : 19-01-14
+작성자 : 고은아
+내용 : 글쓰기 폼 작성
+
+
+일부 스크립트 소스가 하단에 있습니다(네이버 스마트 에디터기가 textarea 밑에 있어야 한다는 트러블 슈팅이 있길래)
+-->
+<script type="text/javascript" src="vendor/smarteditor/js/service/HuskyEZCreator.js"></script>
+<div>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">글쓰기</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="id">제목</label>
+							<div>
+								<input id="id" name="id" type="email" class="form-control" placeholder="제목을 입력해주세요" required="required">
+							</div>
+						</div>
 					<div class="form-group">
-						<textarea class="form-control" rows="3"></textarea>
+						<label for="validityCheck">내용</label>
+						<div>
+						<textarea name="smarteditor" rows="15" cols="90" id="smarteditor"></textarea>
+						</div>
 					</div>
-					<div class="rightOutDiv">
-						<button type="submit" class="btn btn-primary">등록</button>
+					<div class="form-group">
+						<label for="profile">썸네일</label>
+						<input type="file">
 					</div>
 				</form>
 			</div>
-		</form>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" disabled="disabled">등록</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
 	</div>
+	<!-- /.modal-dialog -->
 </div>
+<!-- /.modal -->
+<script>
+	var eEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+        oAppRef: eEditors,
+        elPlaceHolder: "smarteditor",
+        sSkinURI: "vendor/smarteditor/SmartEditor2Skin.html",
+        fCreator: "createSEditor2"
+    });
+
+</script>
