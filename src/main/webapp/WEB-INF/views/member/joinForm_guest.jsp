@@ -53,8 +53,7 @@ date : 19-01-10
 							placeholder="닉네임" required="required">
 					</div>
 					<div class="form-group">
-						<label for="profile">프로필 이미지</label> <input type="file"> <img
-							alt="" src="">
+						<label for="profile">프로필 이미지</label> <input type="file" class="custom-file-input">
 					</div>
 					<div id="profilePrewDiv">
 					<img alt="" src="https://tettra.co/wp-content/logos/github.png" id="profilePrew">

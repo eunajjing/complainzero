@@ -12,4 +12,5 @@ public interface boardDao {
   public int insertBoard(Board board);
   public int updateBoard(Board board);
   public List<Board> searchBoard(HashMap<String, Object> params);
+  public List<Board> selectMyBoard(String id);
 }

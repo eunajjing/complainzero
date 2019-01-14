@@ -11,9 +11,6 @@
         <li class="breadcrumb-item">
           <a href="main.do">Home</a>
         </li>
-        <li class="breadcrumb-item">
-            <a href="userMyPage.do">개인정보</a>
-        </li>
         <li class="breadcrumb-item active">회원탈퇴</li>
       </ol>
 
@@ -22,8 +19,8 @@
         <!-- Sidebar Column -->
         <div class="col-lg-3 mb-4">
           <div class="list-group">
-            <a href="#" class="list-group-item">개인정보수정</a>
-            <a href="#" class="list-group-item">글조회</a>
+            <a href="userMyPage.do" class="list-group-item">정보 수정</a>
+            <a href="myBoard.do" class="list-group-item">글조회</a>
             <a href="deleteMember.do" class="list-group-item">회원탈퇴</a>
           </div>
         </div>

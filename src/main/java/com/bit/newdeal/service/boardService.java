@@ -40,4 +40,8 @@ public class boardService {
   public List<Board> searchBoard(HashMap<String, Object> params) {
     return session.getMapper(boardDao.class).searchBoard(params);
   }
+  
+  public List<Board> selectMyBoard(String id){
+	  return session.getMapper(boardDao.class).selectMyBoard(id);
+  }
 }

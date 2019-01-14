@@ -13,24 +13,24 @@ date : 19-01-10
         </ol>
         <div class="carousel-inner" role="listbox">
           <!-- Slide One - Set the background image for this slide in the line below -->
-          <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+          <div class="carousel-item active" style="background-image: url('https://cdn.pixabay.com/photo/2017/05/24/12/08/broken-triangle-2340393__340.jpg')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>First Slide</h3>
-              <p>This is a description for the first slide.</p>
+              <h3>당신의 불만을 기다립니다</h3>
+              <p>자유로운 불만 공유 사이트</p>
             </div>
           </div>
           <!-- Slide Two - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+          <div class="carousel-item" style="background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/03/61/31/0557a7322b6c277.jpg')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>Second Slide</h3>
-              <p>This is a description for the second slide.</p>
+              <h3>시장 제품의 문제점에 대해 알아보세요</h3>
+              <p>불만글을 토대로 새로운 아이디어를 창출해보세요</p>
             </div>
           </div>
           <!-- Slide Three - Set the background image for this slide in the line below -->
-          <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+	 	<div class="carousel-item" style="background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/03/62/14/2357a9a0f6e00b5.jpg')">
             <div class="carousel-caption d-none d-md-block">
-              <h3>Third Slide</h3>
-              <p>This is a description for the third slide.</p>
+              <h3>The world is an infinitely better place precisely because you weren't</h3>
+              <p>The Imitation Game, 2014</p>
             </div>
           </div>
         </div>
@@ -196,17 +196,15 @@ date : 19-01-10
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
             </div>
           </div>
-        </div>
-        
+        </div>        
         <div>
           	<a class="btn btn-secondary" href="#">더보기</a>
       	</div>
-      	<br>
-      	
+
       </div>
       <!-- 최근 게시글 끝 -->
 
     </div>
     <!-- /.container -->
-
+<br><br>
     

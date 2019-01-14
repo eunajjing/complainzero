@@ -71,27 +71,29 @@ public class memberController {
   
   @RequestMapping("enterUserMyPage.do")
   public String enterUserMyPage(String id, Model model) {
+    id = "test@test.com";
     model.addAttribute("member", memberService.selectOneMember(id));
     
-    return "enterUserMyPage_update";
+    return "mypage/enter/enterUserMyPage_update";
   }
   
   @RequestMapping("userMyPage.do")
-  public String userMyPage(/*String id,*/ Model model) {
-	  String id = "test@test.com";
+  public String userMyPage(String id, Model model) {
+	id = "test@test.com";
     model.addAttribute("member", memberService.selectOneMember(id));
     
-    return "userMyPage";
+    return "mypage/user/userMyPage_update";
   }
   
   @RequestMapping("myPage.do")
   public String myPage() {
+	  
     /* 여기서 권한 체크 후 
      각 권한별 마이페이지로 이동
       adminForm.do - 관리자
       enterUserMyPage.do - 기업회원
       userMyPage.do - 일반회원
     */
-    return null;
+	  return null;
   }
 }

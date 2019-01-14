@@ -26,7 +26,7 @@ public class boardController {
   public ModelAndView boardForm() {
     ModelAndView mav = new ModelAndView();
     
-    mav.addObject("boardList", boardService.selectAllBoard());
+   // mav.addObject("boardList", boardService.selectAllBoard());
     mav.setViewName("boardForm");
     
     return mav;
@@ -44,7 +44,7 @@ public class boardController {
   public ModelAndView selectOneBoard(int bno) {
     ModelAndView mav = new ModelAndView();
     
-    mav.addObject("boardDetail", boardService.selectOneBoard(bno));
+    // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.setViewName("boardDetail");
     
     return mav;
@@ -101,12 +101,12 @@ public class boardController {
     ModelAndView mav = new ModelAndView();
     HashMap<String, Object> params = new HashMap<String, Object>();
     
-//    params.put("board", ); id로 내 글 찾는 메소드 필요
+    id = "test@test.com";
+    params.put("board", boardService.selectMyBoard(id));
     params.put("comment", commentService.mySelectComment(id));
 //    params.put("likes", ); id로 찾고 글 번호로 조인해서 리스트 뽑아옴
-    
     mav.addObject("myBoard", params);
-    mav.setViewName("userPage_board");
+    mav.setViewName("mypage/user/userMyPage_board");
     
     return mav;
   }
@@ -114,9 +114,9 @@ public class boardController {
   @RequestMapping("mySuggest.do")
   public ModelAndView mySuggest(String id) {
     ModelAndView mav = new ModelAndView();
-    
-    mav.addObject("mySuggest", suggestService.selectOneSuggest(id));
-    mav.setViewName("enterUserPage_suggest");
+    id = "test@test.com";
+    /*mav.addObject("mySuggest", suggestService.selectOneSuggest(id));*/
+    mav.setViewName("mypage/enter/enterUserMyPage_suggest");
     
     return mav;
   }

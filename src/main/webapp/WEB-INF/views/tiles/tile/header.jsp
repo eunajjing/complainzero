@@ -74,7 +74,7 @@ Date : 19-01-10
 
 					<!-- 세션 값이 있으면 -->
 
-					<li class="nav-item"><a class="nav-link" href="#">게시판</a></li>
+					<li class="nav-item"><a class="nav-link" href="boardForm.do">게시판</a></li>
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
@@ -86,7 +86,8 @@ Date : 19-01-10
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPortfolio">
 							<a class="dropdown-item" href="#">작성 글 확인</a> 
-							<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a> 
+							<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
+							<a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
 							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
 							<a class="dropdown-item" href="#">로그아웃</a>
 						</div></li>
