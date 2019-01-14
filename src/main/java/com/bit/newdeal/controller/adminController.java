@@ -62,7 +62,7 @@ public class adminController {
     ModelAndView mav = new ModelAndView();
     
     mav.addObject("memberList", memberService.selectAllMember());
-    mav.setViewName("adminForm_member");
+    mav.setViewName("mypage/admin/adminForm_member");
     
     return mav;
   }

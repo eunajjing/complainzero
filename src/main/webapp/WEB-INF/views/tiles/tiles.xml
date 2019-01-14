@@ -15,29 +15,25 @@
 	<definition name="*/*" extends="layout">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
 	</definition>
-	
-	<definition name="*/*/*" extends="layout">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
-	</definition>
-	
+	 
 	<!-- admin페이지 사이드바 -->
 	<definition name="adminpage" template="/WEB-INF/views/mypage/admin/inc/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/tile/header.jsp"/>
 		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/admin/inc/adminSidebar.jsp"/>
 	</definition>
 	
-	<definition name="*/*/*" extends="adminpage">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
+	<definition name="mypage/admin/*" extends="adminpage">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/admin/{1}.jsp"></put-attribute>
 	</definition>
-	
+	 
 	<!-- 유저페이지 사이드바 -->
 	<definition name="mypage" template="/WEB-INF/views/mypage/admin/inc/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/tiles/tile/header.jsp"/>
 		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/user/inc/userSidebar.jsp"/>
 	</definition>
 	
-	<definition name="*/*/*" extends="mypage">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
+	<definition name="mypage/user/*" extends="mypage">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/user/{1}.jsp"></put-attribute>
 	</definition>
 	
 	<!-- 엔터페이지 사이드바 -->
@@ -46,8 +42,8 @@
 		<put-attribute name="sidebar" value="/WEB-INF/views/mypage/enter/inc/enterSidebar.jsp"/>
 	</definition>
 	
-	<definition name="*/*/*" extends="enterpage">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"></put-attribute>
+	<definition name="mypage/enter/*" extends="enterpage">
+		<put-attribute name="content" value="/WEB-INF/views/mypage/enter/{1}.jsp"></put-attribute>
 	</definition>
 	
 </tiles-definitions>
