@@ -7,9 +7,11 @@
 
 	<security:http auto-config="true">
 		<!-- pattern=접근주소, access=권한 -->
+		<!-- 
 		<security:form-login login-page="/loginForm.do"/>
 		<security:logout logout-success-url="/main.do"/>
 		<security:intercept-url pattern="/boardForm.do" access="ROLE_USER" />
+		 -->
 	</security:http>
 	
 	<security:authentication-manager>

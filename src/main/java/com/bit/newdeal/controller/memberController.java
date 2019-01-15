@@ -5,8 +5,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.newdeal.dto.Member;
 import com.bit.newdeal.service.memberService;
@@ -46,7 +48,9 @@ public class memberController {
   
   @RequestMapping("deleteMember.do")
   public String deleteMember(String id, HttpSession session) {
-    // 서비스, dao delete 추가해야함
+	  
+	id = "test@test.com";
+    memberService.deleteMember(id);
     session.invalidate();
     
     return "redirect:main.do";
@@ -59,8 +63,8 @@ public class memberController {
     return "redirect:main.do";
   }
   
-  @RequestMapping("updateMember.do")
-  public void updateMember(Member member) {
+  @RequestMapping(value="updateMember.do", method= RequestMethod.PUT, headers={"Content-type=application/json"})
+  public @ResponseBody void updateMember(@RequestBody Member member) {
     memberService.updateMember(member);
   }
   

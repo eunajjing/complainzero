@@ -32,4 +32,8 @@ public class memberService {
   public List<Member> searchMember(HashMap<String, Object> params) {
     return session.getMapper(memberDao.class).searchMember(params);
   }
+  
+  public int deleteMember(String id) {
+	  return session.getMapper(memberDao.class).deleteMember(id);
+  }
 }

@@ -10,4 +10,5 @@ public interface memberDao {
   public int insertMember(Member member);
   public int updateMember(Member member);
   public List<Member> searchMember(HashMap<String, Object> params);
+  public int deleteMember(String id);
 }

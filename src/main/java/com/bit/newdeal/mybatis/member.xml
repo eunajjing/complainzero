@@ -17,11 +17,15 @@
 	</insert>
 	
 	<update id="updateMember" parameterType="Member">
-	
+		update member set nickname = #{nickname} where id = #{id}
 	</update>
 	
 	<select id="searchMember" parameterType="String" resultType="Member">
 	
 	</select>
+
+	<update id="deleteMember" parameterType="String">
+		update member set enabled = 0 where id = #{id}
+	</update>	
   
   </mapper>
