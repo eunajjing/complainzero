@@ -22,8 +22,8 @@ public class adminController {
   public ModelAndView selectReport() {
     ModelAndView mav = new ModelAndView();
     
-    mav.addObject("reportList", reportService.selectReport());
-    mav.setViewName("selectReportForm");
+//    mav.addObject("reportList", reportService.selectReport());
+    mav.setViewName("mypage/admin/adminForm_report");
     
     return mav;
   }
@@ -32,8 +32,8 @@ public class adminController {
   public ModelAndView selectAllSuggest() {
     ModelAndView mav = new ModelAndView();
     
-    mav.addObject("suggestList", suggestService.selectAllSuggest());
-    mav.setViewName("adminForm_suggest");
+//    mav.addObject("suggestList", suggestService.selectAllSuggest());
+    mav.setViewName("mypage/admin/adminForm_suggest");
     
     return mav;
   }

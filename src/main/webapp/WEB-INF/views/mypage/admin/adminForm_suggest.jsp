@@ -6,19 +6,34 @@
         <table class="table table-striped table-bordered table-hover" id="dt">
           <thead>
             <tr>
-              <th class="text-center">아이디</th>
-              <th class="text-center">닉네임</th>
-              <th class="text-center">회원 상태</th>
+              <th class="text-center">테스트</th>
+              <th class="text-center">테스트</th>
+              <th class="text-center">테스트</th>              
             </tr>
           </thead>
           <tbody>     
-            <c:forEach var="member" items="${memberList }">
-            <tr class="table-primary">
-              <td>${member.id }</td>
-              <td>${member.nickname }</td>
-              <td>${member.enabled }</td>
-            </tr>
-            </c:forEach>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+          <tr>
+          <td>테스트1</td>
+          <td>테스트2</td>
+          <td>테스트3</td>
+          </tr>
+<%--             <c:forEach var="suggest" items="${suggestList }"> --%>
+<!--             <tr class="table-primary"> -->
+<%--               <td>${member.id }</td> --%>
+<%--               <td>${member.nickname }</td> --%>
+<%--               <td>${member.enabled }</td> --%>
+<!--             </tr> -->
+<%--             </c:forEach> --%>
           </tbody>
         </table>
       </div>
@@ -35,12 +50,12 @@
     
     <script type="text/javascript">
      $(document).ready(function() { 
-     	$('#dt').DataTable({
-//      		responsive: true,
+      $('#dt').DataTable({
+//          responsive: true,
 //         searching: true,
 //         bAutoWidth: true,
 //         bPaginate: true
-     	}); 
+      }); 
      }); 
     </script>
   </body>
