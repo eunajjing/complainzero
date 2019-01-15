@@ -1,15 +1,17 @@
 package com.bit.newdeal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.bit.newdeal.service.memberService;
 import com.bit.newdeal.service.reportService;
 import com.bit.newdeal.service.suggestService;
 
-@Controller
+@RestController
+//@RequestMapping("/admin")
 public class adminController {
   @Autowired
   private reportService reportService;
@@ -77,8 +79,8 @@ public class adminController {
     // 보류
   }
   
-  @RequestMapping("blackList.do")
+  @RequestMapping(value = "blackList.do", method=RequestMethod.PUT, headers={"Content-type=application/json"})
   public void blackList(String id) {
-    // 서비스, dao에 enabled 업데이트 함수 필요
+    
   }
 }

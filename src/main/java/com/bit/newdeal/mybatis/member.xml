@@ -23,5 +23,9 @@
 	<select id="searchMember" parameterType="String" resultType="Member">
 	
 	</select>
+	
+	<update id="blacklist" parameterType="int">
+	   update member set enabled where id=#{id}
+	</update>
   
   </mapper>
