@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
 <%@ page session="false"%>
 <!-- 
 Date : 19-01-10
-작성자 : 고은아
 내용 : 로그인 모달 추가
+Date : 19-01-15
+내용 : 시큐리티 권한 설정
+작성자 : 고은아
 -->
 <!DOCTYPE html>
 
@@ -37,14 +40,14 @@ Date : 19-01-10
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 
-					<!-- 시큐리티 적용할 때 session 값이 없으면 -->
-					<li class="nav-item"><a href="loginForm.do" class="nav-link" id="loginBtn">로그인</a></li>
-					<li class="nav-item"><a class="nav-link" href="joinForm.do">회원가입</a></li>
-
-					<!-- 세션 값이 있으면 -->
+					<c:if test="${empty pageContext.request.userPrincipal}">
+						<li class="nav-item"><a href="loginForm.do" class="nav-link" id="loginBtn">로그인</a></li>
+						<li class="nav-item"><a class="nav-link" href="joinForm.do">회원가입</a></li>
+					</c:if>
 
 					<li class="nav-item"><a class="nav-link" href="boardForm.do">게시판</a></li>
 
+					<c:if test="${not empty pageContext.request.userPrincipal}">
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
 						id="navbarDropdownPortfolio" data-toggle="dropdown"
@@ -54,10 +57,16 @@ Date : 19-01-10
 					</a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPortfolio">
+							<se:authorize ifNotGranted="ROLE_USER">
 							<a class="dropdown-item" href="#">작성 글 확인</a> 
+							</se:authorize>
 							<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
+							<se:authorize ifNotGranted="ROLE_COMPANY">
 							<a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
+							</se:authorize>
+							<se:authorize ifNotGranted="ROLE_ADMIN">
 							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
+							</se:authorize>
 							<a class="dropdown-item" href="#">로그아웃</a>
 						</div></li>
 						
@@ -67,7 +76,7 @@ Date : 19-01-10
 					<li class="nav-item"><a class="nav-link" href="#"> <i
 							class="far fa-comments"></i><span class="badge">0</span>
 					</a></li>
-
+					</c:if>
 				</ul>
 			</div>
 		</div>

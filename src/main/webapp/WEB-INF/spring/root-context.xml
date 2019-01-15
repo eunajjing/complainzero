@@ -47,5 +47,8 @@
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
 		<property name="order" value="2"></property>
 	</bean>
+	
+	<!-- 비밀번호 암호화 -->
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
 </beans>
