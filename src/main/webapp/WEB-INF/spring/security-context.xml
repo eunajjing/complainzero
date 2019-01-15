@@ -7,19 +7,25 @@
 
 	<security:http auto-config="true">
 		<!-- pattern=접근주소, access=권한 -->
-		<!-- 
-		<security:form-login login-page="/loginForm.do"/>
-		<security:logout logout-success-url="/main.do"/>
-		<security:intercept-url pattern="/boardForm.do" access="ROLE_USER" />
-		 -->
+		<security:form-login login-page="/loginForm.do"
+		authentication-failure-url="/loginForm.do?error"
+		username-parameter="id" password-parameter="pw"/>
+		<security:logout logout-success-url="/main.do" invalidate-session="true"/>
+		<security:session-management>
+			<security:concurrency-control max-sessions="1" expired-url="/loginForm.do" error-if-maximum-exceeded="false"/>
+		</security:session-management>
+		<security:intercept-url pattern="/boardForm.do" access="ROLE_USER, ROLE_ADMIN, ROLE_COMPANY" />
 	</security:http>
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="guest" password="guest" authorities="ROLE_USER" />
-				<security:user name="admin" password="admin" authorities="ROLE_ADMIN,ROLE_USER" />
-			</security:user-service>
+			
+			<security:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select id, pw, enabled from member where id=?"
+				authorities-by-username-query="select id, roleCode from roles where id=?"
+			/>
+			<!-- <security:password-encoder ref="bCryptPasswordEncoder" /> -->
+			
 		</security:authentication-provider>
 	</security:authentication-manager>
 
