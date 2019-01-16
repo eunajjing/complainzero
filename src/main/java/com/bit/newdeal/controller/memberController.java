@@ -98,4 +98,9 @@ public class memberController {
   public @ResponseBody boolean idcheck(String id) {
 	  return memberService.idcheck(id);
   }
+  
+  @RequestMapping("nicknameCheck.do")
+  public @ResponseBody boolean nicknameCheck(String nickname) {
+	  return memberService.nicknameCheck(nickname);
+  }
 }

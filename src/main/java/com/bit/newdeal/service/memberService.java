@@ -37,4 +37,9 @@ public class memberService {
 	Member member = session.getMapper(memberDao.class).selectOneMember(id);
 	return (member == null) ? true : false;
   }
+  
+  public boolean nicknameCheck(String nickname) {
+	  int result = session.getMapper(memberDao.class).nicknameCheck(nickname);
+	  return (result == 0) ? true : false;
+  }
 }

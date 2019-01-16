@@ -23,5 +23,8 @@
 	<select id="searchMember" parameterType="String" resultType="Member">
 	
 	</select>
+	<select id="nicknameCheck" parameterType="String" resultType="int">
+	 	select count(*) from member where nickname=#{nickname}
+	</select>
   
   </mapper>

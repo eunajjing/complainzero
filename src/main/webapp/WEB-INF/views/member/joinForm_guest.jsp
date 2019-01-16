@@ -31,7 +31,7 @@ date : 19-01-15
 						<div class="form-group">
 							<label for="id">이메일</label>
 							<div>
-							<div id="validateDiv">
+							<div class="validateDiv" id="idValidateDiv">
 							</div>
 								<input id="id" name="id" type="email" class="form-control" placeholder="Email" required="required">
 								<button id="validateBtn" type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button>
@@ -53,8 +53,9 @@ date : 19-01-15
 							required="required">
 					</div>
 					<div class="form-group">
+					<div class="validateDiv" id="nicknameValidateDiv"></div>
 						<label for="nickname">닉네임</label> <input id="nickname"
-							name="nickname" type="number" class="form-control"
+							name="nickname" type="text" class="form-control"
 							placeholder="닉네임" required="required">
 					</div>
 					<div class="form-group">
@@ -75,6 +76,7 @@ date : 19-01-15
 </div>
 <!-- /.modal -->
 <script type="text/javascript">
+
 // 모든 값이 정상적인지를 확인
 function lastCheck() {
 	var id = $('#id').val().trim();
@@ -82,62 +84,85 @@ function lastCheck() {
 	var pw1 = $('#pw1').val().trim();
 	var pw2 = $('#pw2').val().trim();
 	var nickname = $('#nickname').val().trim();
-	
-	// 비밀번호 체크 확인
-	if (pw1 == pw2) {
-		// 닉네임 검사
 		
-		if (id.length != 0 && pw1.length != 0 && validityCheck.length != 0 && nickname.length != 0) {
+	if (id.length != 0 && pw1.length != 0 && validityCheck.length != 0 && nickname.length != 0) {
+		if (pw1 == pw2) {
 			$('#submitBtn').attr("disabled", false);
 		} else {
-			$('#submitBtn').attr("disabled", true);
-		}
-		
-	}
-}
-	$(function() {
-		// 이메일 정규표현식 선언 및 할당
-		const validateEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
-		/* 라디오 버튼 체크에 따라 폼 요소 값 변경 이벤트 */
-		$('#ROLE_COMPANY').click(function() {
-			$("label[for='nickname']").text("회사명");
-			$("label[for='profile']").text("사업자등록증");
-			$('#nickname').attr('placeholder', '회사명');
-		});
-		
-		$('#ROLE_USER').click(function() {
-			$("label[for='nickname']").text("닉네임");
-			$("label[for='profile']").text("프로필 이미지");
-			$('#nickname').attr('placeholder', '닉네임');
-		});
-		
-		$('#id').keyup(function() {
-			let id = $('#id').val().trim();
-			$('#validateDiv').empty();
 			
-			if (id.length != 0 && validateEmail.test(id)) {
+		}
+	} else {
+		$('#submitBtn').attr("disabled", true);
+	}
+
+}
+
+/* 라디오 버튼 체크에 따라 폼 요소 값 변경 이벤트 */
+$('#ROLE_COMPANY').click(function() {
+	$("label[for='nickname']").text("회사명");
+	$("label[for='profile']").text("사업자등록증");
+	$('#nickname').attr('placeholder', '회사명');
+});
+$('#ROLE_USER').click(function() {
+	history.go(0);
+});
+
+// id 체크
+$('#id').keyup(function() {
+
+	const validateEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+	let id = $('#id').val().trim();
+	$('#idValidateDiv').empty();
+			
+	if (id.length != 0 && validateEmail.test(id)) {
 				
-				$.ajax({
-					type : 'post',
-					url : 'idcheck.do',
-					data : {"id" : id},
-					success : function(data) {
-						if (data) {
-							$('#validateBtn').attr("disabled", false);
-							lastCheck();
-						} else {
-							$('#validateDiv').append('이미 사용 중인 아이디 입니다.');
-						}
-					}
-				});
-				
-				
-			} else {
-				$('#validateDiv').append('이메일 형식으로 입력해주세요.');
-				$('#validateBtn').attr("disabled", true);
+		$.ajax({
+			type : 'post',
+			url : 'idcheck.do',
+			data : {"id" : id},
+			success : function(data) {
+				if (data) {
+					$('#validateBtn').attr("disabled", false);
+				} else {
+					$('#idValidateDiv').append('이미 사용 중인 아이디 입니다.');
+				}
 			}
-		});		
-	});
+		});
+				
+	} else {
+		$('#idValidateDiv').append('이메일 형식으로 입력해주세요.');
+		$('#validateBtn').attr("disabled", true);
+	}
+});
+
+// 닉네임 유효성 검사
+$('#nickname').keyup(function() {
+	let nickname = $('#nickname').val().trim();
+	$('#nicknameValidateDiv').empty();
+	
+	if (nickname.length != 0 && nickname.length < 8) {
+		$.ajax({
+			type : 'post',
+			url : 'nicknameCheck.do',
+			data : {"nickname" : nickname},
+			success : function(data) {
+				if (data) {
+					lastCheck();
+				} else {
+					$('#nicknameValidateDiv').append('이미 사용 중인 닉네임 입니다.');
+				}
+			}
+		});
+	} else {
+		$('#nicknameValidateDiv').append('글자 수(8자 이하)에 맞게 입력해주세요.');
+	}
+	
+});
+
+// 자바 메일 발송
+$('#validateBtn').click(function() {
+	$('#id').attr("readonly", "readonly");
+});
+
 </script>
 
