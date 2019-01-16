@@ -32,4 +32,9 @@ public class memberService {
   public List<Member> searchMember(HashMap<String, Object> params) {
     return session.getMapper(memberDao.class).searchMember(params);
   }
+  
+  public boolean idcheck(String id) {
+	Member member = session.getMapper(memberDao.class).selectOneMember(id);
+	return (member == null) ? true : false;
+  }
 }

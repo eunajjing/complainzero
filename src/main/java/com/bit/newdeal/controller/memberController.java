@@ -96,6 +96,6 @@ public class memberController {
   
   @RequestMapping("idcheck.do")
   public @ResponseBody boolean idcheck(String id) {
-	  return true;
+	  return memberService.idcheck(id);
   }
 }

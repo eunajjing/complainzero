@@ -31,6 +31,8 @@ date : 19-01-15
 						<div class="form-group">
 							<label for="id">이메일</label>
 							<div>
+							<div id="validateDiv">
+							</div>
 								<input id="id" name="id" type="email" class="form-control" placeholder="Email" required="required">
 								<button id="validateBtn" type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button>
 							</div>
@@ -112,24 +114,29 @@ function lastCheck() {
 		
 		$('#id').keyup(function() {
 			let id = $('#id').val().trim();
+			$('#validateDiv').empty();
 			
-			$.ajax({
-				type : 'post',
-				url : 'idcheck.do',
-				data : {"id" : id},
-				success : function(data) {
-					console.log(data);
-				}
-			});
-			
-			
-			
-				if (id.length != 0 && validateEmail.test(id)) {
-					$('#validateBtn').attr("disabled", false);
-					lastCheck();
-				} else {
-					$('#validateBtn').attr("disabled", true);
-				}
+			if (id.length != 0 && validateEmail.test(id)) {
+				
+				$.ajax({
+					type : 'post',
+					url : 'idcheck.do',
+					data : {"id" : id},
+					success : function(data) {
+						if (data) {
+							$('#validateBtn').attr("disabled", false);
+							lastCheck();
+						} else {
+							$('#validateDiv').append('이미 사용 중인 아이디 입니다.');
+						}
+					}
+				});
+				
+				
+			} else {
+				$('#validateDiv').append('이메일 형식으로 입력해주세요.');
+				$('#validateBtn').attr("disabled", true);
+			}
 		});		
 	});
 </script>
