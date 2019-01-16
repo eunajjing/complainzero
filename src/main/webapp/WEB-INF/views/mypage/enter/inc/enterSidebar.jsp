@@ -47,7 +47,7 @@ input[type="password"]{
 				<div class="modal-body">
 					<form class="navbar-form navbar-left">
 						<div class="form-group">
-							<input type="password" class="form-control" id="pw" placeholder="password" required="required">
+							<input type="password" class="form-control" id="epw" placeholder="password" required="required">
 						</div>
 					</form>
 				</div>
@@ -60,10 +60,27 @@ input[type="password"]{
 	
 	<script>
 		$('#mDelete').click(function(){
-			if($('#pw').val() == ""){
+			if($('#epw').val() == ""){
 				alert("비밀번호를 입력하세요.");
 			}else{
-				location.href = "deleteMember.do";
+				$.ajax({
+					url : 'pwCheck.do',
+		  			  type : 'POST',
+		  			  data : {epw : $('#epw').val()},
+		  			  success : function(data) {
+		  				  alert(data);
+		  				  /* 
+		  				  if(data == true){
+			  				  location.href = "deleteMember.do";
+		  				  }else{
+		  					  alert("비밀번호가 틀렸습니다.");
+		  				  }
+		  				   */
+		  	          },
+		  	          error : function(){
+		  	        	  alert("error");
+		  	          }
+				});
 			}
 		});
 	</script>

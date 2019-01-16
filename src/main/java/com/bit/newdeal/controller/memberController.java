@@ -1,10 +1,13 @@
 package com.bit.newdeal.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,11 +50,9 @@ public class memberController {
   }
   
   @RequestMapping("deleteMember.do")
-  public String deleteMember(String id, HttpSession session) {
+  public String deleteMember(Principal principal, String pw) {
 	  
-	id = "test@test.com";
-    memberService.deleteMember(id);
-    session.invalidate();
+    memberService.deleteMember(principal.getName());
     
     return "redirect:main.do";
   }
@@ -83,16 +84,19 @@ public class memberController {
     
     return "mypage/user/userMyPage_update";
   }
-  
-  @RequestMapping("myPage.do")
-  public String myPage() {
+
+  @RequestMapping(value="pwCheck.do", method=RequestMethod.POST)
+  public @ResponseBody boolean pwCheck(@RequestBody String epw) {
 	  
-    /* 여기서 권한 체크 후 
-     각 권한별 마이페이지로 이동
-      adminForm.do - 관리자
-      enterUserMyPage.do - 기업회원
-      userMyPage.do - 일반회원
-    */
-	  return null;
+	  System.out.println(epw);
+	  /*
+	  String encodePassword = memberService.pwCheck(pw);
+	  String rawPassword = pw;
+		
+	  boolean result = bCryptPasswordEncoder.matches(rawPassword, encodePassword);
+	  */
+	  boolean result = true;
+	  
+	  return result;
   }
 }

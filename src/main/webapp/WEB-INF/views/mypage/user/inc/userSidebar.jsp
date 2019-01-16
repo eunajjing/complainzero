@@ -63,7 +63,7 @@ input[type="password"]{
 			if($('#pw').val() == ""){
 				alert("비밀번호를 입력하세요.");
 			}else{
-				location.href = "deleteMember.do";
+				
 			}
 		});
 	</script>
