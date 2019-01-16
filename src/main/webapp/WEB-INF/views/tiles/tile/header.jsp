@@ -53,18 +53,18 @@ Date : 19-01-15
 						id="navbarDropdownPortfolio" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"> <img alt=""
 							src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
-							id="profile"> 닉네임 님
+							id="profile">&nbsp<span>닉네임</span> 님
 					</a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPortfolio">
-							<se:authorize ifNotGranted="ROLE_USER">
+							<se:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
 							<a class="dropdown-item" href="#">작성 글 확인</a> 
 							</se:authorize>
 							<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
-							<se:authorize ifNotGranted="ROLE_COMPANY">
+							<se:authorize ifAnyGranted="ROLE_COMPANY">
 							<a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
 							</se:authorize>
-							<se:authorize ifNotGranted="ROLE_ADMIN">
+							<se:authorize ifAnyGranted="ROLE_ADMIN">
 							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
 							</se:authorize>
 							<a class="dropdown-item" href="#">로그아웃</a>
