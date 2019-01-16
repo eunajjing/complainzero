@@ -34,13 +34,12 @@
     <!-- /.container -->
     
     <script>
-    
-    	if($('#pw') == ""){
-    		alert("비밀번호를 입력하세요");
-    	}else if($('#nickname') == ""){
-    		alert("닉네임을 입력하세요");
-    	}else{
-	    	$('#updateBtn').click(function(){
+    	$('#updateBtn').click(function(){
+    		if($('#pw') == ""){
+        		alert("비밀번호를 입력하세요");
+        	}else if($('#nickname') == ""){
+        		alert("닉네임을 입력하세요");
+        	}else{
 	    		var id = $('#id').val();
 	    		var pw = $('#pw').val();
 	    		var nickname = $('#nickname').val();
@@ -59,6 +58,6 @@
 	  	        	  alert("error");
 	  	          }
 	  		  });
-	    	});
-    	}
+	    	}
+    	});
     </script>

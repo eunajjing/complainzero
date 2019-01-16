@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bit.newdeal.dto.Member;
 import com.bit.newdeal.service.memberService;
@@ -67,15 +68,16 @@ public class memberController {
   }
   
   //자기정보 변경
-  @RequestMapping(value="updateMember.do", method= RequestMethod.PUT, headers={"Content-type=application/json"})
-  public @ResponseBody void updateMember(@RequestBody Member member) {
-    memberService.updateMember(member);
+  @RequestMapping(value="updateMember.do", method= RequestMethod.POST)
+  public @ResponseBody void updateMember(Member member, MultipartHttpServletRequest multipart) throws Exception {
+
+    memberService.updateMember(member, multipart);
   }
   
   //제공자 마이페이지
   @RequestMapping("enterUserMyPage.do")
-  public String enterUserMyPage(String id, Model model) {
-    id = "test@test.com";
+  public String enterUserMyPage(Principal principal, Model model) {
+    String id = principal.getName();
     model.addAttribute("member", memberService.selectOneMember(id));
     
     return "mypage/enter/enterUserMyPage_update";
@@ -83,8 +85,8 @@ public class memberController {
   
   //유저 마이페이지
   @RequestMapping("userMyPage.do")
-  public String userMyPage(String id, Model model) {
-	id = "test@test.com";
+  public String userMyPage(Principal principal, Model model) {
+	  String id = principal.getName();
     model.addAttribute("member", memberService.selectOneMember(id));
     
     return "mypage/user/userMyPage_update";
@@ -99,7 +101,7 @@ public class memberController {
 	  /*
 	  boolean result = bCryptPasswordEncoder.matches(rawPassword, encodePassword);
 	  */
-	  boolean result = false;
+	  boolean result = true;
 	  
 	  return result;
   }
