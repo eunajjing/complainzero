@@ -1,7 +1,10 @@
 /* 
 Date : 19-01-11
-작성자 : 고은아
 내용 : joinForm css 커스터마이징
+Date : 19-01-15
+내용 : joinForm css 에러 메시지 스타일 추가
+작성자 : 고은아
+
 */
 
 #profilePrew {
@@ -14,4 +17,8 @@ Date : 19-01-11
 
 #profilePrewDiv {
 	text-align: center;
+}
+
+.validateDiv {
+	color: red;
 }

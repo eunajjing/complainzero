@@ -27,5 +27,9 @@
 	<update id="blackList" parameterType="String">
 	   update member set enabled=0 where id=#{id}
 	</update>
+
+	<select id="nicknameCheck" parameterType="String" resultType="int">
+	 	select count(*) from member where nickname=#{nickname}
+	</select>
   
   </mapper>

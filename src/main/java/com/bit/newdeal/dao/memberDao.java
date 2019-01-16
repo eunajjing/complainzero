@@ -11,4 +11,5 @@ public interface memberDao {
   public int updateMember(Member member);
   public List<Member> searchMember(HashMap<String, Object> params);
   public int blackList(String id);
+  public int nicknameCheck(String nickname);
 }
