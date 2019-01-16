@@ -33,11 +33,7 @@ public class memberService {
     return session.getMapper(memberDao.class).searchMember(params);
   }
   
-  public int deleteMember(String id) {
-	  return session.getMapper(memberDao.class).deleteMember(id);
-  }
-  
-  public String pwCheck(String id) {
-	  return session.getMapper(memberDao.class).pwCheck(id);
+  public int updateMember(String id) {
+    return session.getMapper(memberDao.class).blacklist(id);
   }
 }
