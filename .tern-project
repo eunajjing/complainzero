@@ -1,48 +1,18 @@
 {
   "ecmaVersion": 5,
+  "libs": [
+    "browser",
+    "jquery"
+  ],
   "plugins": {
-    "guess-types": {
-      
-    },
     "outline": {
-      
-    },
-    "node": {
-      
-    },
-    "jscs": {
-      
-    },
-    "lint": {
       
     },
     "browser-extension": {
       
     },
-    "node-express": {
-      
-    },
-    "node-mongodb-native": {
-      
-    },
-    "node-mongoose": {
-      
-    },
-    "node-extension": {
-      
-    },
-    "bootstrap": {
-      
-    },
-    "jquery-ui1-12": {
-      
-    },
     "jquery-extension": {
       
     }
-  },
-  "libs": [
-    "browser",
-    "jquery"
-  ]
+  }
 }

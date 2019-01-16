@@ -32,7 +32,7 @@ date : 19-01-15
 							<label for="id">이메일</label>
 							<div>
 								<input id="id" name="id" type="email" class="form-control" placeholder="Email" required="required">
-								<button type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button>
+								<button id="validateBtn" type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button>
 							</div>
 						</div>
 					<div class="form-group">
@@ -64,7 +64,7 @@ date : 19-01-15
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" disabled="disabled">가입</button>
+				<button type="button" class="btn btn-primary" disabled="disabled" id="submitBtn">가입</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -73,7 +73,31 @@ date : 19-01-15
 </div>
 <!-- /.modal -->
 <script type="text/javascript">
+// 모든 값이 정상적인지를 확인
+function lastCheck() {
+	var id = $('#id').val().trim();
+	var validityCheck = $('#validityCheck').val().trim();
+	var pw1 = $('#pw1').val().trim();
+	var pw2 = $('#pw2').val().trim();
+	var nickname = $('#nickname').val().trim();
+	
+	// 비밀번호 체크 확인
+	if (pw1 == pw2) {
+		// 닉네임 검사
+		
+		if (id.length != 0 && pw1.length != 0 && validityCheck.length != 0 && nickname.length != 0) {
+			$('#submitBtn').attr("disabled", false);
+		} else {
+			$('#submitBtn').attr("disabled", true);
+		}
+		
+	}
+}
 	$(function() {
+		// 이메일 정규표현식 선언 및 할당
+		const validateEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+		/* 라디오 버튼 체크에 따라 폼 요소 값 변경 이벤트 */
 		$('#ROLE_COMPANY').click(function() {
 			$("label[for='nickname']").text("회사명");
 			$("label[for='profile']").text("사업자등록증");
@@ -85,6 +109,28 @@ date : 19-01-15
 			$("label[for='profile']").text("프로필 이미지");
 			$('#nickname').attr('placeholder', '닉네임');
 		});
+		
+		$('#id').keyup(function() {
+			let id = $('#id').val().trim();
+			
+			$.ajax({
+				type : 'post',
+				url : 'idcheck.do',
+				data : {"id" : id},
+				success : function(data) {
+					console.log(data);
+				}
+			});
+			
+			
+			
+				if (id.length != 0 && validateEmail.test(id)) {
+					$('#validateBtn').attr("disabled", false);
+					lastCheck();
+				} else {
+					$('#validateBtn').attr("disabled", true);
+				}
+		});		
 	});
 </script>
 
