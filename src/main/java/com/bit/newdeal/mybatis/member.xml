@@ -24,8 +24,8 @@
 	
 	</select>
 	
-	<update id="blacklist" parameterType="int">
-	   update member set enabled where id=#{id}
+	<update id="blackList" parameterType="String">
+	   update member set enabled=0 where id=#{id}
 	</update>
   
   </mapper>
