@@ -3,8 +3,10 @@
 
 <!--
 date : 19-01-10
-작성자 : 고은아
 내용 : 회원가입 폼 작성
+date : 19-01-15
+내용 : 회원가입 제어
+작성자 : 고은아
 -->
 <link href="css/joinForm.css" rel="stylesheet">
 <div>
@@ -20,7 +22,8 @@ date : 19-01-10
 						<input type="radio"
 							name="roleCode" id="ROLE_USER" value="ROLE_USER" checked="checked">
 							일반 회원
-						</label> <label class="radio-inline"> <input type="radio"
+						</label>
+						<label class="radio-inline"> <input type="radio"
 							name="roleCode" id="ROLE_COMPANY" value="ROLE_COMPANY">
 							기업 회원
 						</label>
@@ -69,4 +72,19 @@ date : 19-01-10
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script type="text/javascript">
+	$(function() {
+		$('#ROLE_COMPANY').click(function() {
+			$("label[for='nickname']").text("회사명");
+			$("label[for='profile']").text("사업자등록증");
+			$('#nickname').attr('placeholder', '회사명');
+		});
+		
+		$('#ROLE_USER').click(function() {
+			$("label[for='nickname']").text("닉네임");
+			$("label[for='profile']").text("프로필 이미지");
+			$('#nickname').attr('placeholder', '닉네임');
+		});
+	});
+</script>
 
