@@ -47,7 +47,6 @@
 	  			  url : 'updateMember.do',
 	  			  type : 'PUT',
 	  			  contentType : 'application/json;charset=UTF-8',
-	  			  dataType : 'json',
 	  			  data : parameter,
 	  			  success : function() {
 	  	    		  $('#pw').val('');

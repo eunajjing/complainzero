@@ -36,4 +36,12 @@ public class memberService {
   public int updateMember(String id) {
     return session.getMapper(memberDao.class).blacklist(id);
   }
+  
+  public int deleteMember(String id) {
+	  return session.getMapper(memberDao.class).deleteMember(id);
+  }
+  
+  public String pwCheck(String id) {
+	  return session.getMapper(memberDao.class).pwCheck(id);
+  }
 }

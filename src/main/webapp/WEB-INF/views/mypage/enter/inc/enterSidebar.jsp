@@ -68,14 +68,11 @@ input[type="password"]{
 		  			  type : 'POST',
 		  			  data : {epw : $('#epw').val()},
 		  			  success : function(data) {
-		  				  alert(data);
-		  				  /* 
 		  				  if(data == true){
 			  				  location.href = "deleteMember.do";
 		  				  }else{
 		  					  alert("비밀번호가 틀렸습니다.");
 		  				  }
-		  				   */
 		  	          },
 		  	          error : function(){
 		  	        	  alert("error");

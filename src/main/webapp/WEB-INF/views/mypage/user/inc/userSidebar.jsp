@@ -63,7 +63,21 @@ input[type="password"]{
 			if($('#pw').val() == ""){
 				alert("비밀번호를 입력하세요.");
 			}else{
-				
+				$.ajax({
+					url : 'pwCheck.do',
+		  			  type : 'POST',
+		  			  data : {epw : $('#pw').val()},
+		  			  success : function(data) {
+		  				  if(data == true){
+			  				  location.href = "deleteMember.do";
+		  				  }else{
+		  					  alert("비밀번호가 틀렸습니다.");
+		  				  }
+		  	          },
+		  	          error : function(){
+		  	        	  alert("error");
+		  	          }
+				});
 			}
 		});
 	</script>

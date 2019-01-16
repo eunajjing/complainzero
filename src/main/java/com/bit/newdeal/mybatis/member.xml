@@ -17,7 +17,7 @@
 	</insert>
 	
 	<update id="updateMember" parameterType="Member">
-	
+		update member set nickname = #{nickname} where id = #{id}
 	</update>
 	
 	<select id="searchMember" parameterType="String" resultType="Member">
@@ -27,5 +27,13 @@
 	<update id="blacklist" parameterType="int">
 	   update member set enabled where id=#{id}
 	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		update member set enabled = 0 where id = #{id}
+	</delete>
+	
+	<select id="pwCheck" parameterType="String" resultType="String">
+		select pw from member where id = #{id}
+	</select>
   
   </mapper>

@@ -49,10 +49,12 @@ public class memberController {
     return "redirect:main.do";
   }
   
+  //회원탈퇴 (enabled 0으로 변경)
   @RequestMapping("deleteMember.do")
-  public String deleteMember(Principal principal, String pw) {
+  public String deleteMember(Principal principal, HttpSession session) {
 	  
     memberService.deleteMember(principal.getName());
+    session.invalidate();
     
     return "redirect:main.do";
   }
@@ -64,11 +66,13 @@ public class memberController {
     return "redirect:main.do";
   }
   
+  //자기정보 변경
   @RequestMapping(value="updateMember.do", method= RequestMethod.PUT, headers={"Content-type=application/json"})
   public @ResponseBody void updateMember(@RequestBody Member member) {
     memberService.updateMember(member);
   }
   
+  //제공자 마이페이지
   @RequestMapping("enterUserMyPage.do")
   public String enterUserMyPage(String id, Model model) {
     id = "test@test.com";
@@ -77,6 +81,7 @@ public class memberController {
     return "mypage/enter/enterUserMyPage_update";
   }
   
+  //유저 마이페이지
   @RequestMapping("userMyPage.do")
   public String userMyPage(String id, Model model) {
 	id = "test@test.com";
@@ -85,17 +90,16 @@ public class memberController {
     return "mypage/user/userMyPage_update";
   }
 
+  //삭제 전 비밀번호 확인
   @RequestMapping(value="pwCheck.do", method=RequestMethod.POST)
-  public @ResponseBody boolean pwCheck(@RequestBody String epw) {
+  public @ResponseBody boolean pwCheck(@RequestBody String epw, Principal principal) {
 	  
-	  System.out.println(epw);
+	  String encodePassword = memberService.pwCheck(principal.getName());
+	  String rawPassword = epw;
 	  /*
-	  String encodePassword = memberService.pwCheck(pw);
-	  String rawPassword = pw;
-		
 	  boolean result = bCryptPasswordEncoder.matches(rawPassword, encodePassword);
 	  */
-	  boolean result = true;
+	  boolean result = false;
 	  
 	  return result;
   }
