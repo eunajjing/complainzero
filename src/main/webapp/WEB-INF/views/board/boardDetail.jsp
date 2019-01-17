@@ -6,6 +6,8 @@ date : 2019-01-11
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    
     <!-- 신고 모달 -->
 <div class="modal" id="reportModal">
     <div class="modal-dialog">
@@ -105,12 +107,12 @@ date : 2019-01-11
 				          <div class="media mb-4">
 				            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
 				            <div class="media-body">
-				              ${commentList.mid} &nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
+				              <span id="cId">${commentList.id}</span>&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
 				              
 				              <!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
 				              
 				              	<div class="btn-group btn-group-sm">
-								  <button type="button" class="btn btn-outline-warning">수정</button>
+								  <button type="button" onclick="updateComment(this)" class="btn btn-outline-warning">수정</button>
 								  <button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>
 								</div>
 				              <br>
@@ -145,13 +147,53 @@ function insertComment(){
 		  type : 'POST',
 		  data : {cContent : $('#cContent').val()},
 		  success : function() {
-		  	$('#cContent').val('');
+			/* alert('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}'); */
 		 	alert("작성되었습니다.");
 		 	//동적으로 태그 생성
+		 	
+		 	var output = "";
+		 	
+		 	output += '<div class="comment" seq="' + $('.comment').attr('seq') + '">';
+		 	
+			output += '<div class="media mb-4">';
+			output += '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
+			output += '<div class="media-body">';
+			output += '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>';
+			output += '<div class="btn-group btn-group-sm">';
+			output += '<button type="button" class="btn btn-outline-warning">수정</button>';
+			output += '<button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>';
+		    output += '</div>';
+			output += '<br>';
+			output += $('#cContent').val();
+			output += '</div>';
+			output += '</div>';
+		
+			$(".commentList").append(output);
+			$('#cContent').val('');
      	  },
      	  error : function(){
     	  	alert("error");
       	  }
+	});
+}
+
+function updateComment(e){
+	//임시
+	var cno = e.parentNode.parentNode.parentNode.parentNode.getAttribute('seq');
+	//임시
+	
+	$.ajax({
+		url : 'boardCommentUpdate.do/' + cno,
+		  type : 'PUT',
+		  success : function() {
+		 	alert("수정되었습니다.");
+		 	//임시
+			e.parentNode.parentNode.parentNode.parentNode.remove();
+		 	//임시
+   	  	  },
+	 	  error : function(){
+  	  	 	 alert("error");
+    	  }
 	});
 }
 

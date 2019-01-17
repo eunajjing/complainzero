@@ -52,7 +52,6 @@ public class boardController {
     
     // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
-    
     mav.setViewName("board/boardDetail");
     
     return mav;
@@ -78,12 +77,14 @@ public class boardController {
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
   public @ResponseBody void boardCommentSelect(int bno, Model model){
 	  model.addAttribute("comment", commentService.selectComment(bno));
+	  
+	  System.out.println(commentService.selectComment(bno).get(0).getId());
   }
   
   @RequestMapping(value = "boardCommentInsert.do", method = RequestMethod.POST)
   public @ResponseBody void boardCommentInsert(Comment comment, Principal principal) {
 	  
-	  comment.setMid(principal.getName());
+	  comment.setId(principal.getName());
 	  
     commentService.insertComment(comment);
   }

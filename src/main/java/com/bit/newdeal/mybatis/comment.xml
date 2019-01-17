@@ -13,11 +13,11 @@
   		select c.cContent, c.writeDate, b.title
 		from comment c join board b
 		where c.bno = b.bno
-		and mid = #{id}
+		and id = #{id}
   	</select>
   	
   	<insert id="insertComment" parameterType="Comment">
-  		insert into comment(bno, id, cContent) values(2, #{mid}, #{cContent})
+  		insert into comment(bno, id, cContent) values(2, #{id}, #{cContent})
   	</insert>
   	
   	<update id="updateComment" parameterType="Comment">
