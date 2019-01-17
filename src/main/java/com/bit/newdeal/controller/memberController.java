@@ -76,9 +76,16 @@ public class memberController {
   
   //제공자 마이페이지
   @RequestMapping("enterUserMyPage.do")
-  public String enterUserMyPage(Principal principal, Model model) {
+  public String enterUserMyPage(Principal principal, Model model, Member member) {
     String id = principal.getName();
-    model.addAttribute("member", memberService.selectOneMember(id));
+    
+    member = memberService.selectOneMember(id);
+    
+    String profile = "img/profile/" + memberService.selectOneMember(id).getProfile();
+    
+    member.setProfile(profile);
+    
+    model.addAttribute("member", member);
     
     return "mypage/enter/enterUserMyPage_update";
   }

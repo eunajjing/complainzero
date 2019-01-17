@@ -5,7 +5,7 @@ public class Member {
   private String pw;
   private String nickname;
   private int enabled;
-  private String file;
+  private String profile;
   private String authCode;
   
   public String getId() {
@@ -32,11 +32,11 @@ public class Member {
   public void setEnabled(int enabled) {
     this.enabled = enabled;
   }
-  public String getFile() {
-    return file;
+  public String getProfile() {
+    return profile;
   }
-  public void setFile(String file) {
-    this.file = file;
+  public void setProfile(String profile) {
+    this.profile = profile;
   }
   public String getAuthCode() {
     return authCode;

@@ -1,11 +1,17 @@
 package com.bit.newdeal.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
 import com.bit.newdeal.dto.Suggest;
@@ -45,6 +51,8 @@ public class boardController {
     ModelAndView mav = new ModelAndView();
     
     // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
+    mav.addObject("commentList", commentService.selectComment(bno));
+    
     mav.setViewName("board/boardDetail");
     
     return mav;
@@ -67,8 +75,16 @@ public class boardController {
     return "redirect:boardForm.do";
   }
   
+  @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
+  public @ResponseBody void boardCommentSelect(int bno, Model model){
+	  model.addAttribute("comment", commentService.selectComment(bno));
+  }
+  
   @RequestMapping(value = "boardCommentInsert.do", method = RequestMethod.POST)
-  public void boardCommentInsert(Comment comment) {
+  public @ResponseBody void boardCommentInsert(Comment comment, Principal principal) {
+	  
+	  comment.setMid(principal.getName());
+	  
     commentService.insertComment(comment);
   }
   
@@ -77,9 +93,10 @@ public class boardController {
     commentService.updateComment(comment);
   }
   
-  @RequestMapping(value = "boardCommentDelete.do", method = RequestMethod.DELETE)
-  public void boardCommentDelete(int cno) {
-    // 서비스, dao delete 만들어야함
+  @RequestMapping(value = "boardCommentDelete.do/{cno}")
+  public @ResponseBody void boardCommentDelete(@PathVariable(value="cno") int cno) {
+	  
+    commentService.deleteComment(cno);
   }
   
   @RequestMapping("writeSuggest.do")
@@ -96,14 +113,14 @@ public class boardController {
     return "redirect:mySuggest.do";
   }
   
+  //유저회원 내글조회
   @RequestMapping("myBoard.do")
-  public ModelAndView myBoard(String id) {
+  public ModelAndView myBoard(Principal principal) {
     ModelAndView mav = new ModelAndView();
     HashMap<String, Object> params = new HashMap<String, Object>();
     
-    id = "test@test.com";
-    params.put("board", boardService.selectMyBoard(id));
-    params.put("comment", commentService.mySelectComment(id));
+    params.put("board", boardService.selectMyBoard(principal.getName()));
+    params.put("comment", commentService.mySelectComment(principal.getName()));
 //    params.put("likes", ); id로 찾고 글 번호로 조인해서 리스트 뽑아옴
     mav.addObject("myBoard", params);
     mav.setViewName("mypage/user/userMyPage_board");
@@ -111,11 +128,11 @@ public class boardController {
     return mav;
   }
   
+  //제공자유저 내 제안서 조회
   @RequestMapping("mySuggest.do")
-  public ModelAndView mySuggest(String id) {
+  public ModelAndView mySuggest(Principal principal) {
     ModelAndView mav = new ModelAndView();
-    id = "test@test.com";
-    /*mav.addObject("mySuggest", suggestService.selectOneSuggest(id));*/
+    /*mav.addObject("mySuggest", suggestService.selectOneSuggest(principal.getName()));*/
     mav.setViewName("mypage/enter/enterUserMyPage_suggest");
     
     return mav;

@@ -38,13 +38,17 @@ public class memberService {
 	  
 	  if(fileSize > 0) {
 		  String originFileName = profile.getOriginalFilename();
-		  String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");
-		  System.out.println(path);
+		  /*String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");*/
+/*
+		  System.out.println(multipart.getClass().getResource(""));
+		  System.out.println(multipart.getClass().getResource("").getPath());
+		  */
+		  String path = "img/profile/";
 		  String saveFile = path + originFileName;
 		  profile.transferTo(new File(saveFile));
 		  
 		  dbProfile = originFileName;
-		  member.setFile(dbProfile);
+		  member.setProfile(dbProfile);
 	  }
 	  
     return session.getMapper(memberDao.class).updateMember(member);

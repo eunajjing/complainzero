@@ -19,7 +19,8 @@
 	              <p class="help-block"></p>
 	              
 	            <label>
-	           		<center><img src="http://placehold.it/500x300" id="img" style="width:300px; width:300px;"></center><br>
+	            	
+	           		<center><img src="img/profile/Jellyfish.jpg" id="img" style="width:300px; width:300px;"></center><br>
 	            	<input type="file" id="input_img" name="img" style="opacity: 0;"/>
 	            </label>
 	              

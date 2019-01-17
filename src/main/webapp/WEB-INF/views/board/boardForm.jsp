@@ -43,11 +43,11 @@ Date : 19-01-11
 	<% for(int i=0; i < 6; i++ ) { %>
 		<div class="col-lg-4 col-sm-6 portfolio-item">
 			<div class="card h-100">
-				<a href="selectOneBoard.do?bno=1"><img class="card-img-top"
+				<a href="selectOneBoard.do?bno=2"><img class="card-img-top"
 					src="http://placehold.it/700x400" alt=""></a>
 				<div class="card-body">
 					<h4 class="card-title">
-						<a href="selectOneBoard.do?bno=1">Project One</a>
+						<a href="selectOneBoard.do?bno=2">Project One</a>
 					</h4>
 					<p class="card-text">Lorem ipsum dolor sit amet, consectetur
 						adipisicing elit. Amet numquam aspernatur eum quasi sapiente
