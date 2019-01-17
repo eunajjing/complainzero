@@ -8,4 +8,5 @@ public interface commentDao {
   public List<Comment> mySelectComment(String id);
   public int insertComment(Comment comment);
   public int updateComment(Comment comment);
+  public int deleteComment(int cno);
 }

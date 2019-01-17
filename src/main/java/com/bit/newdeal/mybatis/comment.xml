@@ -6,7 +6,7 @@
   <mapper namespace="com.bit.newdeal.dao.commentDao">
   
   	<select id="selectComment" parameterType="int" resultType="Comment">
-  	
+  		select * from comment where bno = #{bno} and cDelete = 0;
   	</select>
   	
   	<select id="mySelectComment" parameterType="String" resultType="Comment">
@@ -17,11 +17,15 @@
   	</select>
   	
   	<insert id="insertComment" parameterType="Comment">
-  	
+  		insert into comment(bno, id, cContent) values(2, #{mid}, #{cContent})
   	</insert>
   	
   	<update id="updateComment" parameterType="Comment">
   	
+  	</update>
+  	
+  	<update id="deleteComment" parameterType="int">
+  		update comment set cDelete = 1 where cno = #{cno}
   	</update>
   
   </mapper>

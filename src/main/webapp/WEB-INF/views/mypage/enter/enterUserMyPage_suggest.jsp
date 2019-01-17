@@ -39,7 +39,7 @@
 <script>
 $(document).ready(function(){
 	$('.dt').DataTable({
-		pageLength: 3
+		 "info": false		 
 	});
 });
 </script>

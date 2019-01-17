@@ -1,10 +1,15 @@
 package com.bit.newdeal.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.bit.newdeal.dao.memberDao;
 import com.bit.newdeal.dto.Member;
 
@@ -25,7 +30,27 @@ public class memberService {
     return session.getMapper(memberDao.class).insertMember(member);
   }
   
-  public int updateMember(Member member) {
+  public int updateMember(Member member, MultipartHttpServletRequest multipart) throws Exception {
+	  
+	  String dbProfile = "";
+	  MultipartFile profile = multipart.getFile("img");
+	  long fileSize = profile.getSize();
+	  
+	  if(fileSize > 0) {
+		  String originFileName = profile.getOriginalFilename();
+		  /*String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");*/
+/*
+		  System.out.println(multipart.getClass().getResource(""));
+		  System.out.println(multipart.getClass().getResource("").getPath());
+		  */
+		  String path = "img/profile/";
+		  String saveFile = path + originFileName;
+		  profile.transferTo(new File(saveFile));
+		  
+		  dbProfile = originFileName;
+		  member.setProfile(dbProfile);
+	  }
+	  
     return session.getMapper(memberDao.class).updateMember(member);
   }
   
@@ -33,6 +58,7 @@ public class memberService {
     return session.getMapper(memberDao.class).searchMember(params);
   }
   
+<<<<<<< HEAD
   public boolean idcheck(String id) {
 	Member member = session.getMapper(memberDao.class).selectOneMember(id);
 	return (member == null) ? true : false;
@@ -41,5 +67,17 @@ public class memberService {
   public boolean nicknameCheck(String nickname) {
 	  int result = session.getMapper(memberDao.class).nicknameCheck(nickname);
 	  return (result == 0) ? true : false;
+=======
+  public int updateMember(String id) {
+    return session.getMapper(memberDao.class).blacklist(id);
+  }
+  
+  public int deleteMember(String id) {
+	  return session.getMapper(memberDao.class).deleteMember(id);
+  }
+  
+  public String pwCheck(String id) {
+	  return session.getMapper(memberDao.class).pwCheck(id);
+>>>>>>> jh
   }
 }
