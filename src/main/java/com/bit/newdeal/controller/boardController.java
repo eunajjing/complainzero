@@ -38,7 +38,9 @@ public class boardController {
   }
   
   @RequestMapping("writeBoardForm.do")
-  public void writeBoardForm() {}
+  public String writeBoardForm() {
+    return "board/writeBoardForm";
+  }
   
   @RequestMapping("selectOneBoard.do")
   public ModelAndView selectOneBoard(int bno) {
