@@ -7,12 +7,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
+=======
+>>>>>>> master
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+=======
+>>>>>>> master
 
 import com.bit.newdeal.dto.Member;
 import com.bit.newdeal.service.memberService;
@@ -111,5 +117,15 @@ public class memberController {
 	  boolean result = true;
 	  
 	  return result;
+  }
+  
+  @RequestMapping("idcheck.do")
+  public @ResponseBody boolean idcheck(String id) {
+	  return memberService.idcheck(id);
+  }
+  
+  @RequestMapping("nicknameCheck.do")
+  public @ResponseBody boolean nicknameCheck(String nickname) {
+	  return memberService.nicknameCheck(nickname);
   }
 }

@@ -23,6 +23,7 @@
 	<select id="searchMember" parameterType="String" resultType="Member">
 	
 	</select>
+<<<<<<< HEAD
 	
 	<update id="blacklist" parameterType="int">
 	   update member set enabled where id=#{id}
@@ -34,6 +35,10 @@
 	
 	<select id="pwCheck" parameterType="String" resultType="String">
 		select pw from member where id = #{id}
+=======
+	<select id="nicknameCheck" parameterType="String" resultType="int">
+	 	select count(*) from member where nickname=#{nickname}
+>>>>>>> master
 	</select>
   
   </mapper>
