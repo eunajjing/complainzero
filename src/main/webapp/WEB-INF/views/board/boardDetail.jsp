@@ -66,34 +66,34 @@ date : 2019-01-18
 				<h4 class="modal-title">제안하기</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			<form action="" method="post">
 				<div class="modal-body">
-					<div class="form-group">
-						<label for="link">판매링크</label>
-						<textarea id="link" name="link" class="form-control" rows="3"
-							placeholder="게시글 하단에 안내할 링크를 써주세요" required="required"></textarea>
-					</div>
-					<div class="form-group">
-						<label for="tel">담당자 연락처</label> <input type="tel" id="tel"
-							name="tel" class="form-control" rows="3" required="required"
-							placeholder="하이픈을 제외한 숫자로만 입력해주세요">
-						</textarea>
-					</div>
-					<div class="form-group">
-						<label for="etc">기타사항</label>
-						<textarea id="etc" name="etc" class="form-control" rows="3"
-							placeholder="자세한 내용을 적어주세요"></textarea>
-					</div>
+					<form id="suggest" name="suggest">
+					<input type="hidden" name="bno" value="${boardDetail.bno}">
+						<div class="form-group">
+							<label for="link">판매링크</label>
+							<textarea id="link" name="link" class="form-control" rows="3"
+								placeholder="게시글 하단에 안내할 링크를 써주세요" required="required"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="tel">담당자 연락처</label> <input type="tel" id="tel"
+								name="tel" class="form-control" rows="3" required="required"
+								placeholder="하이픈을 제외한 숫자로만 입력해주세요">
+							</textarea>
+						</div>
+						<div class="form-group">
+							<label for="etc">기타사항</label>
+							<textarea id="etc" name="etc" class="form-control" rows="3"
+								placeholder="자세한 내용을 적어주세요"></textarea>
+						</div>
+					</form>
 				</div>
-	
 				<div class="alert alert-info">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					제안 승인 후 회원들에게 알림이 발송됩니다. <strong>판매링크를 정확히 기재해주세요.</strong>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" id="suggestSubmitBtn" class="btn btn-danger" disabled="disabled">전송</button>
+					<button type="button" id="suggestSubmitBtn" class="btn btn-primary" disabled="disabled">전송</button>
 				</div>
-			</form>
 		</div>
 	</div>
 </div>
@@ -325,10 +325,12 @@ function linkCheck() {
 			} else {
 				$('#link').val("");
 				$('#link').attr("placeholder", "유효한 링크가 아닙니다");
+				$('#suggestSubmitBtn').attr("disabled", true);
 				reject();
 			}
 		} else {
 			$('#link').attr("placeholder", "판매링크를 작성하지 않았습니다");
+			$('#suggestSubmitBtn').attr("disabled", true);
 			reject();
 		}
 	});
@@ -345,9 +347,11 @@ function telCheck() {
 				resolve();
 			} else {
 				$('#tel').attr("placeholder", "하이픈을 제외한 숫자로만 입력해주세요");
+				$('#suggestSubmitBtn').attr("disabled", true);
 				reject();
 			}
 		} else {
+			$('#suggestSubmitBtn').attr("disabled", true);
 			$('#tel').attr("placeholder", "연락처를 작성해주세요");
 			reject();
 		}
@@ -361,6 +365,24 @@ $('#suggestModal').keyup(function() {
 		$('#suggestSubmitBtn').attr("disabled", false);
 	});
 });
+
+$('#suggestSubmitBtn').click(function () {
+	var suggest = $('#suggest').serialize();
+	
+	$.ajax({
+		type: 'post',
+		dataType: "json",
+		url : 'writeSuggest.do',
+		data : suggest,
+		success : function(data) {
+			alert("제안 성공");
+			$('#link').val("");
+			$('#tel').val("");
+			$('#etc').val("");
+			history.go(0);
+		}
+	});
+})
 
 
 </script>

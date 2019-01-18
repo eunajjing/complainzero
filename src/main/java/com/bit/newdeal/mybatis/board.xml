@@ -15,7 +15,7 @@
 
 	<select id="selectOneBoard" parameterType="int"
 		resultType="Board">
-		select title,
+		select bno, title,
 				 bcontent,
 				 mid,
 				 writeDate,
