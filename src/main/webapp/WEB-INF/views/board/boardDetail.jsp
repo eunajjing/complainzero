@@ -112,15 +112,15 @@ date : 2019-01-11
 				              <!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
 				              
 				              	<div class="btn-group btn-group-sm">
-								  <button type="button" onclick="updateComment(this)" class="btn btn-outline-warning">수정</button>
+								  <button type="button" onclick="updateBtn(${commentList.cno})" class="btn btn-outline-warning">수정</button>
 								  <button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>
 								</div>
 				              <br>
-				              	<div id="updateText" style="display:none;">
+				              	<div id="updateText${commentList.cno}" style="display:none;">
 									<textarea class="form-control" rows="2">${commentList.cContent}</textarea>
-									<button input="button">수정</button>
+									<button input="button" onclick="updateComment(${commentList.cno})" class="btn btn-outline-warning">수정</button>
 								</div>
-				              	${commentList.cContent}
+				              	<span id="originText${commentList.cno}">${commentList.cContent}</span>
 				            </div>
 				          </div>
 			          </div>
@@ -156,6 +156,7 @@ function insertComment(){
 		 	//동적으로 태그 생성
 		 	
 		 	var output = "";
+
 		 	
 		 	output += '<div class="comment" seq="' + $('.comment').attr('seq') + '">';
 		 	
@@ -171,7 +172,8 @@ function insertComment(){
 			output += $('#cContent').val();
 			output += '</div>';
 			output += '</div>';
-		
+			
+			
 			$(".commentList").append(output);
 			$('#cContent').val('');
      	  },
@@ -181,9 +183,38 @@ function insertComment(){
 	});
 }
 
+function updateBtn(e){
+	if($('#updateText' + e).css('display') == 'none'){
+		$('#updateText' + e).show();
+		$('#originText' + e).hide();
+	}else{
+		$('#updateText' + e).hide();
+		$('#originText' + e).show();
+	}
+}
+
 function updateComment(e){
+	var cno = e;
+	var cContent = $('#updateText' + e).children('.form-control').val();
+	var parameter = JSON.stringify({cno : cno, cContent : cContent});
 	
-	$('#updateText').show();
+	$.ajax({
+		url : 'boardCommentUpdate.do',
+			  type : 'PUT',
+			  data : parameter,
+			  contentType : 'application/json;charset=UTF-8',
+			  success : function() {
+				  $('#updateText' + e).children('.form-control').val(cContent);
+				  $('#originText' + e).text(cContent);
+				  $('#updateText' + e).hide();
+				  $('#originText' + e).show();
+				  
+	    		  alert("수정되었습니다.");
+	          },
+	          error : function(){
+	        	  alert("error");
+	          }
+	});
 }
 
 function deleteComment(e){

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -74,13 +75,13 @@ public class boardController {
     return "redirect:boardForm.do";
   }
   
+  //댓글 출력
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
   public @ResponseBody void boardCommentSelect(int bno, Model model){
 	  model.addAttribute("comment", commentService.selectComment(bno));
-	  
-	  System.out.println(commentService.selectComment(bno).get(0).getId());
   }
   
+  //댓글 추가
   @RequestMapping(value = "boardCommentInsert.do", method = RequestMethod.POST)
   public @ResponseBody void boardCommentInsert(Comment comment, Principal principal) {
 	  
@@ -89,11 +90,14 @@ public class boardController {
     commentService.insertComment(comment);
   }
   
-  @RequestMapping(value = "boardCommentUpdate.do", method = RequestMethod.PUT)
-  public void boardCommentUpdate(Comment comment) {
+  //댓글 수정
+  @RequestMapping(value = "boardCommentUpdate.do", method = RequestMethod.PUT, headers={"Content-type=application/json"})
+  public @ResponseBody void boardCommentUpdate(@RequestBody Comment comment) {
+	  
     commentService.updateComment(comment);
   }
   
+  //댓글 삭제
   @RequestMapping(value = "boardCommentDelete.do/{cno}")
   public @ResponseBody void boardCommentDelete(@PathVariable(value="cno") int cno) {
 	  

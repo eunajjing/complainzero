@@ -207,11 +207,8 @@
 			<artifactId>json</artifactId>
 			<version>20180813</version>
 		</dependency>
-<<<<<<< HEAD
+		
 		<!-- jackson-databind -->
-=======
-		<!-- json 추가 -->
->>>>>>> master
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

@@ -21,7 +21,7 @@
   	</insert>
   	
   	<update id="updateComment" parameterType="Comment">
-  	
+  		update comment set cContent = #{cContent} where cno = #{cno}
   	</update>
   	
   	<update id="deleteComment" parameterType="int">
