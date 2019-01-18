@@ -57,7 +57,6 @@ date : 2019-01-11
        
 		<div class="container">
 
-
 	     <h1 class="mt-4 mb-3"> ${boardDetail.title}
         <small>by
           <a href="#"> 카테고리</a>
@@ -83,14 +82,15 @@ date : 2019-01-11
           	<div class="card my-4">
 				<div class="card-body rightOutDiv">
 				<!-- 만약 내가 쓴 글이 아니면 -->
-		            이 글이 공감되시나요? <i class="far fa-heart"></i>
+		            이 글이 공감되시나요? <i id="like" class="far fa-heart"></i>
 		            <!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
 		            <br>
+				<input type="hidden" id="bno" value="${boardDetail.bno}">	
 		        
 		        <!-- 만약 내가 쓴 글이면 -->
 		        <div class="btn-group btn-group-sm">
   <button type="button" class="btn btn-outline-warning">수정</button>
-  <button type="button" class="btn btn-outline-danger">삭제</button>
+  <button type="button" class="btn btn-outline-danger" onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
 </div>
 		        </div>
 	        </div>
@@ -158,6 +158,39 @@ date : 2019-01-11
 <script>
 $(document).ready(function(){
 	$('#bContentimg').find('img').width('500px').height('375px');
+	
+	$('#like').click(function(){
+		var bno = $('#bno').val();
+		
+		if($('#like').attr('class') == 'far fa-heart'){
+			$.ajax({
+				url : 'insertLikes.do',
+	  			  type : 'POST',
+	  			  data : {'bno' : bno},
+	  			  success : function() {
+					$('#like').attr('class','fas fa-heart');
+	  	    		alert("like~!");
+	  	          },
+	  	          error : function(){
+	  	        	  alert("error");
+	  	          }
+			});
+		}else{
+			$.ajax({
+				url : 'deleteLikes.do',
+	  			  type : 'POST',
+	  			  data : {'bno' : bno},
+	  			  success : function() {
+	  				$('#like').attr('class','far fa-heart');
+	  	    		alert("no~!");
+	  	          },
+	  	          error : function(){
+	  	        	  alert("error");
+	  	          }
+			});
+			
+		}
+	});
 });
 
 function insertComment(){
