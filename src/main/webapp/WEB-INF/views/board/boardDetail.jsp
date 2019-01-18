@@ -19,7 +19,7 @@ date : 2019-01-18
 	height: 375px;
 }
 </style>
-<div class="modal" id="reportModal">
+<div class="modal" id="reportModal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -57,40 +57,47 @@ date : 2019-01-18
 
 <!-- 신고 모달 끝  -->
 
-<!-- 제안 모달 -->
-<div class="modal" id="suggestModal">
-	<div class="modal-dialog">
+<!-- 제안모달 -->
+<div class="modal fade" id="suggestModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">제안하기</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="link">판매링크</label>
-					<textarea id="link" class="form-control" rows="3" cols=""/>
+			<form action="" method="post">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="link">판매링크</label>
+						<textarea id="link" name="link" class="form-control" rows="3"
+							placeholder="게시글 하단에 안내할 링크를 써주세요" required="required"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="tel">담당자 연락처</label> <input type="tel" id="tel"
+							name="tel" class="form-control" rows="3" required="required"
+							placeholder="하이픈을 제외한 숫자로만 입력해주세요">
+						</textarea>
+					</div>
+					<div class="form-group">
+						<label for="etc">기타사항</label>
+						<textarea id="etc" name="etc" class="form-control" rows="3"
+							placeholder="자세한 내용을 적어주세요"></textarea>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="tel">담당자 연락처</label>
-					<textarea id="tel" class="form-control" rows="3" cols=""/>
+	
+				<div class="alert alert-info">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					제안 승인 후 회원들에게 알림이 발송됩니다. <strong>판매링크를 정확히 기재해주세요.</strong>
 				</div>
-				<div class="form-group">
-				<label for="etc">기타사항</label>
-					<textarea id="etc" class="form-control" rows="3" placeholder="자세한 내용을 적어주세요"/>
+				<div class="modal-footer">
+					<button type="submit" id="suggestSubmitBtn" class="btn btn-danger" disabled="disabled">전송</button>
 				</div>
-			</div>
-
-			<div class="alert alert-info">
-				<button type="button" class="close" data-dismiss="alert">&times;</button>
-				제안 승인 후 회원들에게 알림이 발송됩니다. <strong>판매링크를 정확히 기재해주세요.</strong>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger">전송</button>
-			</div>
+			</form>
 		</div>
-
 	</div>
 </div>
+<!-- 제안모달 끝 -->
 
 <div class="container">
 
@@ -129,10 +136,12 @@ date : 2019-01-18
 					<div class="btn-group btn-group-sm">
 						<button type="button" class="btn btn-outline-warning">수정</button>
 						<button type="button" class="btn btn-outline-danger">삭제</button>
+
 						<sec:authorize ifAnyGranted="ROLE_COMPANY">
-							<button type="button" class="btn btn-outline-primary" data-toggle="modal"
-								data-target="#suggestModal">제안</button>
+							<button type="button" class="btn btn-outline-primary"
+								data-toggle="modal" data-target="#suggestModal">제안</button>
 						</sec:authorize>
+
 					</div>
 				</div>
 			</div>
@@ -303,5 +312,55 @@ function deleteComment(e){
     	  }
 	});
 }
+// 링크 검사
+function linkCheck() {
+	// url 정규표현식
+	const validateLink = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
+	let link = $('#link').val().trim();
+	
+	return new Promise(function(resolve, reject) { 
+		if(link.length != 0) {
+			if (validateLink.test(link)) {
+				resolve();
+			} else {
+				$('#link').val("");
+				$('#link').attr("placeholder", "유효한 링크가 아닙니다");
+				reject();
+			}
+		} else {
+			$('#link').attr("placeholder", "판매링크를 작성하지 않았습니다");
+			reject();
+		}
+	});
+}
+// 전화번호 체크
+function telCheck() {
+	// 정규표현식
+	const validateTel = /^[0-9]+$/;
+	let tel = $('#tel').val().trim();
+	
+	return new Promise(function(resolve, reject) { 
+		if (tel.length != 0) {
+			if (validateTel.test(tel)) {
+				resolve();
+			} else {
+				$('#tel').attr("placeholder", "하이픈을 제외한 숫자로만 입력해주세요");
+				reject();
+			}
+		} else {
+			$('#tel').attr("placeholder", "연락처를 작성해주세요");
+			reject();
+		}
+	});
+}
+
+$('#suggestModal').keyup(function() {
+	linkCheck()
+	.then(telCheck)
+	.then(function() {
+		$('#suggestSubmitBtn').attr("disabled", false);
+	});
+});
+
 
 </script>
