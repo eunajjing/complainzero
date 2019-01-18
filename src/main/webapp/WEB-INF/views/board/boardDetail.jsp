@@ -46,10 +46,11 @@ date : 2019-01-11
 
     <!-- 신고 모달 끝  -->
 <div class="container">
-	   
-      <h1 class="mt-4 mb-3">게시글 제목
+
+
+	     <h1 class="mt-4 mb-3"> ${boardDetail.title}
         <small>by
-          <a href="#">카테고리명</a>
+          <a href="#"> 카테고리</a>
         </small>
       </h1>
       
@@ -57,13 +58,12 @@ date : 2019-01-11
       	<div class="col-lg-8">
       		<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
       		<hr>
-      		<p>작성 날짜</p>
+      		<p> ${boardDetail.writeDate}</p>
           	<hr>
           	
           	<!-- 콘텐츠 내용 시작 -->
-          	블라블라!
-          	<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->
-          	
+          	 ${boardDetail.bContent}
+          	<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->          
           	<hr>
           	<div class="rightOutDiv">
           	<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>  
@@ -82,7 +82,9 @@ date : 2019-01-11
 </div>
 		        </div>
 	        </div>
-          	
+
+       
+ 
           	<!-- 댓글 작성 폼 -->
           	<div class="card my-4">
 	            <h5 class="card-header">댓글을 남겨보세요</h5>

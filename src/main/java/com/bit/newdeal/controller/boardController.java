@@ -32,9 +32,9 @@ public class boardController {
   public ModelAndView boardForm() {
     ModelAndView mav = new ModelAndView();
     
-   // mav.addObject("boardList", boardService.selectAllBoard());
-    mav.setViewName("board/boardForm");
-    
+   mav.addObject("boardList", boardService.selectAllBoard());
+   mav.setViewName("board/boardForm");
+   
     return mav;
   }
   
@@ -46,17 +46,22 @@ public class boardController {
   @RequestMapping("writeBoardForm.do")
   public void writeBoardForm() {}
   
+  
+  @RequestMapping("writeBoard.do")
+  public void writeBoard() {}
+  
   @RequestMapping("selectOneBoard.do")
   public ModelAndView selectOneBoard(int bno) {
     ModelAndView mav = new ModelAndView();
-    
-    // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
+
+    mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
-    
+   
     mav.setViewName("board/boardDetail");
     
     return mav;
   }
+ 
   
   @RequestMapping("updateBoardForm.do")
   public void updateBoardForm() {}
@@ -69,11 +74,12 @@ public class boardController {
     return "redirect:selectOneBoard.do?bno=" + bno;
   }
   
-  @RequestMapping("deleteBoard.do")
-  public String deleteBoard(int bno) {
-    // 서비스, dao delete 만들어야함
-    return "redirect:boardForm.do";
+  @RequestMapping("boardDeleteForm.do")
+  public @ResponseBody void boardDelete(@PathVariable(value="bno") int bno) {
+	  boardService.deleteBoard(bno);
   }
+  
+  
   
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
   public @ResponseBody void boardCommentSelect(int bno, Model model){

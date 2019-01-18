@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bit.newdeal.dao.boardDao;
+import com.bit.newdeal.dao.commentDao;
 import com.bit.newdeal.dto.Board;
 
 @Service
@@ -35,6 +36,10 @@ public class boardService {
   
   public int updateBoard(Board board) {
     return session.getMapper(boardDao.class).updateBoard(board);
+  }
+  
+  public int deleteBoard(int bno) {
+	  return session.getMapper(boardDao.class).deleteBoard(bno);
   }
   
   public List<Board> searchBoard(HashMap<String, Object> params) {

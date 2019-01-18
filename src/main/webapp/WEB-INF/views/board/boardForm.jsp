@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 
 Date : 19-01-11
 작성자 : 고은아
@@ -39,23 +40,28 @@ Date : 19-01-11
 	<a class="btn btn-secondary" href="writeBoardForm.do">글쓰기</a>
 	</div>
 	<hr>
+	<c:forEach items="${boardList}" var="boardList">
 	<div class="row">
-	<% for(int i=0; i < 6; i++ ) { %>
+	<% for(int i=0; i < 3; i++ ) { %>
 		<div class="col-lg-4 col-sm-6 portfolio-item">
 			<div class="card h-100">
-				<a href="selectOneBoard.do?bno=2"><img class="card-img-top"
+				<a href="selectOneBoard.do?bno=${boardList.bno}"><img class="card-img-top"
 					src="http://placehold.it/700x400" alt=""></a>
 				<div class="card-body">
 					<h4 class="card-title">
-						<a href="selectOneBoard.do?bno=2">Project One</a>
+						<a href="boardDetail.do">${boardList.title}</a>
 					</h4>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-						adipisicing elit. Amet numquam aspernatur eum quasi sapiente
-						nesciunt? Voluptatibus sit, repellat sequi itaque deserunt,
-						dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+					<p class="card-text">${boardList.bContent}</p> 
+					<p class="card-text">${boardList.mid}</p>
+		
 				</div>
 			</div>
 		</div>
 		<%} %>
 	</div>
+		</c:forEach>
 </div>
+
+	
+	
+	
