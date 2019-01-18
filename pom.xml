@@ -208,6 +208,10 @@
 			<version>20180813</version>
 		</dependency>
 
+
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+
 		<!-- json 추가 -->
 
 		<!-- jackson-databind -->

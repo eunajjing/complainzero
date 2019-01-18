@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.bit.newdeal.dto.Report" %>
 <!-- datatable css -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
  
+ <%List<Report> reportList = new ArrayList<Report>();  %>
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
         <table class="table table-striped table-bordered table-hover" id="dt">
@@ -17,13 +20,15 @@
               <th class="text-center">신고 사유</th>              
               <th class="text-center">상세내용</th>              
               <th class="text-center">처리 상태</th>              
+              <th class="text-center">신고 처리</th>              
             </tr>
           </thead>
           <tbody>     
+<%--           <c:set var="report" value="${reportList }"></c:set> --%>
             <c:forEach var="report" items="${reportList }">
             <tr class="table-primary">
-              <td>${report.rno }</td>
-              <td>${report.isTo }</td>
+              <td id="no">${report.rno }</td>
+              <td id="id">${report.isTo }</td>
               <td>${report.isFrom }</td>
               <td>${report.targetTypeCode }</td>
               <td>${report.targetCode }</td>
@@ -45,6 +50,8 @@
               <td>${report.rContent }</td>
               <c:if test="${report.processCode == 'R00' }">
               <td>대기</td>
+              <td><button class="btn btn-primary"><label class="approve">승인</label></button>
+              <button class="btn btn-primary">거절</button></td>
               </c:if>
               <c:if test="${report.processCode == 'R01' }">
               <td>반려</td>
@@ -103,6 +110,20 @@
         language : lang_kor
 //      pageLength:3
       }); 
+      
+      $(document).on('click', '.approve', function() {
+//     	  var parameter = JSON.stringify({'id' : $('#id').text()});
+    	  $.ajax({
+    		  url : 'blackList.do/' + $('#id').text() + '/' + $('#no').text() + '/' + 2,
+    		  type : 'PUT',
+    		  contentType : 'application/json;charset=UTF-8',
+    		  success : function(data) {
+    			  alert("정지처리되었습니다.");
+    		  }, error :  function(xhr, status, error) {
+    			  alert(error);
+    		  }
+    	  });
+      });
      }); 
     </script>
   </body>

@@ -59,6 +59,11 @@ public class memberService {
   }
   
 
+  public int blackList(String id) {
+    return session.getMapper(memberDao.class).blackList(id);
+  }
+  
+
   public boolean idcheck(String id) {
 	Member member = session.getMapper(memberDao.class).selectOneMember(id);
 	return (member == null) ? true : false;
@@ -67,6 +72,7 @@ public class memberService {
   public boolean nicknameCheck(String nickname) {
 	  int result = session.getMapper(memberDao.class).nicknameCheck(nickname);
 	  return (result == 0) ? true : false;
+
   }
   public int updateMember(String id) {
     return session.getMapper(memberDao.class).blacklist(id);
@@ -78,6 +84,7 @@ public class memberService {
   
   public String pwCheck(String id) {
 	  return session.getMapper(memberDao.class).pwCheck(id);
+
 
   }
 }

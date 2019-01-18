@@ -13,8 +13,15 @@
   	
   	</insert>
   	
-  	<update id="updateReport" parameterType="Report">
-  	
+  	<update id="updateReport" parameterType="java.util.Map">
+  	   update report set 
+  	   <if test="num == 1">
+  	   processCode='R01'
+  	   </if>
+  	   <if test="num == 2">
+       processCode='R02'
+       </if>
+       where rno=#{rno}
   	</update>
   
   </mapper>

@@ -3,13 +3,23 @@ package com.bit.newdeal.controller;
 import java.security.Principal;
 import java.util.HashMap;
 
+
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.newdeal.dto.Board;
@@ -44,7 +54,19 @@ public class boardController {
   }
   
   @RequestMapping("writeBoardForm.do")
-  public void writeBoardForm() {}
+  public String writeBoardForm() {
+    return "board/writeBoardForm";
+  }
+  
+  @RequestMapping("writeBoard.do")
+  public String writeBoard(Board board, 
+      @RequestParam(value="uFile", required=false) MultipartFile uFile,
+      Principal principal, HttpServletRequest request) {
+    String path = request.getSession().getServletContext().getRealPath("/");
+    boardService.insertBoard(board, uFile, path, principal);
+    
+    return "board/boardForm";
+  }
   
   
   @RequestMapping("writeBoard.do")
