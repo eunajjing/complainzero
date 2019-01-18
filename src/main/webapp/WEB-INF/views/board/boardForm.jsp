@@ -52,7 +52,7 @@ Date : 19-01-11
 				<img src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }" class="card-img-top" alt=""></a>
 				<div class="card-body">
 					<h4 class="card-title">
-						<a href="boardDetail.do">${boardList.title}</a>
+						<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
 					</h4>
 <%-- 					<p class="card-text">${boardList.bContent}</p>  --%>
 					<p class="card-text">${boardList.mid}</p>
