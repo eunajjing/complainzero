@@ -10,6 +10,10 @@
 #selectBoard{
 	float:right;
 }
+img{
+	width:100px;
+	height:100px;
+}
 </style>
 	
 	
@@ -34,7 +38,7 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
@@ -43,7 +47,7 @@
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
 		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
+							<%-- <td>${board.bContent}</td> --%>
 							<td>${board.writeDate}</td>
 							<td>${board.readCount}</td>
 						</tr>
@@ -60,7 +64,7 @@
 		          		<tr>
 		          			<th>내용</th>
 		          			<th>작성시간</th>
-		          			<th>게시글제목</th>
+		          			<!-- <th>게시글제목</th> -->
 		          		</tr>
 		          	</thead>
 		          	<tbody>
@@ -82,7 +86,7 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
@@ -91,7 +95,7 @@
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
 		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
+							<%-- <td>${board.bContent}</td> --%>
 							<td>${board.writeDate}</td>
 							<td>${board.readCount}</td>
 						</tr>
@@ -109,7 +113,7 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
@@ -118,7 +122,7 @@
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
 		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
+							<%-- <td>${board.bContent}</td> --%>
 							<td>${board.writeDate}</td>
 							<td>${board.readCount}</td>
 						</tr>
@@ -137,7 +141,7 @@
 		          		<tr>
 		          			<th>내용</th>
 		          			<th>작성시간</th>
-		          			<th>게시글제목</th>
+		          			<!-- <th>게시글제목</th> -->
 		          		</tr>
 		          	</thead>
 		          	<tbody>
@@ -161,7 +165,7 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
@@ -170,7 +174,7 @@
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
 		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
+							<%-- <td>${board.bContent}</td> --%>
 							<td>${board.writeDate}</td>
 							<td>${board.readCount}</td>
 						</tr>
