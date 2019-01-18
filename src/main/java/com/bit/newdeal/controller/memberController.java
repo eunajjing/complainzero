@@ -2,14 +2,9 @@ package com.bit.newdeal.controller;
 
 import java.security.Principal;
 
-import java.io.UnsupportedEncodingException;
-
-import javax.inject.Inject;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,10 +34,10 @@ public class memberController {
     return "joinForm_enter";
   }
   
-  @RequestMapping(value = "join.do", method = RequestMethod.POST)
+  @RequestMapping("join.do")
   public String join(Member member) {
-	  //, MultipartHttpServletRequest request
-	memberService.insertMember(member);
+    memberService.insertMember(member);
+    
     return "redirect:main.do";
   }
   
@@ -125,10 +120,5 @@ public class memberController {
   @RequestMapping("nicknameCheck.do")
   public @ResponseBody boolean nicknameCheck(String nickname) {
 	  return memberService.nicknameCheck(nickname);
-  }
-  
-  @RequestMapping("emailcheck.do")
-  public @ResponseBody String emailcheck(String id) throws UnsupportedEncodingException, MessagingException {
-	  return memberService.mailSend(id);
   }
 }

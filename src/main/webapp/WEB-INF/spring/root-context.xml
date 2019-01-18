@@ -2,18 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+	
+	<!-- MyBatis(Maria DB)와 Spring 연결 -->
+	<!-- 
 	<bean id="dataSource"
-		class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc_maria"></property>
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="org.mariadb.jdbc.Driver" />
+		<property name="url" value="jdbc:mariadb://192.168.0.6:3306/newdeal" />
+		<property name="username" value="host" />
+		<property name="password" value="1111" />
 	</bean>
+ -->
+ 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+      <property name="jndiName" value="java:comp/env/jdbc_maria"></property>
+    </bean>
 
 	<!-- MyBatis(Maria DB)와 Spring 연결 -->
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation"
-			value="classpath:com/bit/newdeal/mybatis/configuration.xml"></property>
+		<property name="configLocation" value="classpath:com/bit/newdeal/mybatis/configuration.xml"></property>
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:com/bit/newdeal/mybatis/alarm.xml</value>
@@ -25,9 +32,8 @@
 			</list>
 		</property>
 	</bean>
-
-	<bean id="sqlSession"
-		class="org.mybatis.spring.SqlSessionTemplate">
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
@@ -37,33 +43,12 @@
 	</bean>
 
 	<!-- tiles -->
-	<bean
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
 		<property name="order" value="2"></property>
 	</bean>
-
+	
 	<!-- 비밀번호 암호화 -->
-	<bean id="bCryptPasswordEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
-	<!-- 메일 보내기 -->
-	<bean id="mailSender"
-		class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="complainZeros@gmail.com" />
-		<property name="password" value="complain000!" />
-
-		<!-- email 요청시는 SMTP -->
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
-		</property>
-	</bean>
 </beans>

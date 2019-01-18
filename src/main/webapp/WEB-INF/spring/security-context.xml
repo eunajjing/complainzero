@@ -24,7 +24,7 @@
 				users-by-username-query="select id, pw, enabled from member where id=?"
 				authorities-by-username-query="select id, roleCode from roles where id=?"
 			/>
-			<security:password-encoder ref="bCryptPasswordEncoder" />
+			<!-- <security:password-encoder ref="bCryptPasswordEncoder" /> -->
 			
 		</security:authentication-provider>
 	</security:authentication-manager>
