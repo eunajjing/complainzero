@@ -130,7 +130,7 @@ public class boardController {
   
   @RequestMapping("deleteSuggest.do")
   public String deleteSuggest(int sno) {
-    suggestService.updateSuggest(sno);
+    /*suggestService.updateSuggest(sno);*/
     
     return "redirect:mySuggest.do";
   }

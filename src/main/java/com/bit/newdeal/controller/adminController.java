@@ -2,16 +2,16 @@ package com.bit.newdeal.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.bit.newdeal.dto.Suggest;
 import com.bit.newdeal.service.memberService;
 import com.bit.newdeal.service.reportService;
 import com.bit.newdeal.service.suggestService;
@@ -53,15 +53,17 @@ public class adminController {
     return "suggestView";
   }
   
-  @RequestMapping("updateApproveSuggest.do")
-  public void updateApproveSuggest(int sno) {
-    suggestService.updateSuggest(sno);
+  @RequestMapping(value="updateApproveSuggest.do/{sno}", method=RequestMethod.PUT)
+  public void updateApproveSuggest(Suggest suggest) {
+	  suggest.setStatusCode("S02");
+    suggestService.updateSuggest(suggest);
     // updateSuggest 확인해봐야함
   }
   
-  @RequestMapping("updateRefuseSuggest.do")
-  public void updateRefuseSuggest(int sno) {
-    suggestService.updateSuggest(sno);
+  @RequestMapping(value="updateRefuseSuggest.do/{sno}", method=RequestMethod.PUT)
+  public void updateRefuseSuggest(Suggest suggest) {
+	  suggest.setStatusCode("S01");
+    suggestService.updateSuggest(suggest);
     // updateSuggest 확인해봐야함
   }
   
