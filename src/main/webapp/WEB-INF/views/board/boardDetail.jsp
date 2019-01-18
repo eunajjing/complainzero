@@ -107,7 +107,7 @@ date : 2019-01-11
 				          <div class="media mb-4">
 				            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
 				            <div class="media-body">
-				              <span id="cId">${commentList.id}</span>&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
+				              ${commentList.id}&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
 				              
 				              <!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
 				              
@@ -116,6 +116,10 @@ date : 2019-01-11
 								  <button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>
 								</div>
 				              <br>
+				              	<div id="updateText" style="display:none;">
+									<textarea class="form-control" rows="2">${commentList.cContent}</textarea>
+									<button input="button">수정</button>
+								</div>
 				              	${commentList.cContent}
 				            </div>
 				          </div>
@@ -178,23 +182,8 @@ function insertComment(){
 }
 
 function updateComment(e){
-	//임시
-	var cno = e.parentNode.parentNode.parentNode.parentNode.getAttribute('seq');
-	//임시
 	
-	$.ajax({
-		url : 'boardCommentUpdate.do/' + cno,
-		  type : 'PUT',
-		  success : function() {
-		 	alert("수정되었습니다.");
-		 	//임시
-			e.parentNode.parentNode.parentNode.parentNode.remove();
-		 	//임시
-   	  	  },
-	 	  error : function(){
-  	  	 	 alert("error");
-    	  }
-	});
+	$('#updateText').show();
 }
 
 function deleteComment(e){
