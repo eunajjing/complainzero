@@ -21,7 +21,8 @@
   	</select>
   
   	<insert id="insertBoard" parameterType="Board">
-  	
+  	   insert into board(mid, title, bContent, thumbNail)
+  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail})
   	</insert>
   	
   	<update id="updateBoard" parameterType="Board">
@@ -33,7 +34,7 @@
   	</select>
   	
   	<select id="selectMyBoard" parameterType="String" resultType="Board">
-  		select title, bcontent, writedate, readCount, thumNail from board where mid=#{id}
+  		select title, bcontent, writedate, readCount, thumbNail from board where mid=#{id}
   	</select>
   	
   </mapper>

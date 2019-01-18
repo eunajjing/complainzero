@@ -32,12 +32,12 @@ public class imageUploadController {
 	         //확장자를소문자로 변경
 	         filename_ext = filename_ext.toLowerCase();
 	         //파일 기본경로
-//	         String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-	         String dftFilePath = "C:/eclipse-workspace/FinalProject/src/main/webapp/";
+	         String dftFilePath = request.getSession().getServletContext().getRealPath("/");
 	         
 	         //파일 기본경로 _ 상세경로
-//	         String filePath = dftFilePath + "resources" + File.separator + "photoUpload" + File.separator;
-	         String filePath = dftFilePath + "photoUpload" + File.separator;
+	         String filePath = dftFilePath + "resources" + File.separator + "img" + File.separator
+	                           + "boardContent" + File.separator;
+	         
 	         File file = new File(filePath);
 	         System.out.println("file : " + file);
 	         if(!file.exists()) {
@@ -73,11 +73,7 @@ public class imageUploadController {
 	         sFileInfo += "&bNewLine=false";
 	         // img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 	         sFileInfo += "&sFileName="+ filename;;
-//	         sFileInfo += "&sFileURL="+"C://eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/FinalProject/resources/photoUpload/"+realFileNm;
-//	         sFileInfo += "&sFileURL="+"/Project/WebContent/resources/photoUpload/"+realFileNm;
-//	         sFileInfo += "&sFileURL="+"/editor/resources/photoUpload/"+realFileNm;
-//	         sFileInfo += "&sFileURL=" + "localhost:8888/resources/photoUpload/" +realFileNm;
-	         sFileInfo += "&sFileURL=" + "/photoUpload/" + realFileNm;
+	         sFileInfo += "&sFileURL=" + "http://localhost:8888/img/boardContent/" + realFileNm;
 	         
 	         System.out.println("sFileInfo : " + sFileInfo);
 	         PrintWriter out = response.getWriter();

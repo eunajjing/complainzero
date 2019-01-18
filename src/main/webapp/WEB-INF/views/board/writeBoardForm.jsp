@@ -14,27 +14,29 @@ date : 19-01-14
 				<h4 class="modal-title">글쓰기</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" enctype="multipart/form-data">
+				<form class="form-horizontal" enctype="multipart/form-data" action="writeBoard.do" id="form" method="post">
 						<div class="form-group">
 							<label for="id">제목</label>
 							<div>
-								<input id="id" name="id" type="email" class="form-control" placeholder="제목을 입력해주세요" required="required">
+								<input id="title" name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" required="required">
 							</div>
 						</div>
 					<div class="form-group">
 						<label for="validityCheck">내용</label>
 						<div>
-						<textarea name="smarteditor" rows="15" cols="90" id="smarteditor"></textarea>
+						<textarea name="bContent" rows="15" cols="90" id="bContent"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="profile">썸네일</label>
-						<input type="file">
+						<input type="file" name="uFile">
 					</div>
+<!-- 					<div class="modal-footer"> -->
+					<div class="form-group">
+            <input type="submit" class="btn btn-primary" id="btn" value="등록">
+          </div>
+<!--           </div> -->
 				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" disabled="disabled">등록</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -46,8 +48,17 @@ date : 19-01-14
 	var eEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
         oAppRef: eEditors,
-        elPlaceHolder: "smarteditor",
+        elPlaceHolder: "bContent",
         sSkinURI: "/editor/SmartEditor2Skin.html",
         fCreator: "createSEditor2"
     });
+	
+	//전송버튼 클릭이벤트
+    $("#btn").click(function(){
+        //id가 content인 textarea의 에디터에서 대입
+        eEditors.getById["bContent"].exec("UPDATE_CONTENTS_FIELD", []); 
+        //폼 submit
+       
+        $("#form").submit();
+    })
 </script>
