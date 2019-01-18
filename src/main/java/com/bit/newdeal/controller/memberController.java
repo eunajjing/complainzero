@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bit.newdeal.dto.Member;
 import com.bit.newdeal.service.memberService;
@@ -31,10 +32,10 @@ public class memberController {
     return "joinForm_enter";
   }
   
-  @RequestMapping("join.do")
+  @RequestMapping(value = "join.do", method = RequestMethod.POST)
   public String join(Member member) {
-    memberService.insertMember(member);
-    
+	  //, MultipartHttpServletRequest request
+	memberService.insertMember(member);
     return "redirect:main.do";
   }
   

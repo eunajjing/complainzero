@@ -4,7 +4,7 @@
 <!--
 date : 19-01-10
 내용 : 회원가입 폼 작성
-date : 19-01-15
+date : 19-01-15 ~ 16
 내용 : 회원가입 제어
 작성자 : 고은아
 -->
@@ -16,8 +16,9 @@ date : 19-01-15
 			<div class="modal-header">
 				<h4 class="modal-title">회원가입</h4>
 			</div>
+			<form action="join.do" method="post">
+			<!-- 멀티파트! -->
 			<div class="modal-body">
-				<form class="form-horizontal" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="radio-inline">
 						<input type="radio"
@@ -49,7 +50,7 @@ date : 19-01-15
 							required="required">
 					</div>
 					<div class="form-group">
-						<label for="pw2">비밀번호 확인</label> <input id="pw2" name="pw"
+						<label for="pw2">비밀번호 확인</label> <input id="pw2"
 							type="password" class="form-control" placeholder="password를 다시 한 번 입력해주세요"
 							required="required">
 					</div>
@@ -61,16 +62,18 @@ date : 19-01-15
 							placeholder="닉네임" required="required">
 					</div>
 					<div class="form-group">
-						<label for="profile">프로필 이미지</label> <input type="file" class="custom-file-input">
+						<label for="profile">프로필 이미지</label>
+						<input type="file" name="profile" multiple="multiple">
 					</div>
 					<div id="profilePrewDiv">
-					<img alt="" src="https://tettra.co/wp-content/logos/github.png" id="profilePrew">
+						<img alt="" src="https://tettra.co/wp-content/logos/github.png" id="profilePrew">
 					</div>
-				</form>
+				
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="submitBtn" disabled="disabled">가입</button>
+				<button type="submit" class="btn btn-primary" id="submitBtn" disabled="disabled">가입</button>
 			</div>
+			</form>
 		</div>
 		<!-- /.modal-content -->
 	</div>

@@ -13,7 +13,12 @@
 	</select>
 	
 	<insert id="insertMember" parameterType="Member">
+		insert into member (id, pw, nickname, profile) 
+		values(#{id}, #{pw}, #{nickname}, #{profile, jdbcType=VARCHAR})
+	</insert>
 	
+	<insert id="insertrole" parameterType="Member">
+		insert into roles values(#{id}, #{roleCode})
 	</insert>
 	
 	<update id="updateMember" parameterType="Member">

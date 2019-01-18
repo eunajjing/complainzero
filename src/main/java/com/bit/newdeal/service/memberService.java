@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.bit.newdeal.dao.memberDao;
 import com.bit.newdeal.dto.Member;
 
@@ -22,7 +24,10 @@ public class memberService {
   }
   
   public int insertMember(Member member) {
-    return session.getMapper(memberDao.class).insertMember(member);
+	  //, MultipartHttpServletRequest request
+	  int result = session.getMapper(memberDao.class).insertMember(member);
+	  result += session.getMapper(memberDao.class).insertrole(member);
+	  return result;
   }
   
   public int updateMember(Member member) {
