@@ -53,6 +53,8 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/vendor/**" location="/resources/vendor/" />
+	<resources mapping="/img/**" location="/resources/img/" />
+
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 

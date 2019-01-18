@@ -27,4 +27,8 @@ public class commentService {
   public int updateComment(Comment comment) {
     return session.getMapper(commentDao.class).updateComment(comment);
   }
+  
+  public int deleteComment(int cno) {
+	  return session.getMapper(commentDao.class).deleteComment(cno);
+  }
 }

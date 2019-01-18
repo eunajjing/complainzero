@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
+import java.security.Principal;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,11 @@ public class memberController {
     return "redirect:main.do";
   }
   
+  //회원탈퇴 (enabled 0으로 변경)
   @RequestMapping("deleteMember.do")
-  public String deleteMember(String id, HttpSession session) {
-    // 서비스, dao delete 추가해야함
+  public String deleteMember(Principal principal, HttpSession session) {
+	  
+    memberService.deleteMember(principal.getName());
     session.invalidate();
     
     return "redirect:main.do";
@@ -67,29 +70,50 @@ public class memberController {
     return "redirect:main.do";
   }
   
-  @RequestMapping("updateMember.do")
-  public void updateMember(Member member) {
-    memberService.updateMember(member);
+
+  //자기정보 변경
+  @RequestMapping(value="updateMember.do", method= RequestMethod.POST)
+  public @ResponseBody void updateMember(Member member, MultipartHttpServletRequest multipart) throws Exception {
+
+    memberService.updateMember(member, multipart);
   }
   
+  //제공자 마이페이지
   @RequestMapping("enterUserMyPage.do")
-  public String enterUserMyPage(String id, Model model) {
-    id = "test@test.com";
-    model.addAttribute("member", memberService.selectOneMember(id));
+  public String enterUserMyPage(Principal principal, Model model, Member member) {
+    String id = principal.getName();
+    
+    member = memberService.selectOneMember(id);
+    
+    String profile = "img/profile/" + memberService.selectOneMember(id).getProfile();
+    
+    member.setProfile(profile);
+    
+    model.addAttribute("member", member);
     
     return "mypage/enter/enterUserMyPage_update";
   }
   
+  //유저 마이페이지
   @RequestMapping("userMyPage.do")
-  public String userMyPage(String id, Model model) {
-	id = "test@test.com";
+  public String userMyPage(Principal principal, Model model) {
+	  String id = principal.getName();
     model.addAttribute("member", memberService.selectOneMember(id));
     
     return "mypage/user/userMyPage_update";
   }
   
-  @RequestMapping("myPage.do")
-  public String myPage() {
+
+  //삭제 전 비밀번호 확인
+  @RequestMapping(value="pwCheck.do", method=RequestMethod.POST)
+  public @ResponseBody boolean pwCheck(@RequestBody String epw, Principal principal) {
+	  
+	  String encodePassword = memberService.pwCheck(principal.getName());
+	  String rawPassword = epw;
+	  /*
+	  boolean result = bCryptPasswordEncoder.matches(rawPassword, encodePassword);
+	  */
+	  boolean result = true;
 	  
     /* 여기서 권한 체크 후 
      각 권한별 마이페이지로 이동
@@ -97,7 +121,7 @@ public class memberController {
       enterUserMyPage.do - 기업회원
       userMyPage.do - 일반회원
     */
-	  return null;
+	  return result;
   }
   
   @RequestMapping("idcheck.do")

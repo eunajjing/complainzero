@@ -33,7 +33,7 @@
   	</select>
   	
   	<select id="selectMyBoard" parameterType="String" resultType="Board">
-  		select title, bcontent, writedate, readCount, thumNail from board where mid=#{id}
+  		select title, bcontent, writedate, readCount from board where mid=#{id}
   	</select>
   	
   </mapper>

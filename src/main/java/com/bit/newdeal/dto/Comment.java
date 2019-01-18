@@ -5,7 +5,7 @@ import java.util.Date;
 public class Comment {
   private int cno;
   private int bno;
-  private String mid;
+  private String id;
   private String cContent;
   private Date writeDate;
   private boolean cDelete;
@@ -22,11 +22,11 @@ public class Comment {
   public void setBno(int bno) {
     this.bno = bno;
   }
-  public String getMid() {
-    return mid;
+  public String getId() {
+    return id;
   }
-  public void setMid(String mid) {
-    this.mid = mid;
+  public void setId(String id) {
+    this.id = id;
   }
   public String getcContent() {
     return cContent;

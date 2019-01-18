@@ -10,7 +10,7 @@
   	</select>
   	
   	<select id="selectAllSuggest" resultType="Suggest">
-  	
+  	 select * from suggestion
   	</select>
   	
   	<insert id="insertSuggest" parameterType="Suggest">

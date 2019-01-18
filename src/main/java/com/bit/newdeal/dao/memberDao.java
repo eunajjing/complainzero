@@ -11,5 +11,8 @@ public interface memberDao {
   public int insertrole(Member member);
   public int updateMember(Member member);
   public List<Member> searchMember(HashMap<String, Object> params);
+  public int blacklist(String id);
+  public int deleteMember(String id);
+  public String pwCheck(String id);
   public int nicknameCheck(String nickname);
 }

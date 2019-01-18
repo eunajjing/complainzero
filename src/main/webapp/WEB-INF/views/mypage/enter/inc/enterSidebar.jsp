@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>>
+    
 <!-- Page Content -->
     <div class="container">
 
@@ -39,13 +40,37 @@
 				<div class="modal-body">
 					<form class="navbar-form navbar-left">
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="password" required="required">
+							<input type="password" class="form-control" id="epw" placeholder="password" required="required">
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">확인</button>
+					<button type="submit" id="mDelete" class="btn btn-primary">확인</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		$('#mDelete').click(function(){
+			if($('#epw').val() == ""){
+				alert("비밀번호를 입력하세요.");
+			}else{
+				$.ajax({
+					url : 'pwCheck.do',
+		  			  type : 'POST',
+		  			  data : {epw : $('#epw').val()},
+		  			  success : function(data) {
+		  				  if(data == true){
+			  				  location.href = "deleteMember.do";
+		  				  }else{
+		  					  alert("비밀번호가 틀렸습니다.");
+		  				  }
+		  	          },
+		  	          error : function(){
+		  	        	  alert("error");
+		  	          }
+				});
+			}
+		});
+	</script>

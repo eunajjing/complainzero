@@ -6,22 +6,26 @@
   <mapper namespace="com.bit.newdeal.dao.commentDao">
   
   	<select id="selectComment" parameterType="int" resultType="Comment">
-  	
+  		select * from comment where bno = #{bno} and cDelete = 0;
   	</select>
   	
   	<select id="mySelectComment" parameterType="String" resultType="Comment">
   		select c.cContent, c.writeDate, b.title
 		from comment c join board b
 		where c.bno = b.bno
-		and mid = #{id}
+		and id = #{id}
   	</select>
   	
   	<insert id="insertComment" parameterType="Comment">
-  	
+  		insert into comment(bno, id, cContent) values(2, #{id}, #{cContent})
   	</insert>
   	
   	<update id="updateComment" parameterType="Comment">
+  		update comment set cContent = #{cContent} where cno = #{cno}
+  	</update>
   	
+  	<update id="deleteComment" parameterType="int">
+  		update comment set cDelete = 1 where cno = #{cno}
   	</update>
   
   </mapper>
