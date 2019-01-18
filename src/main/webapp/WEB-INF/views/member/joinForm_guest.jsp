@@ -110,16 +110,19 @@ function pwcheck() {
 					$('#pwValidateDiv').append('비밀번호 일치');
 					resolve();
 				} else {
+					$('#pwValidateDiv').attr('class', 'validateDiv');
 					$('#pwValidateDiv').append('비밀번호는 영문, 숫자를 혼합하여 6~20자 이내로 설정해주세요.');
 					$('#submitBtn').attr("disabled", true); 
 					reject();
 				}
 			} else {
+				$('#pwValidateDiv').attr('class', 'validateDiv');
 				$('#pwValidateDiv').append('비밀번호가 일치하지 않습니다.');
 				$('#submitBtn').attr("disabled", true);
 				reject();
 			}
 		} else {
+			$('#pwValidateDiv').attr('class', 'validateDiv');
 			$('#submitBtn').attr("disabled", true);
 			reject();
 		}
@@ -200,7 +203,16 @@ function id() {
 
 // 자바 메일 발송
 $('#validateBtn').click(function() {
-
+	$('#id').attr("readonly", "readonly");
+	
+	$.ajax({
+		type : 'post',
+		url : 'emailcheck.do',
+		data : {"id" : $('#id').val()},
+		success : function(data) {
+			console.log(data);
+		}
+	});
 });
 
 
