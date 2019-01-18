@@ -8,6 +8,7 @@ public interface memberDao {
   public Member selectOneMember(String id);
   public List<Member> selectAllMember();
   public int insertMember(Member member);
+  public int insertrole(Member member);
   public int updateMember(Member member);
   public List<Member> searchMember(HashMap<String, Object> params);
   public int blacklist(String id);
