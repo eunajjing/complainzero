@@ -1,6 +1,7 @@
 package com.bit.newdeal.service;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class reportService {
     return session.getMapper(reportDao.class).insertReport(report);
   }
   
-  public int updateReport(Report report) {
-    return session.getMapper(reportDao.class).updateReport(report);
+  public int updateReport(Map<String, Object> params) {
+    return session.getMapper(reportDao.class).updateReport(params);
   }
 }

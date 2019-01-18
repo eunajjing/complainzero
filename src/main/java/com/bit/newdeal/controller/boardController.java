@@ -3,6 +3,8 @@ package com.bit.newdeal.controller;
 import java.security.Principal;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
@@ -33,9 +38,9 @@ public class boardController {
   public ModelAndView boardForm() {
     ModelAndView mav = new ModelAndView();
     
-   // mav.addObject("boardList", boardService.selectAllBoard());
-    mav.setViewName("board/boardForm");
-    
+   mav.addObject("boardList", boardService.selectAllBoard());
+   mav.setViewName("board/boardForm");
+   
     return mav;
   }
   
@@ -45,18 +50,31 @@ public class boardController {
   }
   
   @RequestMapping("writeBoardForm.do")
-  public void writeBoardForm() {}
+  public String writeBoardForm() {
+    return "board/writeBoardForm";
+  }
+  
+  @RequestMapping("writeBoard.do")
+  public String writeBoard(Board board, 
+      @RequestParam(value="uFile", required=false) MultipartFile uFile,
+      Principal principal, HttpServletRequest request) {
+    String path = request.getSession().getServletContext().getRealPath("/");
+    boardService.insertBoard(board, uFile, path, principal);
+    
+    return "redirect:boardForm.do";
+  }
   
   @RequestMapping("selectOneBoard.do")
   public ModelAndView selectOneBoard(int bno) {
     ModelAndView mav = new ModelAndView();
-    
-    // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
+
+    mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
     mav.setViewName("board/boardDetail");
     
     return mav;
   }
+ 
   
   @RequestMapping("updateBoardForm.do")
   public void updateBoardForm() {}
@@ -69,13 +87,11 @@ public class boardController {
     return "redirect:selectOneBoard.do?bno=" + bno;
   }
   
-  @RequestMapping("deleteBoard.do")
-  public String deleteBoard(int bno) {
-    // 서비스, dao delete 만들어야함
-    return "redirect:boardForm.do";
+  @RequestMapping("boardDeleteForm.do")
+  public @ResponseBody void boardDelete(@PathVariable(value="bno") int bno) {
+	  boardService.deleteBoard(bno);
   }
-  
-  //댓글 출력
+
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
   public @ResponseBody void boardCommentSelect(int bno, Model model){
 	  model.addAttribute("comment", commentService.selectComment(bno));
@@ -142,4 +158,18 @@ public class boardController {
     
     return mav;
   }
+  
+  @RequestMapping("download.do") // 추가
+	public View download(@RequestParam(required=false) Integer bno) {
+	  System.out.println("bno : " + bno);
+		View view;
+		HashMap<String, Object> params = new HashMap<>();
+		if (bno != null) {
+			params.put("bno", bno);
+		}
+		
+		view = new DownloadView(boardService.getAttachFile(params));
+		
+		return view;
+	}
 }

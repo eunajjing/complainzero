@@ -9,6 +9,13 @@ date : 2019-01-11
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     
     <!-- 신고 모달 -->
+    
+    <style>
+    	.bContentimg img{
+    		width : 500px;
+    		height : 375px;
+    	}
+    </style>
 <div class="modal" id="reportModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -47,26 +54,29 @@ date : 2019-01-11
     </div>
 
     <!-- 신고 모달 끝  -->
-<div class="container">
-	   
-      <h1 class="mt-4 mb-3">게시글 제목
+       
+		<div class="container">
+
+
+	     <h1 class="mt-4 mb-3"> ${boardDetail.title}
         <small>by
-          <a href="#">카테고리명</a>
+          <a href="#"> 카테고리</a>
         </small>
       </h1>
-      
       <div class="row">
       	<div class="col-lg-8">
-      		<img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+      		<img class="img-fluid rounded" src="http://localhost:8888/img/boardThumbNail/${boardDetail.thumbNail }" alt="http://placehold.it/50x50" 
+      		width="200px" height="300px">
       		<hr>
-      		<p>작성 날짜</p>
+      		<p> ${boardDetail.writeDate}</p>
           	<hr>
-          	
+          	<div class = "bContentimg">
           	<!-- 콘텐츠 내용 시작 -->
-          	블라블라!
-          	<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->
-          	
+          	 ${boardDetail.bContent}
+          	<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->          
+          	</div>
           	<hr>
+   
           	<div class="rightOutDiv">
           	<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>  
           	</div>
@@ -84,7 +94,9 @@ date : 2019-01-11
 </div>
 		        </div>
 	        </div>
-          	
+
+       
+ 
           	<!-- 댓글 작성 폼 -->
           	<div class="card my-4">
 	            <h5 class="card-header">댓글을 남겨보세요</h5>
@@ -144,6 +156,9 @@ date : 2019-01-11
 </div>
 
 <script>
+$(document).ready(function(){
+	$('#bContentimg').find('img').width('500px').height('375px');
+});
 
 function insertComment(){
 	$.ajax({
