@@ -64,15 +64,7 @@ Date : 19-01-15
 							<se:authorize ifAnyGranted="ROLE_COMPANY">
 							<a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
 							</se:authorize>
-
-
-			
-
-<%-- 							<se:authorize ifNotGranted="ROLE_ADMIN"> --%>
-
-
 							<se:authorize ifAnyGranted="ROLE_ADMIN">
-
 							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
 							</se:authorize>
 							<a class="dropdown-item" href="#">로그아웃</a>

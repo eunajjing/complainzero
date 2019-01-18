@@ -30,7 +30,7 @@
 	          	<br>
 	          	<h3>게시글</h3>
 	          	<div class="boardTable">
-		          	<table class="dt" class="table table-striped table-bordered table-hover">
+		          	<table class="dt">
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>

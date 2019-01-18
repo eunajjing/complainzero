@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,7 +70,6 @@ public class boardController {
 
     mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
-   
     mav.setViewName("board/boardDetail");
     
     return mav;
@@ -91,27 +91,29 @@ public class boardController {
   public @ResponseBody void boardDelete(@PathVariable(value="bno") int bno) {
 	  boardService.deleteBoard(bno);
   }
-  
-  
-  
+
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
   public @ResponseBody void boardCommentSelect(int bno, Model model){
 	  model.addAttribute("comment", commentService.selectComment(bno));
   }
   
+  //댓글 추가
   @RequestMapping(value = "boardCommentInsert.do", method = RequestMethod.POST)
   public @ResponseBody void boardCommentInsert(Comment comment, Principal principal) {
 	  
-	  comment.setMid(principal.getName());
+	  comment.setId(principal.getName());
 	  
     commentService.insertComment(comment);
   }
   
-  @RequestMapping(value = "boardCommentUpdate.do", method = RequestMethod.PUT)
-  public void boardCommentUpdate(Comment comment) {
+  //댓글 수정
+  @RequestMapping(value = "boardCommentUpdate.do", method = RequestMethod.PUT, headers={"Content-type=application/json"})
+  public @ResponseBody void boardCommentUpdate(@RequestBody Comment comment) {
+	  
     commentService.updateComment(comment);
   }
   
+  //댓글 삭제
   @RequestMapping(value = "boardCommentDelete.do/{cno}")
   public @ResponseBody void boardCommentDelete(@PathVariable(value="cno") int cno) {
 	  
