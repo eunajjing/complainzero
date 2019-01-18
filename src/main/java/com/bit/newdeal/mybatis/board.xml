@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
+
 
 <mapper namespace="com.bit.newdeal.dao.boardDao">
 	<select id="containerOne" resultType="Board">
@@ -18,7 +18,8 @@
 		select title,
 				 bcontent,
 				 mid,
-				 writeDate
+				 writeDate,
+				 thumbNail
 				 from board
 				 WHERE bno = #{bno}
 	</select>
@@ -27,11 +28,12 @@
 		select * from board
 	</select>
 
-	<insert id="insertBoard" parameterType="Board">
-		insert into board (mid, title, bcontent, thumNail)
-		values (#{mid}, #{title}, #{bcontent}, #{thumNail});
-	</insert>
 
+  	<insert id="insertBoard" parameterType="Board">
+  	   insert into board(mid, title, bContent, thumbNail)
+  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail})
+  	</insert>
+  	
 	<update id="updateBoard" parameterType="Board">
 
 	</update>
@@ -41,52 +43,17 @@
 
 	</select>
 
-	<select id="selectMyBoard" parameterType="String"
-		resultType="Board">
-		select title, bcontent, writedate, readCount, thumNail from board where
-		mid=#{id}
-	</select>
-
-	<update id="update">
-		update board set bDelete = 1 where bno = #{bno}
-	</update>
-
-</mapper>
-=======
-  
-  <mapper namespace="com.bit.newdeal.dao.boardDao">
-  	<select id="containerOne" resultType="Board">
-  	
-  	</select>
-  	
-  	<select id="containerTwo" resultType="Board">
-  	
-  	</select>
-  	
-  	<select id="selectOneBoard" parameterType="int" resultType="Board">
-  	
-  	</select>
-  
-  	<select id="selectAllBoard" resultType="Board">
-  	
-  	</select>
-  
-  	<insert id="insertBoard" parameterType="Board">
-  	   insert into board(mid, title, bContent, thumbNail)
-  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail})
-  	</insert>
-  	
-  	<update id="updateBoard" parameterType="Board">
-  	
-  	</update>
-  	
-  	<select id="searchBoard" parameterType="String" resultType="Board">
-  	
-  	</select>
-  	
+	  	
   	<select id="selectMyBoard" parameterType="String" resultType="Board">
   		select title, bcontent, writedate, readCount, thumbNail from board where mid=#{id}
   	</select>
   	
-  </mapper>
->>>>>>> cho
+
+	<update id="deleteBoard">
+		update board set bDelete = 1 where bno = #{bno}
+	</update>
+
+</mapper>
+
+
+

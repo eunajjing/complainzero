@@ -3,8 +3,6 @@ package com.bit.newdeal.controller;
 import java.security.Principal;
 import java.util.HashMap;
 
-
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
@@ -65,12 +60,8 @@ public class boardController {
     String path = request.getSession().getServletContext().getRealPath("/");
     boardService.insertBoard(board, uFile, path, principal);
     
-    return "board/boardForm";
+    return "redirect:boardForm.do";
   }
-  
-  
-  @RequestMapping("writeBoard.do")
-  public void writeBoard() {}
   
   @RequestMapping("selectOneBoard.do")
   public ModelAndView selectOneBoard(int bno) {
@@ -165,4 +156,18 @@ public class boardController {
     
     return mav;
   }
+  
+  @RequestMapping("download.do") // 추가
+	public View download(@RequestParam(required=false) Integer bno) {
+	  System.out.println("bno : " + bno);
+		View view;
+		HashMap<String, Object> params = new HashMap<>();
+		if (bno != null) {
+			params.put("bno", bno);
+		}
+		
+		view = new DownloadView(boardService.getAttachFile(params));
+		
+		return view;
+	}
 }

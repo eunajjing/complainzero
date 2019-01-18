@@ -42,22 +42,27 @@ Date : 19-01-11
 	<hr>
 	<c:forEach items="${boardList}" var="boardList">
 	<div class="row">
-	<% for(int i=0; i < 3; i++ ) { %>
+<%-- 	<% for(int i=0; i < 3; i++ ) { %> --%>
+<%-- 		<c:forEach var="board" items="${boardList }"> --%>
+		<c:if test="${boardList.thumbNail != null }">
 		<div class="col-lg-4 col-sm-6 portfolio-item">
 			<div class="card h-100">
-				<a href="selectOneBoard.do?bno=${boardList.bno}"><img class="card-img-top"
-					src="http://placehold.it/700x400" alt=""></a>
+				<a href="selectOneBoard.do?bno=${boardList.bno}">
+<%-- 				<img src="download.do?bno=${boardList.bno }" class="card-img-top" alt=""></a> --%>
+				<img src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }" class="card-img-top" alt=""></a>
 				<div class="card-body">
 					<h4 class="card-title">
 						<a href="boardDetail.do">${boardList.title}</a>
 					</h4>
-					<p class="card-text">${boardList.bContent}</p> 
+<%-- 					<p class="card-text">${boardList.bContent}</p>  --%>
 					<p class="card-text">${boardList.mid}</p>
 		
 				</div>
 			</div>
 		</div>
-		<%} %>
+		</c:if>
+<%-- 		</c:forEach> --%>
+<%-- 		<%} %> --%>
 	</div>
 		</c:forEach>
 </div>
