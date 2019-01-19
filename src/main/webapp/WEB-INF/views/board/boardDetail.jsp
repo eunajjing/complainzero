@@ -76,9 +76,8 @@ date : 2019-01-18
 						</div>
 						<div class="form-group">
 							<label for="tel">담당자 연락처</label> <input type="tel" id="tel"
-								name="tel" class="form-control" rows="3" required="required"
+								name="tel" class="form-control" required="required"
 								placeholder="하이픈을 제외한 숫자로만 입력해주세요">
-							</textarea>
 						</div>
 						<div class="form-group">
 							<label for="etc">기타사항</label>

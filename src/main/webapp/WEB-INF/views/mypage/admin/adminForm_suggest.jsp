@@ -1,8 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 
+Date : 19-01-19
+내용 : 제안서 보기 모달 추가
+작성자 : 고은아
+ -->
 <!-- datatable css -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+ 
+ <!-- 제안모달 -->
+<div class="modal fade" id="suggestModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">제안하기</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+				<div class="modal-body">
+					<form id="suggest" name="suggest">
+					<input type="hidden" name="bno" value="${boardDetail.bno}">
+						<div class="form-group">
+							<label for="link">판매링크</label>
+							<textarea id="link" name="link" class="form-control" rows="3"
+							readonly="readonly"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="tel">담당자 연락처</label> <input type="tel" id="tel"
+								name="tel" class="form-control" readonly="readonly">
+							
+						</div>
+						<div class="form-group">
+							<label for="etc">기타사항</label>
+							<textarea id="etc" name="etc" class="form-control" rows="3"
+								readonly="readonly"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+		</div>
+	</div>
+</div>
+<!-- 제안모달 끝 -->
  
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
@@ -45,10 +87,8 @@
         </table>
       </div>
       <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
-
+<button type="button" class="btn btn-outline-primary"
+								data-toggle="modal" data-target="#suggestModal">제안</button>
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
