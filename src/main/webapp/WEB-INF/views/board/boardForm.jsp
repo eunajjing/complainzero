@@ -3,8 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 
 Date : 19-01-11
-작성자 : 고은아
 내용 : 게시판 뷰 초기 작성
+Date : 19-01-19
+내용 : 게시판 뷰 게시물 없을 때 제어
+작성자 : 고은아
  -->
 <div class="container">
 	<h1 class="mt-4 mb-3">
@@ -40,31 +42,38 @@ Date : 19-01-11
 	<a class="btn btn-secondary" href="writeBoardForm.do">글쓰기</a>
 	</div>
 	<hr>
-	<c:forEach items="${boardList}" var="boardList">
-	<div class="row">
-<%-- 	<% for(int i=0; i < 3; i++ ) { %> --%>
-<%-- 		<c:forEach var="board" items="${boardList }"> --%>
-		<c:if test="${boardList.thumbNail != null }">
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-			<div class="card h-100">
-				<a href="selectOneBoard.do?bno=${boardList.bno}">
-<%-- 				<img src="download.do?bno=${boardList.bno }" class="card-img-top" alt=""></a> --%>
-				<img src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }" class="card-img-top" alt=""></a>
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
-					</h4>
-<%-- 					<p class="card-text">${boardList.bContent}</p>  --%>
-					<p class="card-text">${boardList.mid}</p>
-		
+	<%-- <c:if test="${boardList== null}"> --%>
+     <div class="card mb-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <p class="card-text">게시글이 없습니다. 곧 게시판을 닫아야 할지도 모르겠군요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+	<%-- </c:if>
+	<c:otherwise> --%>
+		<c:forEach items="${boardList}" var="boardList">
+			<div class="row">
+				<c:if test="${boardList.thumbNail != null }">
+				<div class="col-lg-4 col-sm-6 portfolio-item">
+					<div class="card h-100">
+						<a href="selectOneBoard.do?bno=${boardList.bno}">
+						<img src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }" class="card-img-top" alt=""></a>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
+							</h4>
+							<p class="card-text">${boardList.mid}</p>
+				
+						</div>
+					</div>
 				</div>
+				</c:if>
 			</div>
-		</div>
-		</c:if>
-<%-- 		</c:forEach> --%>
-<%-- 		<%} %> --%>
-	</div>
 		</c:forEach>
+	<%-- </c:otherwise> --%>
 </div>
 
 	
