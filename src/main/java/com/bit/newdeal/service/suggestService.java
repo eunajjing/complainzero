@@ -1,6 +1,8 @@
 package com.bit.newdeal.service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class suggestService {
     return session.getMapper(suggestDao.class).insertSuggest(suggest);
   }
   
-  public int updateSuggest(int sno) {
-    return session.getMapper(suggestDao.class).updateSuggest(sno);
+  public int updateSuggest(Map<String, Object> params) {
+    return session.getMapper(suggestDao.class).updateSuggest(params);
   }
 }
