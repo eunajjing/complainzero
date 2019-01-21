@@ -2,15 +2,26 @@ package com.bit.newdeal.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.swing.text.Segment;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
 import com.bit.newdeal.dto.Suggest;
@@ -31,9 +42,10 @@ public class boardController {
   public ModelAndView boardForm() {
     ModelAndView mav = new ModelAndView();
     
-   // mav.addObject("boardList", boardService.selectAllBoard());
-    mav.setViewName("board/boardForm");
-    
+   mav.addObject("boardList", boardService.selectAllBoard());
+   /*System.out.println(boardService.selectAllBoard().);*/
+   mav.setViewName("board/boardForm");
+   
     return mav;
   }
   
@@ -54,18 +66,28 @@ public class boardController {
     String path = request.getSession().getServletContext().getRealPath("/");
     boardService.insertBoard(board, uFile, path, principal);
     
-    return "board/boardForm";
+    return "redirect:boardForm.do";
   }
   
   @RequestMapping("selectOneBoard.do")
   public ModelAndView selectOneBoard(int bno) {
     ModelAndView mav = new ModelAndView();
     
-    // mav.addObject("boardDetail", boardService.selectOneBoard(bno));
+    mav.addObject("boardDetail", boardService.selectOneBoard(bno));
+    mav.addObject("commentList", commentService.selectComment(bno));
     mav.setViewName("board/boardDetail");
     
     return mav;
   }
+ 
+  @RequestMapping("deleteBoard.do")
+  public String deleteBoard(@RequestParam int bno) {
+	  
+	  boardService.deleteBoard(bno);
+	  
+	  return "redirect:boardForm.do";
+  }
+  
   
   @RequestMapping("updateBoardForm.do")
   public void updateBoardForm() {}
@@ -78,49 +100,59 @@ public class boardController {
     return "redirect:selectOneBoard.do?bno=" + bno;
   }
   
-  @RequestMapping("deleteBoard.do")
-  public String deleteBoard(int bno) {
-    // 서비스, dao delete 만들어야함
-    return "redirect:boardForm.do";
+  @RequestMapping("boardDeleteForm.do")
+  public @ResponseBody void boardDelete(@PathVariable(value="bno") int bno) {
+	  boardService.deleteBoard(bno);
+  }
+
+  @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
+  public @ResponseBody void boardCommentSelect(int bno, Model model){
+	  model.addAttribute("comment", commentService.selectComment(bno));
   }
   
+  //댓글 추가
   @RequestMapping(value = "boardCommentInsert.do", method = RequestMethod.POST)
-  public void boardCommentInsert(Comment comment) {
+  public @ResponseBody void boardCommentInsert(Comment comment, Principal principal) {
+	  
+	  comment.setId(principal.getName());
+	  
     commentService.insertComment(comment);
   }
   
-  @RequestMapping(value = "boardCommentUpdate.do", method = RequestMethod.PUT)
-  public void boardCommentUpdate(Comment comment) {
+  //댓글 수정
+  @RequestMapping(value = "boardCommentUpdate.do", method = RequestMethod.PUT, headers={"Content-type=application/json"})
+  public @ResponseBody void boardCommentUpdate(@RequestBody Comment comment) {
+	  
     commentService.updateComment(comment);
   }
   
-  @RequestMapping(value = "boardCommentDelete.do", method = RequestMethod.DELETE)
-  public void boardCommentDelete(int cno) {
-    // 서비스, dao delete 만들어야함
+  //댓글 삭제
+  @RequestMapping(value = "boardCommentDelete.do/{cno}")
+  public @ResponseBody void boardCommentDelete(@PathVariable(value="cno") int cno) {
+	  
+    commentService.deleteComment(cno);
   }
   
-  @RequestMapping("writeSuggest.do")
-  public String writeSuggest(Suggest suggest) {
-    suggestService.insertSuggest(suggest);
-    
-    return "redirect:mySuggest.do";
+  @RequestMapping(value="writeSuggest.do", method = RequestMethod.POST)
+  public @ResponseBody boolean writeSuggest(@ModelAttribute Suggest suggest, Principal principal) {
+	return suggestService.insertSuggest(suggest);
   }
   
   @RequestMapping("deleteSuggest.do")
   public String deleteSuggest(int sno) {
-    suggestService.updateSuggest(sno);
+    /*suggestService.updateSuggest(sno);*/
     
     return "redirect:mySuggest.do";
   }
   
+  //유저회원 내글조회
   @RequestMapping("myBoard.do")
-  public ModelAndView myBoard(String id) {
+  public ModelAndView myBoard(Principal principal) {
     ModelAndView mav = new ModelAndView();
     HashMap<String, Object> params = new HashMap<String, Object>();
     
-    id = "test@test.com";
-    params.put("board", boardService.selectMyBoard(id));
-    params.put("comment", commentService.mySelectComment(id));
+    params.put("board", boardService.selectMyBoard(principal.getName()));
+    params.put("comment", commentService.mySelectComment(principal.getName()));
 //    params.put("likes", ); id로 찾고 글 번호로 조인해서 리스트 뽑아옴
     mav.addObject("myBoard", params);
     mav.setViewName("mypage/user/userMyPage_board");
@@ -128,13 +160,27 @@ public class boardController {
     return mav;
   }
   
+  //제공자유저 내 제안서 조회
   @RequestMapping("mySuggest.do")
-  public ModelAndView mySuggest(String id) {
+  public ModelAndView mySuggest(Principal principal) {
     ModelAndView mav = new ModelAndView();
-    id = "test@test.com";
-    /*mav.addObject("mySuggest", suggestService.selectOneSuggest(id));*/
+    /*mav.addObject("mySuggest", suggestService.selectOneSuggest(principal.getName()));*/
     mav.setViewName("mypage/enter/enterUserMyPage_suggest");
     
     return mav;
   }
+  
+  @RequestMapping("download.do") // 추가
+	public View download(@RequestParam(required=false) Integer bno) {
+	  System.out.println("bno : " + bno);
+		View view;
+		HashMap<String, Object> params = new HashMap<>();
+		if (bno != null) {
+			params.put("bno", bno);
+		}
+		
+		view = new DownloadView(boardService.getAttachFile(params));
+		
+		return view;
+	}
 }

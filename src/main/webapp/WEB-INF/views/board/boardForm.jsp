@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 
 Date : 19-01-11
-작성자 : 고은아
 내용 : 게시판 뷰 초기 작성
+Date : 19-01-19
+내용 : 게시판 뷰 게시물 없을 때 제어
+작성자 : 고은아
  -->
 <div class="container">
 	<h1 class="mt-4 mb-3">
@@ -39,23 +42,40 @@ Date : 19-01-11
 	<a class="btn btn-secondary" href="writeBoardForm.do">글쓰기</a>
 	</div>
 	<hr>
-	<div class="row">
-	<% for(int i=0; i < 6; i++ ) { %>
-		<div class="col-lg-4 col-sm-6 portfolio-item">
-			<div class="card h-100">
-				<a href="selectOneBoard.do?bno=1"><img class="card-img-top"
-					src="http://placehold.it/700x400" alt=""></a>
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="selectOneBoard.do?bno=1">Project One</a>
-					</h4>
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-						adipisicing elit. Amet numquam aspernatur eum quasi sapiente
-						nesciunt? Voluptatibus sit, repellat sequi itaque deserunt,
-						dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+	<%-- <c:if test="${boardList== null}"> --%>
+     <div class="card mb-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <p class="card-text">게시글이 없습니다. 곧 게시판을 닫아야 할지도 모르겠군요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+	<%-- </c:if>
+	<c:otherwise> --%>
+		<c:forEach items="${boardList}" var="boardList">
+			<div class="row">
+				<c:if test="${boardList.thumbNail != null }">
+				<div class="col-lg-4 col-sm-6 portfolio-item">
+					<div class="card h-100">
+						<a href="selectOneBoard.do?bno=${boardList.bno}">
+						<img src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }" class="card-img-top" alt=""></a>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
+							</h4>
+							<p class="card-text">${boardList.mid}</p>
+				
+						</div>
+					</div>
 				</div>
+				</c:if>
 			</div>
-		</div>
-		<%} %>
-	</div>
+		</c:forEach>
+	<%-- </c:otherwise> --%>
 </div>
+
+	
+	
+	

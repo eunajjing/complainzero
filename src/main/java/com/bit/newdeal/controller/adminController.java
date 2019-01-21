@@ -2,16 +2,16 @@ package com.bit.newdeal.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.bit.newdeal.dto.Suggest;
 import com.bit.newdeal.service.memberService;
 import com.bit.newdeal.service.reportService;
 import com.bit.newdeal.service.suggestService;
@@ -19,6 +19,7 @@ import com.bit.newdeal.service.suggestService;
 @RestController
 // @RequestMapping("/admin")
 public class adminController {
+
 	@Autowired
 	private reportService reportService;
 	@Autowired
@@ -54,19 +55,13 @@ public class adminController {
 	}
 
 	@RequestMapping(value = "updateSuggest.do/{sno}/{num}", method = RequestMethod.PUT)
-	public void updateApproveSuggest(@PathVariable int sno, @PathVariable int num) {
+	public void updateSuggest(@PathVariable int sno, @PathVariable int num) {
 		Map<String, Object> params = new HashMap<>();
 
 		params.put("sno", sno);
 		params.put("num", num);
 
 		suggestService.updateSuggest(params);
-	}
-
-	@RequestMapping("updateRefuseSuggest.do")
-	public void updateRefuseSuggest(int sno) {
-//		suggestService.updateSuggest(sno);
-		// updateSuggest 확인해봐야함
 	}
 
 	@RequestMapping("adminForm.do")
@@ -100,5 +95,5 @@ public class adminController {
 			memberService.blackList(id);
 		}
 		reportService.updateReport(params);
-	}
+	} 
 }
