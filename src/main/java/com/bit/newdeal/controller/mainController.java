@@ -1,11 +1,16 @@
 package com.bit.newdeal.controller;
 
+import java.security.Principal;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.bit.newdeal.dto.Alarm;
 import com.bit.newdeal.dto.Report;
 import com.bit.newdeal.service.alarmService;
@@ -62,13 +67,14 @@ public class mainController {
     reportService.insertReport(report);
   }
   
-  @RequestMapping("insertLikes.do")
-  public void insertLikes(String id, int bno) {
-    
+  @RequestMapping(value="insertLikes.do", method=RequestMethod.POST)
+  public @ResponseBody void insertLikes(Principal principal, @RequestParam("bno") int bno) {
+	  
+	  boardService.insertLike(principal.getName(), bno);
   }
   
-  @RequestMapping("deleteLikes.do")
-  public void deleteLikes(String id, int bno) {
-    
+  @RequestMapping(value="deleteLikes.do", method=RequestMethod.POST)
+  public @ResponseBody void deleteLikes(Principal principal, @RequestParam("bno") int bno) {
+	  boardService.deleteLike(principal.getName(), bno);
   }
 }

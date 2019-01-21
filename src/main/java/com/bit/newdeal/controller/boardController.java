@@ -72,7 +72,7 @@ public class boardController {
   @RequestMapping("selectOneBoard.do")
   public ModelAndView selectOneBoard(int bno) {
     ModelAndView mav = new ModelAndView();
-
+    
     mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
     mav.setViewName("board/boardDetail");
@@ -80,6 +80,14 @@ public class boardController {
     return mav;
   }
  
+  @RequestMapping("deleteBoard.do")
+  public String deleteBoard(@RequestParam int bno) {
+	  
+	  boardService.deleteBoard(bno);
+	  
+	  return "redirect:boardForm.do";
+  }
+  
   
   @RequestMapping("updateBoardForm.do")
   public void updateBoardForm() {}
@@ -132,7 +140,7 @@ public class boardController {
   
   @RequestMapping("deleteSuggest.do")
   public String deleteSuggest(int sno) {
-    suggestService.updateSuggest(sno);
+    /*suggestService.updateSuggest(sno);*/
     
     return "redirect:mySuggest.do";
   }

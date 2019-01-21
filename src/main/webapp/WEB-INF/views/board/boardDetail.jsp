@@ -51,7 +51,6 @@ date : 2019-01-18
 				<button type="button" class="btn btn-danger">전송</button>
 			</div>
 		</div>
-
 	</div>
 </div>
 
@@ -66,40 +65,41 @@ date : 2019-01-18
 				<h4 class="modal-title">제안하기</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-				<div class="modal-body">
-					<form id="suggest" name="suggest">
+			<div class="modal-body">
+				<form id="suggest" name="suggest">
 					<input type="hidden" name="bno" value="${boardDetail.bno}">
-						<div class="form-group">
-							<label for="link">판매링크</label>
-							<textarea id="link" name="link" class="form-control" rows="3"
-								placeholder="게시글 하단에 안내할 링크를 써주세요" required="required"></textarea>
-						</div>
-						<div class="form-group">
-							<label for="tel">담당자 연락처</label> <input type="tel" id="tel"
-								name="tel" class="form-control" required="required"
-								placeholder="하이픈을 제외한 숫자로만 입력해주세요">
-						</div>
-						<div class="form-group">
-							<label for="etc">기타사항</label>
-							<textarea id="etc" name="etc" class="form-control" rows="3"
-								placeholder="자세한 내용을 적어주세요"></textarea>
-						</div>
-					</form>
-				</div>
-				<div class="alert alert-info">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					제안 승인 후 회원들에게 알림이 발송됩니다. <strong>판매링크를 정확히 기재해주세요.</strong>
-				</div>
-				<div class="modal-footer">
-					<button type="button" id="suggestSubmitBtn" class="btn btn-primary" disabled="disabled">전송</button>
-				</div>
+					<div class="form-group">
+						<label for="link">판매링크</label>
+						<textarea id="link" name="link" class="form-control" rows="3"
+							placeholder="게시글 하단에 안내할 링크를 써주세요" required="required"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="tel">담당자 연락처</label> <input type="tel" id="tel"
+							name="tel" class="form-control" required="required"
+							placeholder="하이픈을 제외한 숫자로만 입력해주세요">
+					</div>
+					<div class="form-group">
+						<label for="etc">기타사항</label>
+						<textarea id="etc" name="etc" class="form-control" rows="3"
+							placeholder="자세한 내용을 적어주세요"></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="alert alert-info">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				제안 승인 후 회원들에게 알림이 발송됩니다. <strong>판매링크를 정확히 기재해주세요.</strong>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="suggestSubmitBtn" class="btn btn-primary"
+					disabled="disabled">전송</button>
+			</div>
 		</div>
 	</div>
 </div>
-<!-- 제안모달 끝 -->
+
+<!-- 신고 모달 끝  -->
 
 <div class="container">
-
 
 	<h1 class="mt-4 mb-3">
 		${boardDetail.title} <small>by <a href="#"> 카테고리</a>
@@ -127,15 +127,15 @@ date : 2019-01-18
 			<div class="card my-4">
 				<div class="card-body rightOutDiv">
 					<!-- 만약 내가 쓴 글이 아니면 -->
-					이 글이 공감되시나요? <i class="far fa-heart"></i>
+					이 글이 공감되시나요? <i id="like" class="far fa-heart"></i>
 					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
-					<br>
+					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
 
 					<!-- 만약 내가 쓴 글이면 -->
 					<div class="btn-group btn-group-sm">
 						<button type="button" class="btn btn-outline-warning">수정</button>
-						<button type="button" class="btn btn-outline-danger">삭제</button>
-
+						<button type="button" class="btn btn-outline-danger"
+							onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
 						<sec:authorize ifAnyGranted="ROLE_COMPANY">
 							<button type="button" class="btn btn-outline-primary"
 								data-toggle="modal" data-target="#suggestModal">제안</button>
@@ -217,6 +217,39 @@ date : 2019-01-18
 <script>
 $(document).ready(function(){
 	$('#bContentimg').find('img').width('500px').height('375px');
+	
+	$('#like').click(function(){
+		var bno = $('#bno').val();
+		
+		if($('#like').attr('class') == 'far fa-heart'){
+			$.ajax({
+				url : 'insertLikes.do',
+	  			  type : 'POST',
+	  			  data : {'bno' : bno},
+	  			  success : function() {
+					$('#like').attr('class','fas fa-heart');
+	  	    		alert("like~!");
+	  	          },
+	  	          error : function(){
+	  	        	  alert("error");
+	  	          }
+			});
+		}else{
+			$.ajax({
+				url : 'deleteLikes.do',
+	  			  type : 'POST',
+	  			  data : {'bno' : bno},
+	  			  success : function() {
+	  				$('#like').attr('class','far fa-heart');
+	  	    		alert("no~!");
+	  	          },
+	  	          error : function(){
+	  	        	  alert("error");
+	  	          }
+			});
+			
+		}
+	});
 });
 
 function insertComment(){

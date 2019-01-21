@@ -52,6 +52,14 @@
 	<update id="deleteBoard">
 		update board set bDelete = 1 where bno = #{bno}
 	</update>
+	
+	<insert id="insertLike" parameterType="HashMap">
+		insert into likelist(id, bno) values(#{id}, #{bno})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="HashMap">
+		delete from likelist where id = #{id} and bno = #{bno}
+	</delete>
 
 </mapper>
 

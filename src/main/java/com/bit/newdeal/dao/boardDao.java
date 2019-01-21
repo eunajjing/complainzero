@@ -14,4 +14,6 @@ public interface boardDao {
   public List<Board> searchBoard(HashMap<String, Object> params);
   public List<Board> selectMyBoard(String id);
   public int deleteBoard(int bno);
+  public int insertLike(HashMap<String, Object> map);
+  public int deleteLike(HashMap<String, Object> map);
 }

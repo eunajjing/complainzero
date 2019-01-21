@@ -5,7 +5,7 @@
           <h2>정보 수정</h2>
           
           	<div>
-          		<form action="updateMember.do" id="formdata" method="post" enctype="multipart/form-data">
+          		<form id="formdata" enctype="multipart/form-data">
 		          <label>아이디: </label>
 		          	<input type="text" class="form-control" id="id" name="id" value="${member.id}" readonly>
 		          <p class="help-block"></p>
@@ -75,7 +75,7 @@
 		  				  //성공시 정보변경
 		  				  if(data == true){
 		  					/* var form = document.getElementById('formdata'); */
-		  			   		var form = $('form')[1];
+		  			   		var form = $('form')[0];
 		  			   		var formData = new FormData(form);
 		  		       		
 		  		    		$.ajax({

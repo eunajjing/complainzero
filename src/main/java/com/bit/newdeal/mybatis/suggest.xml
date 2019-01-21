@@ -19,7 +19,7 @@
   	</insert>
   	
   	<update id="updateSuggest" parameterType="Suggest">
-  	
+  		update suggestion set statusCode = #{statusCode} where sno = #{sno}
   	</update>
   
   </mapper>
