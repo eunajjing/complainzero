@@ -95,6 +95,7 @@ date : 2019-01-18
 
 <div class="container">
 
+
 	<h1 class="mt-4 mb-3">
 		${boardDetail.title} <small>by <a href="#"> 카테고리</a>
 		</small>
@@ -133,6 +134,7 @@ date : 2019-01-18
 					
 					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
 					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
+
 
 					<!-- 만약 내가 쓴 글이면 -->
 					<div class="btn-group btn-group-sm">
@@ -423,5 +425,14 @@ $('#suggestSubmitBtn').click(function () {
 	});
 })
 
+
+/* 
+$("#deleteBoard").click(function(){
+	$("#modalHeader").text("삭제 여부 확인");
+	$("#modalBody").text("삭제하시겠습니까?");
+	$("#modalButton").text("삭제");
+    $("#myModal").modal();
+});
+ */
 
 </script>

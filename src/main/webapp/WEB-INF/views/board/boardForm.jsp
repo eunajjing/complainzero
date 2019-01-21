@@ -42,6 +42,9 @@ Date : 19-01-21
 		<a class="btn btn-secondary" href="writeBoardForm.do">글쓰기</a>
 	</div>
 	<hr>
+
+
+
 	<c:if test="${empty boardList}">
 		<div class="card mb-4">
 			<div class="card-body">
@@ -49,6 +52,7 @@ Date : 19-01-21
 					<div class="col-lg-12">
 						<p class="card-text">게시글이 없습니다. 곧 게시판을 닫아야 할지도 모르겠군요.</p>
 					</div>
+r
 				</div>
 			</div>
 		</div>
