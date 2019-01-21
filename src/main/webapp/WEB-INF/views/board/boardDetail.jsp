@@ -10,15 +10,9 @@ date : 2019-01-18
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
+<link href="css/boardDetail.css" rel="stylesheet">
 <!-- 신고 모달 -->
 
-<style>
-.bContentimg img {
-	width: 500px;
-	height: 375px;
-}
-</style>
 <div class="modal" id="reportModal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -177,7 +171,6 @@ date : 2019-01-18
 									data-toggle="modal" data-target="#reportModal">신고</button>
 
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
-
 								<div class="btn-group btn-group-sm">
 									<button type="button" onclick="updateBtn(${commentList.cno})"
 										class="btn btn-outline-warning">수정</button>
@@ -200,7 +193,7 @@ date : 2019-01-18
 		</div>
 
 		<!-- 좋아요 시작 -->
-		<div class="col-md-4">
+		<div class="d-none d-md-block floating">
 			<div class="card my-4">
 				<h5 class="card-header">좋아요를 눌러보세요</h5>
 				<div class="card-body">
@@ -209,6 +202,11 @@ date : 2019-01-18
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<!-- 위로 가기 버튼 -->
+	<div id="upBtn">
+	<a href="#">위로</a>
 	</div>
 
 

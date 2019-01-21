@@ -3,10 +3,7 @@ package com.bit.newdeal.controller;
 import java.security.Principal;
 import java.util.HashMap;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.swing.text.Segment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -135,7 +132,8 @@ public class boardController {
   
   @RequestMapping(value="writeSuggest.do", method = RequestMethod.POST)
   public @ResponseBody boolean writeSuggest(@ModelAttribute Suggest suggest, Principal principal) {
-	return suggestService.insertSuggest(suggest);
+	  suggest.setMid(principal.getName());
+	  return suggestService.insertSuggest(suggest);
   }
   
   @RequestMapping("deleteSuggest.do")
