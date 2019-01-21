@@ -95,6 +95,15 @@ public class boardService {
 		return new File(path + fileName);
 	}
 	
+	public int selectLike(String id, int bno) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("bno", bno);
+		
+		return session.getMapper(boardDao.class).selectLike(map);
+	}
+	
 	public int insertLike(String id, int bno) {
 		
 		HashMap<String, Object> map = new HashMap<>();

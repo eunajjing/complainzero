@@ -28,7 +28,6 @@
 		select * from board
 	</select>
 
-
   	<insert id="insertBoard" parameterType="Board">
   	   insert into board(mid, title, bContent, thumbNail)
   	   values(#{mid}, #{title}, #{bContent}, #{thumbNail})
@@ -52,6 +51,10 @@
 	<update id="deleteBoard">
 		update board set bDelete = 1 where bno = #{bno}
 	</update>
+	
+	<select id="selectLike" parameterType="HashMap" resultType="int">
+		select EXISTS(select id, bno from likelist where id=#{id} and bno = #{bno}) as success;
+	</select>
 	
 	<insert id="insertLike" parameterType="HashMap">
 		insert into likelist(id, bno) values(#{id}, #{bno})

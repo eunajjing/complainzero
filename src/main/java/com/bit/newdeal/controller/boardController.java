@@ -3,10 +3,7 @@ package com.bit.newdeal.controller;
 import java.security.Principal;
 import java.util.HashMap;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.swing.text.Segment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,11 +67,12 @@ public class boardController {
   }
   
   @RequestMapping("selectOneBoard.do")
-  public ModelAndView selectOneBoard(int bno) {
+  public ModelAndView selectOneBoard(int bno, Principal principal) {
     ModelAndView mav = new ModelAndView();
     
     mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
+    mav.addObject("like", boardService.selectLike(principal.getName(), bno));
     mav.setViewName("board/boardDetail");
     
     return mav;
