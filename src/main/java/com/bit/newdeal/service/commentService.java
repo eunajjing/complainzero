@@ -1,9 +1,12 @@
 package com.bit.newdeal.service;
 
+import java.util.HashMap;
 import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.bit.newdeal.dao.commentDao;
 import com.bit.newdeal.dto.Comment;
 
@@ -16,7 +19,7 @@ public class commentService {
     return session.getMapper(commentDao.class).selectComment(bno);
   }
   
-  public List<Comment> mySelectComment(String id) {
+  public List<HashMap> mySelectComment(String id) {
     return session.getMapper(commentDao.class).mySelectComment(id);
   }
   

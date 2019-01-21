@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +98,35 @@ public class boardService {
 		} 
 		
 		return new File(path + fileName);
+	}
+	
+	public int selectLike(String id, int bno) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("bno", bno);
+		
+		return session.getMapper(boardDao.class).selectLike(map);
+	}
+	
+	public int insertLike(String id, int bno) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("bno", bno);
+		
+		return session.getMapper(boardDao.class).insertLike(map);
+	}
+	
+	public int deleteLike(String id, int bno) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("bno", bno);
+		
+		return session.getMapper(boardDao.class).deleteLike(map);
+	}
+	
+	public List<Board> likeBoard(String id) {
+		return session.getMapper(boardDao.class).likeBoard(id);
 	}
 }

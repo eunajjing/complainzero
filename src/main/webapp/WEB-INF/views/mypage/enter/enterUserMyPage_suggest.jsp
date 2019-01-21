@@ -13,18 +13,27 @@
 	          	<table class="dt">
 	          	<thead>
 	          		<tr>
-	          			<th>내용</th>
-	          			<th>작성시간</th>
-	          			<th>게시글제목</th>
+	          			<th>no</th>
+	          			<th>게시판 제목</th>
+	          			<th>기타 사항</th>
+	          			<th>처리 상태</th>
 	          		</tr>
 	          	</thead>
 	          	<tbody>
-	          	<c:forEach items="${myBoard.comment}" var="comment">
+	          	<c:forEach items="${mySuggest}" var="mySuggest">
 	          		<tr>
-						<td>${comment.cContent}</td>
-						<td>${comment.writeDate}</td>
-						<td>aaaa</td>
-						<%-- <td>${comment.title}</td> --%>
+						<td>${mySuggest.sno}</td>
+						<td>${mySuggest.title}</td>
+						<td>${mySuggest.etc}</td>
+						<c:if test="${mySuggest.statusCode == 'S00' }">
+              				<td>대기</td>
+              			</c:if>
+              			<c:if test="${mySuggest.statusCode == 'S01' }">
+              				<td>반려</td>
+              			</c:if>
+						<c:if test="${mySuggest.statusCode == 'S02' }">
+              				<td>승인</td>
+              			</c:if>
 					</tr>
 	          	</c:forEach>
 	          	</tbody>

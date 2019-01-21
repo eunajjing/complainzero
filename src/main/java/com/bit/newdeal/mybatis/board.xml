@@ -15,13 +15,12 @@
 
 	<select id="selectOneBoard" parameterType="int"
 		resultType="Board">
+
 	   SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
           FROM board
          WHERE bDelete='0'
          and bno = #{bno}
       
-
-
 	</select>
 
 	<select id="selectAllBoard" resultType="Board">
@@ -30,7 +29,6 @@
          WHERE bDelete='0'
 
 	</select>
-
 
   	<insert id="insertBoard" parameterType="Board">
   	   insert into board(mid, title, bContent, thumbNail, bDelete)
@@ -55,6 +53,25 @@
 	<update id="deleteBoard">
 		update board set bDelete = 1 where bno = #{bno}
 	</update>
+	
+	<select id="selectLike" parameterType="HashMap" resultType="int">
+		select EXISTS(select id, bno from likelist where id=#{id} and bno = #{bno}) as success;
+	</select>
+	
+	<insert id="insertLike" parameterType="HashMap">
+		insert into likelist(id, bno) values(#{id}, #{bno})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="HashMap">
+		delete from likelist where id = #{id} and bno = #{bno}
+	</delete>
+	
+	<select id="likeBoard" parameterType="String" resultType="Board">
+		select b.title, b.writeDate, b.readCount
+		from board b join likelist l
+		on b.bno = l.bno
+		where id = #{id}
+	</select>
 
 </mapper>
 

@@ -10,6 +10,10 @@
 #selectBoard{
 	float:right;
 }
+img{
+	width:100px;
+	height:100px;
+}
 </style>
 	
 	
@@ -34,7 +38,7 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
@@ -43,7 +47,7 @@
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
 		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
+							<%-- <td>${board.bContent}</td> --%>
 							<td>${board.writeDate}</td>
 							<td>${board.readCount}</td>
 						</tr>
@@ -68,7 +72,7 @@
 		          		<tr>
 							<td>${comment.cContent}</td>
 							<td>${comment.writeDate}</td>
-							<%-- <td>${comment.title}</td> --%>
+							<td>${comment.title}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -82,18 +86,18 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
 		       		</thead>
 		       		<tbody>
-		          	<c:forEach items="${myBoard.board}" var="board">
+		          	<c:forEach items="${myBoard.likes}" var="likes">
 		          		<tr>
-		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
-							<td>${board.writeDate}</td>
-							<td>${board.readCount}</td>
+		          			<td>${likes.title}</td>
+							<%-- <td>${board.bContent}</td> --%>
+							<td>${likes.writeDate}</td>
+							<td>${likes.readCount}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -109,7 +113,7 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
@@ -118,7 +122,7 @@
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
 		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
+							<%-- <td>${board.bContent}</td> --%>
 							<td>${board.writeDate}</td>
 							<td>${board.readCount}</td>
 						</tr>
@@ -145,7 +149,7 @@
 		          		<tr>
 							<td>${comment.cContent}</td>
 							<td>${comment.writeDate}</td>
-							<%-- <td>${comment.title}</td> --%>
+							<td>${comment.title}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -161,18 +165,18 @@
 		          	<thead>
 		          		<tr>
 		          			<th>제목</th>
-		          			<th>내용</th>
+		          			<!-- <th>내용</th> -->
 		          			<th>작성시간</th>
 		          			<th>조회수</th>
 		          		</tr>
 		       		</thead>
 		       		<tbody>
-		          	<c:forEach items="${myBoard.board}" var="board">
+		          	<c:forEach items="${myBoard.likes}" var="likes">
 		          		<tr>
-		          			<td>${board.title}</td>
-							<td>${board.bContent}</td>
-							<td>${board.writeDate}</td>
-							<td>${board.readCount}</td>
+		          			<td>${likes.title}</td>
+							<%-- <td>${board.bContent}</td> --%>
+							<td>${likes.writeDate}</td>
+							<td>${likes.readCount}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>

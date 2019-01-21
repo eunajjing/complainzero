@@ -9,7 +9,7 @@
   		select * from comment where bno = #{bno} and cDelete = 0;
   	</select>
   	
-  	<select id="mySelectComment" parameterType="String" resultType="Comment">
+  	<select id="mySelectComment" parameterType="String" resultType="HashMap">
   		select c.cContent, c.writeDate, b.title
 		from comment c join board b
 		where c.bno = b.bno
