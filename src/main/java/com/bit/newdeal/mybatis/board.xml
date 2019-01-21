@@ -31,8 +31,8 @@
 	</select>
 
   	<insert id="insertBoard" parameterType="Board">
-  	   insert into board(mid, title, bContent, thumbNail, bDelete)
-  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail}, #{0})
+  	   insert into board(mid, title, bContent, thumbNail)
+  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail})
   	</insert>
   	
 	<update id="updateBoard" parameterType="Board">
