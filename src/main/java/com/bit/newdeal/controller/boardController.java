@@ -99,8 +99,10 @@ public class boardController {
   }
   
   @RequestMapping("boardDeleteForm.do")
-  public @ResponseBody void boardDelete(@PathVariable(value="bno") int bno) {
+  public String boardDelete (@RequestParam int bno) {
 	  boardService.deleteBoard(bno);
+	  System.out.println("asdfjkl");
+	  return "redirect:boardForm.do";
   }
 
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)

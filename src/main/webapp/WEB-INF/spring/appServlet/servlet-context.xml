@@ -60,6 +60,14 @@
 				<beans:value>/WEB-INF/views/tiles/tiles.xml</beans:value>
 			</beans:list>
 		</beans:property>
+
+
 	</beans:bean>  	
+	
+	
+	
+
+
+
 	
 </beans:beans>
