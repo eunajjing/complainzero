@@ -56,7 +56,7 @@ Date : 19-01-19
               <th class="text-center">작성자</th>
               <th class="text-center">게시글 번호</th>       
               <th class="text-center">링크</th>              
-              <th class="text-center">회사명</th>              
+              <!-- <th class="text-center">회사명</th> -->              
               <th class="text-center">연락처</th>              
               <th class="text-center">기타사항</th>     
               <th class="text-center">제안 상태</th> 
@@ -70,7 +70,7 @@ Date : 19-01-19
               <td>${suggest.mid }</td>
               <td>${suggest.bno }</td>
               <td>${suggest.link }</td>
-              <td>${suggest.companyName }</td>
+              <%-- <td>${suggest.companyName }</td> --%>
               <td>${suggest.tel }</td>
               <td>${suggest.etc }</td>
               <c:if test="${suggest.statusCode == 'S00' }">

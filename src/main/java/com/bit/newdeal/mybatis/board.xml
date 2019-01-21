@@ -44,7 +44,7 @@
 
 	  	
   	<select id="selectMyBoard" parameterType="String" resultType="Board">
-  		select title, bcontent, writedate, readCount from board where mid=#{id}
+  		select bno, title, bcontent, writedate, readCount from board where mid=#{id}
   	</select>
   	
 
@@ -65,7 +65,7 @@
 	</delete>
 	
 	<select id="likeBoard" parameterType="String" resultType="Board">
-		select b.title, b.writeDate, b.readCount
+		select b.title, b.writeDate, b.readCount, b.bno
 		from board b join likelist l
 		on b.bno = l.bno
 		where id = #{id}
