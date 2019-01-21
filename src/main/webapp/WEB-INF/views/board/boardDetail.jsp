@@ -6,6 +6,8 @@ date : 2019-01-11
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    
     <!-- 신고 모달 -->
     
     <style>
@@ -119,16 +121,20 @@ date : 2019-01-11
 				          <div class="media mb-4">
 				            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
 				            <div class="media-body">
-				              ${commentList.mid} &nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
+				              ${commentList.id}&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
 				              
 				              <!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
 				              
 				              	<div class="btn-group btn-group-sm">
-								  <button type="button" class="btn btn-outline-warning">수정</button>
+								  <button type="button" onclick="updateBtn(${commentList.cno})" class="btn btn-outline-warning">수정</button>
 								  <button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>
 								</div>
 				              <br>
-				              	${commentList.cContent}
+				              	<div id="updateText${commentList.cno}" style="display:none;">
+									<textarea class="form-control" rows="2">${commentList.cContent}</textarea>
+									<button input="button" onclick="updateComment(${commentList.cno})" class="btn btn-outline-warning">수정</button>
+								</div>
+				              	<span id="originText${commentList.cno}">${commentList.cContent}</span>
 				            </div>
 				          </div>
 			          </div>
@@ -162,13 +168,69 @@ function insertComment(){
 		  type : 'POST',
 		  data : {cContent : $('#cContent').val()},
 		  success : function() {
-		  	$('#cContent').val('');
+			/* alert('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}'); */
 		 	alert("작성되었습니다.");
 		 	//동적으로 태그 생성
+		 	
+		 	var output = "";
+
+		 	
+		 	output += '<div class="comment" seq="' + $('.comment').attr('seq') + '">';
+		 	
+			output += '<div class="media mb-4">';
+			output += '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
+			output += '<div class="media-body">';
+			output += '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>';
+			output += '<div class="btn-group btn-group-sm">';
+			output += '<button type="button" class="btn btn-outline-warning">수정</button>';
+			output += '<button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>';
+		    output += '</div>';
+			output += '<br>';
+			output += $('#cContent').val();
+			output += '</div>';
+			output += '</div>';
+			
+			
+			$(".commentList").append(output);
+			$('#cContent').val('');
      	  },
      	  error : function(){
     	  	alert("error");
       	  }
+	});
+}
+
+function updateBtn(e){
+	if($('#updateText' + e).css('display') == 'none'){
+		$('#updateText' + e).show();
+		$('#originText' + e).hide();
+	}else{
+		$('#updateText' + e).hide();
+		$('#originText' + e).show();
+	}
+}
+
+function updateComment(e){
+	var cno = e;
+	var cContent = $('#updateText' + e).children('.form-control').val();
+	var parameter = JSON.stringify({cno : cno, cContent : cContent});
+	
+	$.ajax({
+		url : 'boardCommentUpdate.do',
+			  type : 'PUT',
+			  data : parameter,
+			  contentType : 'application/json;charset=UTF-8',
+			  success : function() {
+				  $('#updateText' + e).children('.form-control').val(cContent);
+				  $('#originText' + e).text(cContent);
+				  $('#updateText' + e).hide();
+				  $('#originText' + e).show();
+				  
+	    		  alert("수정되었습니다.");
+	          },
+	          error : function(){
+	        	  alert("error");
+	          }
 	});
 }
 

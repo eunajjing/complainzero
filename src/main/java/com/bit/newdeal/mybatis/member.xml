@@ -2,51 +2,45 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="com.bit.newdeal.dao.memberDao">
-  	<select id="selectOneMember" parameterType="String" resultType="Member">
-	    select * from member where id=#{id}
+
+<mapper namespace="com.bit.newdeal.dao.memberDao">
+	<select id="selectOneMember" parameterType="String"
+		resultType="Member">
+		select * from member where id=#{id}
 	</select>
-	
 	<select id="selectAllMember" resultType="Member">
-	    select * from member
+		select * from member
 	</select>
-	
 	<insert id="insertMember" parameterType="Member">
-	
+		insert into member (id,
+		pw, nickname, profile)
+		values(#{id}, #{pw}, #{nickname}, #{profile, jdbcType=VARCHAR})
 	</insert>
-	
+	<insert id="insertrole" parameterType="Member">
+		insert into roles
+		values(#{id}, #{roleCode})
+	</insert>
 	<update id="updateMember" parameterType="Member">
-		update member set nickname = #{nickname}, profile = #{profile} where id = #{id}
+		update member set
+		nickname = #{nickname}, profile = #{profile} where id = #{id}
 	</update>
-	
-	<select id="searchMember" parameterType="String" resultType="Member">
-	
+	<select id="searchMember" parameterType="String"
+		resultType="Member">
 	</select>
-
-	
-	<update id="blackList" parameterType="String">
-	   update member set enabled=0 where id=#{id}
-	</update>
-
-
-	<select id="nicknameCheck" parameterType="String" resultType="int">
-	 	select count(*) from member where nickname=#{nickname}
-
-	</select>
-
 	<update id="blacklist" parameterType="int">
-	   update member set enabled where id=#{id}
+		update member set enabled where id=#{id}
 	</update>
-	
 	<delete id="deleteMember" parameterType="String">
-		update member set enabled = 0 where id = #{id}
+		update member set
+		enabled = 0 where id = #{id}
 	</delete>
-	
+
 	<select id="pwCheck" parameterType="String" resultType="String">
-		select pw from member where id = #{id}
-
-		</select>
-
-  
- </mapper>
+		select pw
+		from member where id = #{id}
+	</select>
+	<select id="nicknameCheck" parameterType="String"
+		resultType="int">
+		select count(*) from member where nickname=#{nickname}
+	</select>
+</mapper>
