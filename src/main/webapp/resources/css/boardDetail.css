@@ -1,0 +1,13 @@
+.bContentimg img {
+	width: 500px;
+	height: 375px;
+}
+
+.floating { position: fixed;
+			right: 10%; }
+
+#upBtn {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+}
