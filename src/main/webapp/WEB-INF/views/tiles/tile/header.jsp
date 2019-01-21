@@ -53,7 +53,7 @@ Date : 19-01-15
 						id="navbarDropdownPortfolio" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"> <img alt=""
 							src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
-							id="profile">&nbsp<span>닉네임</span> 님
+							id="profile">&nbsp<span id="nickname"></span> 님
 					</a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPortfolio">
@@ -81,3 +81,12 @@ Date : 19-01-15
 			</div>
 		</div>
 	</nav>
+	
+	<script type="text/javascript">
+	var session  = ('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}');
+	$(function() {
+		if (session != null) {
+			// ajax 돌려서 프로필 이미지, 닉네임 붙여넣기!
+		}
+	})
+	</script>
