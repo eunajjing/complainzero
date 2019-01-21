@@ -217,6 +217,29 @@ $('#validateBtn').click(function() {
 	});
 });
 
+// 프로필 사진 업로드
+$(function() {
+	$('#input_img').on('change',handleImgFileSelect);
+})
+
+// 프로필 사진 핸들러
+function handleImgFileSelect(e){
+    	var files = e.target.files;
+    	var fileArr = Array.prototype.slice.call(files);
+    	
+    	fileArr.forEach(function(f){
+    		if(!f.type.match("image.*")){
+    			alert("확장자는 이미지 확장자만 가능합니다.");
+    			return;
+    		}
+    		
+    		var reader = new FileReader();
+    		reader.onload = function(e){
+    			$('#profilePrew').attr('src', e.target.result);
+    		}
+    		reader.readAsDataURL(f);
+    	});
+    }
 
 $('#joinForm').keyup(function() {
 	id() // 이메일 인증 해야함
