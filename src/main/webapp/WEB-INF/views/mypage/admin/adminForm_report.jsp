@@ -6,30 +6,57 @@
 <!-- datatable css -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
  
- <%List<Report> reportList = new ArrayList<Report>();  %>
+ <!-- 신고모달 -->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">신고</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="report" name="report">
+          <div class="form-group">
+            <label for="tel">신고자 아이디</label> <input type="email" id="isFrom"
+              name="isFrom" class="form-control" readonly="readonly">
+          </div>
+          <div class="form-group">
+            <label for="rContent">상세내용</label>
+            <textarea id="rContent" name="rContent" class="form-control" rows="3"
+              readonly="readonly"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 신고모달 끝 -->
+ 
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
         <table class="table table-striped table-bordered table-hover" id="dt">
           <thead>
             <tr>
               <th class="text-center">신고 번호</th>
-              <th class="text-center">신고당한 아이디</th>
-              <th class="text-center">신고한 아이디</th>              
+              <th class="text-center">신고당한 아이디</th>          
               <th class="text-center">게시글/댓글</th>              
               <th class="text-center">게시글 번호</th>              
-              <th class="text-center">신고 사유</th>              
-              <th class="text-center">상세내용</th>              
+              <th class="text-center">신고 사유</th>
               <th class="text-center">처리 상태</th>              
               <th class="text-center">신고 처리</th>              
+              <th class="text-center">상세 보기</th>              
             </tr>
           </thead>
           <tbody>     
-<%--           <c:set var="report" value="${reportList }"></c:set> --%>
             <c:forEach var="report" items="${reportList }">
             <tr class="table-primary">
               <td id="no">${report.rno }</td>
               <td id="id">${report.isTo }</td>
-              <td>${report.isFrom }</td>
+              <input type="hidden" class="hide" value="${report.isFrom }">
               <td>${report.targetTypeCode }</td>
               <td>${report.targetCode }</td>
               <c:if test="${report.reasonCode == 'RC01' }">
@@ -47,7 +74,7 @@
               <c:if test="${report.reasonCode == 'RC00' }">
               <td>기타</td>
               </c:if>
-              <td>${report.rContent }</td>
+              <input type="hidden" class="hide" value="${report.rContent }">
               <c:if test="${report.processCode == 'R00' }">
               <td>대기</td>
               <td><button class="btn btn-primary"><label class="approve">승인</label></button>
@@ -59,6 +86,7 @@
               <c:if test="${report.processCode == 'R02' }">
               <td>처리</td><td><input type="hidden"></td>
               </c:if>
+              <td><button type="button" class="btn btn-outline-primary" name="btn">상세 보기</button></td>
             </tr>
             </c:forEach>
           </tbody>
@@ -151,6 +179,16 @@
     			  alert(error);
     		  }
     	  });
+      });
+      
+      $(document).on('click', 'button[name=btn]', function() {
+          var isFrom = $(this).parents('tr').find($('.hide')).eq(0).val();
+          var rContent = $(this).parents('tr').find($('.hide')).eq(1).val();
+          
+          $(this).attr("data-toggle", "modal").attr("data-target", "#reportModal");
+          
+          $('#isFrom').val(isFrom);
+          $('#rContent').val(rContent);
       });
      }); 
     </script>
