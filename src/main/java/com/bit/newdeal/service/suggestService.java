@@ -2,6 +2,7 @@ package com.bit.newdeal.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class suggestService {
     return result > 0 ? true : false;
   }
   
-  public int updateSuggest(int sno) {
-	    return session.getMapper(suggestDao.class).updateSuggest(sno);
-	  }
+  public int updateSuggest(Map<String, Object> params) {
+	    return session.getMapper(suggestDao.class).updateSuggest(params);
+  }
   
   public List<HashMap> selectMySuggest(String id){
 	  return session.getMapper(suggestDao.class).selectMySuggest(id);

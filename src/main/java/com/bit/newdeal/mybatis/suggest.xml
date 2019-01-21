@@ -18,9 +18,16 @@
   	values(#{mid}, #{bno}, #{link}, #{tel}, #{etc, jdbcType=VARCHAR})
   	</insert>
   	
-  	<update id="updateSuggest" parameterType="Suggest">
-  	
-  	</update>
+  	<update id="updateSuggest" parameterType="java.util.Map">
+		update suggestion set
+		<if test="num == 1">
+			statusCode='S01'
+		</if>
+		<if test="num == 2">
+			statusCode='S02'
+		</if>
+		where sno=#{sno}
+	</update>
   	
   	<select id="selectMySuggest" parameterType="String" resultType="HashMap">
   		select s.sno, s.statusCode, s.etc, b.title
@@ -29,4 +36,4 @@
 		where id = #{id}
   	</select>
   
-  </mapper>
+</mapper>
