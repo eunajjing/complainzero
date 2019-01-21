@@ -127,7 +127,7 @@ date : 2019-01-18
 
 					<!-- 만약 내가 쓴 글이면 -->
 					<div class="btn-group btn-group-sm">
-						<button type="button" class="btn btn-outline-warning">수정</button>
+						<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
 						<button type="button" class="btn btn-outline-danger"
 							onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
 						<sec:authorize ifAnyGranted="ROLE_COMPANY">
