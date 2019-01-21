@@ -162,7 +162,7 @@ date : 2019-01-18
 							rows="3"></textarea>
 					</div>
 					<div class="rightOutDiv">
-						<button type="button" onclick="insertComment()"
+						<button type="button" onclick="insertComment(${boardDetail.bno})"
 							class="btn btn-primary">등록</button>
 					</div>
 					<!-- </form> -->
@@ -177,7 +177,7 @@ date : 2019-01-18
 							<img class="d-flex mr-3 rounded-circle"
 								src="http://placehold.it/50x50" alt="">
 							<div class="media-body">
-								${commentList.id}&nbsp;
+								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
 								<button class="btn btn-outline-danger btn-sm"
 									data-toggle="modal" data-target="#reportModal">신고</button>
 
@@ -259,37 +259,65 @@ $(document).ready(function(){
 	});
 });
 
-function insertComment(){
+function getMemoList(bno) {
+	  $.ajax({
+	      url : 'boardCommentSelect.do',
+	      data : {bno : bno},
+	      type : 'GET',
+	      contentType : 'application/json;charset=UTF-8',
+	      dataType : 'json',
+	      success : function(data) {
+	        makeList(data);
+	      }
+	  });
+}
+
+function makeList(memos) {
+	  $(".commentList").empty();
+		var output = "";
+		var len = memos.length;
+		for(var i = 0; i < len; i++) {
+			output += '<div class="comment" seq="' + memos[i].cno + '">';
+	 		output += '<div class="media mb-4">';
+ 			output += '<img class="d-flex mr-3 rounded-circle"';
+			output += 'src="http://placehold.it/50x50" alt="">';
+			output += '<div class="media-body">';
+			output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+			output += '<button class="btn btn-outline-danger btn-sm"';
+			output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+
+			output += '<div class="btn-group btn-group-sm">';
+			output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
+			output += 'class="btn btn-outline-warning">수정</button>';
+			output += '<button type="button" onclick="deleteComment(this)"';
+			output += 'class="btn btn-outline-danger">삭제</button>';
+			output += '</div>';
+			output += '<br>';
+			output += '<div id="updateText' + memos[i].cno + '" style="display: none;">';
+			output += '<textarea class="form-control" rows="2">' + memos[i].cContent + '</textarea>';
+			output += '<button input="button"';
+			output += 'onclick="updateComment(' + memos[i].cno + ')"';
+			output += 'class="btn btn-outline-warning">수정</button>';
+			output += '</div>';
+			output += '<span id="originText' + memos[i].cno + '">' + memos[i].cContent + '</span>';
+			output += '</div>';
+			output += '</div>';
+			output += '</div>';
+			
+		}
+		
+		$(".commentList").append(output);
+}
+
+
+function insertComment(bno){
 	$.ajax({
 		  url : 'boardCommentInsert.do',
 		  type : 'POST',
-		  data : {cContent : $('#cContent').val()},
+		  data : {bno : bno , cContent : $('#cContent').val()},
 		  success : function() {
-			/* alert('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}'); */
 		 	alert("작성되었습니다.");
-		 	//동적으로 태그 생성
-		 	
-		 	var output = "";
-
-		 	
-		 	output += '<div class="comment" seq="' + $('.comment').attr('seq') + '">';
-		 	
-			output += '<div class="media mb-4">';
-			output += '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
-			output += '<div class="media-body">';
-			output += '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>';
-			output += '<div class="btn-group btn-group-sm">';
-			output += '<button type="button" class="btn btn-outline-warning">수정</button>';
-			output += '<button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>';
-		    output += '</div>';
-			output += '<br>';
-			output += $('#cContent').val();
-			output += '</div>';
-			output += '</div>';
-			
-			
-			$(".commentList").append(output);
-			$('#cContent').val('');
+		 	getMemoList(bno);
      	  },
      	  error : function(){
     	  	alert("error");
@@ -308,6 +336,7 @@ function updateBtn(e){
 }
 
 function updateComment(e){
+	var bno = $('#bno').val();
 	var cno = e;
 	var cContent = $('#updateText' + e).children('.form-control').val();
 	var parameter = JSON.stringify({cno : cno, cContent : cContent});
@@ -318,11 +347,13 @@ function updateComment(e){
 			  data : parameter,
 			  contentType : 'application/json;charset=UTF-8',
 			  success : function() {
+				  /* 
 				  $('#updateText' + e).children('.form-control').val(cContent);
 				  $('#originText' + e).text(cContent);
 				  $('#updateText' + e).hide();
 				  $('#originText' + e).show();
-				  
+				   */
+				  getMemoList(bno);
 	    		  alert("수정되었습니다.");
 	          },
 	          error : function(){
@@ -332,7 +363,7 @@ function updateComment(e){
 }
 
 function deleteComment(e){
-	
+	var bno = $('#bno').val();
 	//임시
 	var cno = e.parentNode.parentNode.parentNode.parentNode.getAttribute('seq');
 	//임시
@@ -342,9 +373,7 @@ function deleteComment(e){
 		  type : 'PUT',
 		  success : function() {
 		 	alert("삭제되었습니다.");
-		 	//임시
-			e.parentNode.parentNode.parentNode.parentNode.remove();
-		 	//임시
+			getMemoList(bno);
    	  	  },
 	 	  error : function(){
   	  	 	 alert("error");

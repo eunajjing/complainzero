@@ -2,6 +2,7 @@ package com.bit.newdeal.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -73,6 +74,7 @@ public class boardController {
     mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
     mav.addObject("like", boardService.selectLike(principal.getName(), bno));
+    
     mav.setViewName("board/boardDetail");
     
     return mav;
@@ -106,8 +108,13 @@ public class boardController {
   }
 
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
-  public @ResponseBody void boardCommentSelect(int bno, Model model){
-	  model.addAttribute("comment", commentService.selectComment(bno));
+  public @ResponseBody List<HashMap> boardCommentSelect(int bno, Model model){
+	  
+	  /*model.addAttribute("comment", commentService.selectComment(bno));*/
+	  
+	  List<HashMap> comment = commentService.selectComment(bno);
+	  
+	  return comment;
   }
   
   //댓글 추가

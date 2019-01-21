@@ -5,8 +5,13 @@
   
   <mapper namespace="com.bit.newdeal.dao.commentDao">
   
-  	<select id="selectComment" parameterType="int" resultType="Comment">
-  		select * from comment where bno = #{bno} and cDelete = 0;
+  	<select id="selectComment" parameterType="int" resultType="HashMap">
+  		<!-- select * from comment where bno = #{bno} and cDelete = 0 -->
+  		select c.cno, c.id, c.cContent, c.writeDate, m.nickname, m.profile
+		from comment c join member m
+		on c.id = m.id
+		where c.bno = #{bno}
+		and cDelete = 0
   	</select>
   	
   	<select id="mySelectComment" parameterType="String" resultType="HashMap">
@@ -14,10 +19,11 @@
 		from comment c join board b
 		where c.bno = b.bno
 		and id = #{id}
+		and cDelete = 0
   	</select>
   	
   	<insert id="insertComment" parameterType="Comment">
-  		insert into comment(bno, id, cContent) values(2, #{id}, #{cContent})
+  		insert into comment(bno, id, cContent) values(#{bno}, #{id}, #{cContent})
   	</insert>
   	
   	<update id="updateComment" parameterType="Comment">
