@@ -42,7 +42,7 @@ Date : 19-01-19
 	<a class="btn btn-secondary" href="writeBoardForm.do">글쓰기</a>
 	</div>
 	<hr>
-	<%-- <c:if test="${boardList== null}"> --%>
+	<c:if test="${empty boardList}">
      <div class="card mb-4">
         <div class="card-body">
           <div class="row">
@@ -52,9 +52,8 @@ Date : 19-01-19
           </div>
         </div>
       </div>
-	<%-- </c:if>
-	<c:otherwise> --%>
-		<c:forEach items="${boardList}" var="boardList">
+	</c:if>
+	<c:forEach items="${boardList}" var="boardList">
 			<div class="row">
 				<c:if test="${boardList.thumbNail != null }">
 				<div class="col-lg-4 col-sm-6 portfolio-item">
@@ -66,14 +65,12 @@ Date : 19-01-19
 								<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
 							</h4>
 							<p class="card-text">${boardList.mid}</p>
-				
 						</div>
 					</div>
 				</div>
 				</c:if>
 			</div>
 		</c:forEach>
-	<%-- </c:otherwise> --%>
 </div>
 
 	
