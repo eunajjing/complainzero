@@ -64,7 +64,7 @@ img{
 		          		<tr>
 		          			<th>내용</th>
 		          			<th>작성시간</th>
-		          			<!-- <th>게시글제목</th> -->
+		          			<th>게시글제목</th>
 		          		</tr>
 		          	</thead>
 		          	<tbody>
@@ -72,7 +72,7 @@ img{
 		          		<tr>
 							<td>${comment.cContent}</td>
 							<td>${comment.writeDate}</td>
-							<%-- <td>${comment.title}</td> --%>
+							<td>${comment.title}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -92,12 +92,12 @@ img{
 		          		</tr>
 		       		</thead>
 		       		<tbody>
-		          	<c:forEach items="${myBoard.board}" var="board">
+		          	<c:forEach items="${myBoard.likes}" var="likes">
 		          		<tr>
-		          			<td>${board.title}</td>
+		          			<td>${likes.title}</td>
 							<%-- <td>${board.bContent}</td> --%>
-							<td>${board.writeDate}</td>
-							<td>${board.readCount}</td>
+							<td>${likes.writeDate}</td>
+							<td>${likes.readCount}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -141,7 +141,7 @@ img{
 		          		<tr>
 		          			<th>내용</th>
 		          			<th>작성시간</th>
-		          			<!-- <th>게시글제목</th> -->
+		          			<th>게시글제목</th>
 		          		</tr>
 		          	</thead>
 		          	<tbody>
@@ -149,7 +149,7 @@ img{
 		          		<tr>
 							<td>${comment.cContent}</td>
 							<td>${comment.writeDate}</td>
-							<%-- <td>${comment.title}</td> --%>
+							<td>${comment.title}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -171,12 +171,12 @@ img{
 		          		</tr>
 		       		</thead>
 		       		<tbody>
-		          	<c:forEach items="${myBoard.board}" var="board">
+		          	<c:forEach items="${myBoard.likes}" var="likes">
 		          		<tr>
-		          			<td>${board.title}</td>
+		          			<td>${likes.title}</td>
 							<%-- <td>${board.bContent}</td> --%>
-							<td>${board.writeDate}</td>
-							<td>${board.readCount}</td>
+							<td>${likes.writeDate}</td>
+							<td>${likes.readCount}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>

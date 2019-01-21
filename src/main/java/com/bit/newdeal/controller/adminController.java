@@ -19,7 +19,6 @@ import com.bit.newdeal.service.suggestService;
 @RestController
 // @RequestMapping("/admin")
 public class adminController {
-
 	@Autowired
 	private reportService reportService;
 	@Autowired
