@@ -6,6 +6,8 @@ date : 19-01-10
 내용 : 회원가입 폼 작성
 date : 19-01-15 ~ 16
 내용 : 회원가입 제어
+date : 19-01-21
+내용 : 인증번호 발송 단 주석
 작성자 : 고은아
 -->
 
@@ -39,11 +41,11 @@ date : 19-01-15 ~ 16
 								<button id="validateBtn" type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button>
 							</div>
 						</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="validityCheck">인증번호</label> <input id="validityCheck"
 							type="number" class="form-control" placeholder="발송된 인증번호를 입력해주세요"
 							required="required">
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label for="pw1">비밀번호</label> <input id="pw1" name="pw"
 							type="password" class="form-control" placeholder="password"
