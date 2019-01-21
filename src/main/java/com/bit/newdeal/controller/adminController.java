@@ -54,19 +54,13 @@ public class adminController {
 	}
 
 	@RequestMapping(value = "updateSuggest.do/{sno}/{num}", method = RequestMethod.PUT)
-	public void updateApproveSuggest(@PathVariable int sno, @PathVariable int num) {
+	public void updateSuggest(@PathVariable int sno, @PathVariable int num) {
 		Map<String, Object> params = new HashMap<>();
 
 		params.put("sno", sno);
 		params.put("num", num);
 
 		suggestService.updateSuggest(params);
-	}
-
-	@RequestMapping("updateRefuseSuggest.do")
-	public void updateRefuseSuggest(int sno) {
-//		suggestService.updateSuggest(sno);
-		// updateSuggest 확인해봐야함
 	}
 
 	@RequestMapping("adminForm.do")
@@ -100,5 +94,5 @@ public class adminController {
 			memberService.blackList(id);
 		}
 		reportService.updateReport(params);
-	}
+	} 
 }

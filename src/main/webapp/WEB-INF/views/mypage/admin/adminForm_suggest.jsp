@@ -56,7 +56,7 @@ Date : 19-01-19
               <th class="text-center">작성자</th>
               <th class="text-center">게시글 번호</th>       
               <th class="text-center">링크</th>              
-              <!-- <th class="text-center">회사명</th> -->              
+<!--               <th class="text-center">회사명</th>               -->
               <th class="text-center">연락처</th>              
               <th class="text-center">기타사항</th>     
               <th class="text-center">제안 상태</th> 
@@ -70,12 +70,12 @@ Date : 19-01-19
               <td>${suggest.mid }</td>
               <td>${suggest.bno }</td>
               <td>${suggest.link }</td>
-              <%-- <td>${suggest.companyName }</td> --%>
+<%--               <td>${suggest.companyName }</td> --%>
               <td>${suggest.tel }</td>
               <td>${suggest.etc }</td>
               <c:if test="${suggest.statusCode == 'S00' }">
               <td>대기</td>
-              <td><button class="btn btn-primary"><label class="approve">승인</label></button>
+              <td><button class="btn btn-outline-primary"><label class="approve">승인</label></button>
               <button class="btn btn-primary"><label class="refuse">거절</label></button></td>
               </c:if>
               <c:if test="${suggest.statusCode == 'S01' }">
@@ -145,8 +145,8 @@ Date : 19-01-19
 //     		  data : parameter,
     		  success : function(data) {
     			  alert("승인되었습니다.");
-    			  $(me).parents('tr').children().eq(7).text('승인');
-    			  $(me).parents('tr').children().eq(8).children().hide();
+    			  $(me).parents('tr').children().eq(6).text('승인');
+    			  $(me).parents('tr').children().eq(7).children().hide();
     		  }, error :  function(xhr, status, error) {
     			  alert(error);
     		  }
@@ -164,15 +164,14 @@ Date : 19-01-19
 //     		  data : parameter,
     		  success : function(data) {
     			  alert("거절되었습니다.");
-    			  $(me).parents('tr').children().eq(7).text('반려');
-    			  $(me).parents('tr').children().eq(8).children().hide();
+    			  $(me).parents('tr').children().eq(6).text('반려');
+    			  $(me).parents('tr').children().eq(7).children().hide();
     		  }, error :  function(xhr, status, error) {
     			  alert(error);
     		  }
     	  });
       });
      }); 
-     
     </script>
   </body>
 </html>

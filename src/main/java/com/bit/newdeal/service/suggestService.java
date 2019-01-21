@@ -30,7 +30,7 @@ public class suggestService {
   }
   
   public int updateSuggest(Map<String, Object> params) {
-	    return session.getMapper(suggestDao.class).updateSuggest(params);
+    return session.getMapper(suggestDao.class).updateSuggest(params);
   }
   
   public List<HashMap> selectMySuggest(String id){
