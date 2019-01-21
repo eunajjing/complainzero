@@ -125,10 +125,9 @@ public class boardController {
     commentService.deleteComment(cno);
   }
   
-  @RequestMapping(value="writeSuggest.do")
-  public void writeSuggest(@ModelAttribute Suggest suggest, Principal principal) {
-	  suggest.setMid(principal.getName());
-	  suggestService.insertSuggest(suggest);
+  @RequestMapping(value="writeSuggest.do", method = RequestMethod.POST)
+  public @ResponseBody boolean writeSuggest(@ModelAttribute Suggest suggest, Principal principal) {
+	return suggestService.insertSuggest(suggest);
   }
   
   @RequestMapping("deleteSuggest.do")

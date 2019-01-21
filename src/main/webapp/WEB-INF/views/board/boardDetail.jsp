@@ -375,11 +375,13 @@ $('#suggestSubmitBtn').click(function () {
 		url : 'writeSuggest.do',
 		data : suggest,
 		success : function(data) {
-			alert("제안 성공");
-			$('#link').val("");
-			$('#tel').val("");
-			$('#etc').val("");
-			history.go(0);
+			if (data) {
+				alert("제안 성공");
+				$('#link').val("");
+				$('#tel').val("");
+				$('#etc').val("");
+				history.go(0);
+			}
 		}
 	});
 })
