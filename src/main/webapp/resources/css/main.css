@@ -3,6 +3,8 @@ Date : 19-01-11
 내용 : 모든 jsp에 적용될 css 커스터마이징 적용
 Date : 19-01-16
 내용 : 글꼴 추가
+Date : 19-01-19
+내용 : 게시판 목록 단 img 태그 제어
 작성자 : 고은아
 */
 
@@ -26,4 +28,25 @@ input[type=password] {
 
 .fa-heart {
 	color: red;
+}
+
+.card-img-top {
+	max-width : 100%;
+	max-height : 100%;
+	width : 700px;
+	height : 300px;
+	display: inline-block;
+	padding: 15px;
+} 
+
+.portfolio-item {
+	height: 500px;
+}
+
+.card {
+	text-align: center;
+}
+
+.card-text {
+	text-align: justify;
 }

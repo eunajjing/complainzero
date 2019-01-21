@@ -3,11 +3,15 @@ package com.bit.newdeal.controller;
 import java.security.Principal;
 import java.util.HashMap;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.swing.text.Segment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -129,11 +133,9 @@ public class boardController {
     commentService.deleteComment(cno);
   }
   
-  @RequestMapping("writeSuggest.do")
-  public String writeSuggest(Suggest suggest) {
-    suggestService.insertSuggest(suggest);
-    
-    return "redirect:mySuggest.do";
+  @RequestMapping(value="writeSuggest.do", method = RequestMethod.POST)
+  public @ResponseBody boolean writeSuggest(@ModelAttribute Suggest suggest, Principal principal) {
+	return suggestService.insertSuggest(suggest);
   }
   
   @RequestMapping("deleteSuggest.do")

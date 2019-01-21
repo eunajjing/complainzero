@@ -9,6 +9,7 @@ import java.io.File;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +26,8 @@ public class memberService {
   SqlSession session;
   @Autowired
   BCryptPasswordEncoder bCryptPasswordEncoder;
-  @Inject
-  private JavaMailSender mailSender;
+  @Autowired
+  private JavaMailSenderImpl mailSender;
   
   public Member selectOneMember(String id) {
     return session.getMapper(memberDao.class).selectOneMember(id);
