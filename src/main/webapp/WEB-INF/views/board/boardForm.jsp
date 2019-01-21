@@ -20,20 +20,20 @@ Date : 19-01-21
 		<div class="rightInDiv">
 			<form class="form-inline">
 				<div class="form-group">
-					<select class="form-control">
+					<select class="form-control" id="categorycodeSelect">
 						<option>전체</option>
-						<option>식품</option>
-						<option>보건/의료</option>
-						<option>주거/시설</option>
-						<option>가전/생활용품</option>
-						<option>의류/세탁</option>
-						<option>자동차/기계류</option>
-						<option>정보통신</option>
-						<option>금융/보험</option>
-						<option>교육/문화</option>
-						<option>레져/스포츠</option>
-						<option>관광/운송</option>
-						<option>기타</option>
+						<option value="C01">식품</option>
+						<option value="C02">보건/의료</option>
+						<option value="C03">주거/시설</option>
+						<option value="C04">가전/생활용품</option>
+						<option value="C05">의류/세탁</option>
+						<option value="C06">자동차/기계류</option>
+						<option value="C07">정보통신</option>
+						<option value="C08">금융/보험</option>
+						<option value="C09">교육/문화</option>
+						<option value="C10">레져/스포츠</option>
+						<option value="C11">관광/운송</option>
+						<option value="C00">기타</option>
 					</select> &nbsp; <input class="form-control" type="search"
 						placeholder="검색 키워드 입력"> &nbsp;
 					<button class="btn" type="submit">검색</button>
@@ -45,9 +45,6 @@ Date : 19-01-21
 		</se:authorize>
 	</div>
 	<hr>
-
-
-
 	<c:if test="${empty boardList}">
 		<div class="card mb-4">
 			<div class="card-body">
@@ -80,7 +77,17 @@ r
 		</c:forEach>
 	</div>
 </div>
+<script type="text/javascript">
+$(function() {
+	$('#categorycodeSelect').on('change',handleCategorycodeSelect);
+})
 
+function handleCategorycodeSelect(e) {
+	var target = e.target;
+	var categorycode = target.options[target.selectedIndex].value;
+	location.href='boardForm.do?categorycode='+categorycode;
+}
+</script>
 
 
 

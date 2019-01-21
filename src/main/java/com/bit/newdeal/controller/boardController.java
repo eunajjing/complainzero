@@ -36,7 +36,12 @@ public class boardController {
   private suggestService suggestService;
   
   @RequestMapping("boardForm.do")
-  public ModelAndView boardForm() {
+  public ModelAndView boardForm(@RequestParam(value="categorycode", required=false) String categorycode,
+		  @RequestParam(value="keyword", required=false) String keyword) {
+	  
+	  if (categorycode != null) {
+		  System.out.println(categorycode);
+	  }
     ModelAndView mav = new ModelAndView();
     
    mav.addObject("boardList", boardService.selectAllBoard());
