@@ -76,7 +76,8 @@ date : 2019-01-11
           	<hr>
    
           	<div class="rightOutDiv">
-          	<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>  
+          	<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
+          	  
           	</div>
           	<div class="card my-4">
 				<div class="card-body rightOutDiv">
@@ -87,9 +88,10 @@ date : 2019-01-11
 		        
 		        <!-- 만약 내가 쓴 글이면 -->
 		        <div class="btn-group btn-group-sm">
-  <button type="button" class="btn btn-outline-warning">수정</button>
-  <button type="button" class="btn btn-outline-danger">삭제</button>
-</div>
+				<button type="button"class="btn btn-outline-danger" onclick="location.href='boardDeleteForm.do?bno=${boardDetail.bno}'">삭제</button> 
+
+   
+					</div>
 		        </div>
 	        </div>
 
@@ -190,5 +192,14 @@ function deleteComment(e){
     	  }
 	});
 }
+
+/* 
+$("#deleteBoard").click(function(){
+	$("#modalHeader").text("삭제 여부 확인");
+	$("#modalBody").text("삭제하시겠습니까?");
+	$("#modalButton").text("삭제");
+    $("#myModal").modal();
+});
+ */
 
 </script>

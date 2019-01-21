@@ -15,23 +15,26 @@
 
 	<select id="selectOneBoard" parameterType="int"
 		resultType="Board">
-		select title,
-				 bcontent,
-				 mid,
-				 writeDate,
-				 thumbNail
-				 from board
-				 WHERE bno = #{bno}
+	   SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
+          FROM board
+         WHERE bDelete='0'
+         and bno = #{bno}
+      
+
+
 	</select>
 
 	<select id="selectAllBoard" resultType="Board">
-		select * from board
+		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
+          FROM board
+         WHERE bDelete='0'
+
 	</select>
 
 
   	<insert id="insertBoard" parameterType="Board">
-  	   insert into board(mid, title, bContent, thumbNail)
-  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail})
+  	   insert into board(mid, title, bContent, thumbNail, bDelete)
+  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail}, #{0})
   	</insert>
   	
 	<update id="updateBoard" parameterType="Board">

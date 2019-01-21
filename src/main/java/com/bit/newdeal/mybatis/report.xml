@@ -10,7 +10,9 @@
   	</select>
   	
   	<insert id="insertReport" parameterType="Report">
-  	
+  		insert into board(rno, istTo, isFrom, targetTypeCode, targetCode,
+  		reasonCode, rContent, processCode )
+  	   values(#{rno}, #{isTo}, #{isFrom}, #{targetTypeCode}, #{targetCode}, #{reasonCode}, #{rContent}, #{processCode})
   	</insert>
   	
   	<update id="updateReport" parameterType="java.util.Map">

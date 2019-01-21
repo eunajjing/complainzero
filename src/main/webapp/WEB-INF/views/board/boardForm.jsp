@@ -49,13 +49,14 @@ Date : 19-01-11
 			<div class="card h-100">
 				<a href="selectOneBoard.do?bno=${boardList.bno}">
 <%-- 				<img src="download.do?bno=${boardList.bno }" class="card-img-top" alt=""></a> --%>
-				<img src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }" class="card-img-top" alt=""></a>
+				<img src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }" class="card-img-top">이미지</a>
 				<div class="card-body">
 					<h4 class="card-title">
-						<a href="boardDetail.do">${boardList.title}</a>
+						<a href="selectOneBoard.do?bno=${boardList.bno}">제목 : ${boardList.title}</a>
+						<p class="card-text">${boardList.bContent}</p>
 					</h4>
 <%-- 					<p class="card-text">${boardList.bContent}</p>  --%>
-					<p class="card-text">${boardList.mid}</p>
+					<p class="card-text">작성자 : ${boardList.mid}</p>
 		
 				</div>
 			</div>

@@ -34,6 +34,18 @@ public class boardService {
 	public List<Board> selectAllBoard() {
 		return session.getMapper(boardDao.class).selectAllBoard();
 	}
+	
+	public int updateBoard(Board board) {
+		return session.getMapper(boardDao.class).updateBoard(board);
+	}
+
+	public int deleteBoard(int bno) {
+		return session.getMapper(boardDao.class).deleteBoard(bno);
+	}
+
+	
+
+	
 
 	public int insertBoard(Board board, MultipartFile uFile, String path, Principal principal) {
 		board.setMid(principal.getName());
@@ -60,13 +72,6 @@ public class boardService {
 		return session.getMapper(boardDao.class).insertBoard(board);
 	}
 
-	public int updateBoard(Board board) {
-		return session.getMapper(boardDao.class).updateBoard(board);
-	}
-
-	public int deleteBoard(int bno) {
-		return session.getMapper(boardDao.class).deleteBoard(bno);
-	}
 
 	public List<Board> searchBoard(HashMap<String, Object> params) {
 		return session.getMapper(boardDao.class).searchBoard(params);
