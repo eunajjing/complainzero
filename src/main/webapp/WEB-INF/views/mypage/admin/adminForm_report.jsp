@@ -51,13 +51,13 @@
               <c:if test="${report.processCode == 'R00' }">
               <td>대기</td>
               <td><button class="btn btn-primary"><label class="approve">승인</label></button>
-              <button class="btn btn-primary">거절</button></td>
+              <button class="btn btn-primary"><label class="refuse">거절</label></button></td>
               </c:if>
               <c:if test="${report.processCode == 'R01' }">
-              <td>반려</td>
+              <td>반려</td><td><input type="hidden"></td>
               </c:if>
               <c:if test="${report.processCode == 'R02' }">
-              <td>처리</td>
+              <td>처리</td><td><input type="hidden"></td>
               </c:if>
             </tr>
             </c:forEach>
@@ -113,12 +113,40 @@
       
       $(document).on('click', '.approve', function() {
 //     	  var parameter = JSON.stringify({'id' : $('#id').text()});
+		var id = $(this).parents('tr').children().eq(1).text();
+		var no = $(this).parents('tr').children().eq(0).text();
+		var me = this;
+
     	  $.ajax({
-    		  url : 'blackList.do/' + $('#id').text() + '/' + $('#no').text() + '/' + 2,
+    		  url : 'blackList.do/' + id + '/' + no + '/' + 2,
     		  type : 'PUT',
     		  contentType : 'application/json;charset=UTF-8',
+//     		  data : parameter,
     		  success : function(data) {
-    			  alert("정지처리되었습니다.");
+    			  alert("승인되었습니다.");
+    			  $(me).parents('tr').children().eq(7).text('처리');
+    			  $(me).parents('tr').children().eq(8).children().hide();
+    		  }, error :  function(xhr, status, error) {
+    			  alert(error);
+    		  }
+    	  });
+      });
+      
+      $(document).on('click', '.refuse', function() {
+//     	  var parameter = JSON.stringify({'id' : $('#id').text()});
+		var id = $(this).parents('tr').children().eq(1).text();
+		var no = $(this).parents('tr').children().eq(0).text();
+		var me = this;
+
+    	  $.ajax({
+    		  url : 'blackList.do/' + id + '/' + no + '/' + 1,
+    		  type : 'PUT',
+    		  contentType : 'application/json;charset=UTF-8',
+//     		  data : parameter,
+    		  success : function(data) {
+    			  alert("거절되었습니다.");
+    			  $(me).parents('tr').children().eq(7).text('반려');
+    			  $(me).parents('tr').children().eq(8).children().hide();
     		  }, error :  function(xhr, status, error) {
     			  alert(error);
     		  }

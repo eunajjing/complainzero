@@ -1,9 +1,13 @@
 package com.bit.newdeal.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.bit.newdeal.dao.suggestDao;
 import com.bit.newdeal.dto.Suggest;
 
@@ -25,7 +29,11 @@ public class suggestService {
     return result > 0 ? true : false;
   }
   
-  public int updateSuggest(Suggest suggest) {
-    return session.getMapper(suggestDao.class).updateSuggest(suggest);
+  public int updateSuggest(Map<String, Object> params) {
+    return session.getMapper(suggestDao.class).updateSuggest(params);
+  }
+  
+  public List<HashMap> selectMySuggest(String id){
+	  return session.getMapper(suggestDao.class).selectMySuggest(id);
   }
 }

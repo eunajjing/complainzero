@@ -54,12 +54,13 @@ Date : 19-01-19
             <tr>
               <th class="text-center">제안서 번호</th>
               <th class="text-center">작성자</th>
-              <th class="text-center">게시글 번호</th>
-              <th class="text-center">제안 상태</th>              
+              <th class="text-center">게시글 번호</th>       
               <th class="text-center">링크</th>              
-              <th class="text-center">회사명</th>              
+<!--               <th class="text-center">회사명</th>               -->
               <th class="text-center">연락처</th>              
-              <th class="text-center">기타사항</th>              
+              <th class="text-center">기타사항</th>     
+              <th class="text-center">제안 상태</th> 
+              <th class="text-center">신고 처리</th>           
             </tr>
           </thead>
           <tbody>    
@@ -68,22 +69,21 @@ Date : 19-01-19
               <td>${suggest.sno }</td>
               <td>${suggest.mid }</td>
               <td>${suggest.bno }</td>
-              <c:if test="${suggest.statusCode == 'S00' }">
-              <td>대기
-               	<button type="button" onclick="approve(this)" id="approve" class="btn btn-outline-warning">승인</button>
-  				<button type="button" onclick="refuse(this)" id="refuse" class="btn btn-outline-danger">반려</button>
-  			  </td>
-              </c:if>
-              <c:if test="${suggest.statusCode == 'S01' }">
-              <td>반려</td>
-              </c:if>
-              <c:if test="${suggest.statusCode == 'S02' }">
-              <td>승인</td>
-              </c:if>
               <td>${suggest.link }</td>
-              <td>${suggest.companyName }</td>
+<%--               <td>${suggest.companyName }</td> --%>
               <td>${suggest.tel }</td>
               <td>${suggest.etc }</td>
+              <c:if test="${suggest.statusCode == 'S00' }">
+              <td>대기</td>
+              <td><button class="btn btn-outline-primary"><label class="approve">승인</label></button>
+              <button class="btn btn-primary"><label class="refuse">거절</label></button></td>
+              </c:if>
+              <c:if test="${suggest.statusCode == 'S01' }">
+              <td>반려</td><td><input type="hidden"></td>
+              </c:if>
+              <c:if test="${suggest.statusCode == 'S02' }">
+              <td>승인</td><td><input type="hidden"></td>
+              </c:if>
             </tr>
             </c:forEach>
           </tbody>
@@ -133,46 +133,45 @@ Date : 19-01-19
         language : lang_kor
 //     	  pageLength:3
       }); 
-     }); 
-     
-     function approve(e){
-    	 
-    	 var sno = $('.table-primary').children().eq(0).text();
-    	 
-    	$.ajax({
-    			url : 'updateApproveSuggest.do/' + sno,
-    				  type : 'PUT',
-    				  success : function() {
-    					  $('.table-primary').children().eq(3).text('승인');
-    					  $('#approve').remove();
-    					  $('#refuse').remove();
-    					  
-    		    		  alert("승인되었습니다.");
-    		          },
-    		          error : function(){
-    		        	  alert("error");
-    		          }
-  			});
-     }
-     
-     function refuse(e){
-    	 var sno = $('.table-primary').children().eq(0).text();
+      
+      $(document).on('click', '.approve', function() {
+		var no = $(this).parents('tr').children().eq(0).text();
+		var me = this;
 
-    	 $.ajax({
-    		url : 'updateRefuseSuggest.do/' + sno, 
-    		type : 'PUT',
-    		success : function() {
-				  $('.table-primary').children().eq(3).text('반려');
-				  $('#approve').remove();
-				  $('#refuse').remove();
-				  
-	    		  alert("반려되었습니다.");
-	          },
-	          error : function(){
-	        	  alert("error");
-	          }
-    	 });
-     }
+    	  $.ajax({
+    		  url : 'updateSuggest.do/' + no + '/' + 2,
+    		  type : 'PUT',
+    		  contentType : 'application/json;charset=UTF-8',
+//     		  data : parameter,
+    		  success : function(data) {
+    			  alert("승인되었습니다.");
+    			  $(me).parents('tr').children().eq(6).text('승인');
+    			  $(me).parents('tr').children().eq(7).children().hide();
+    		  }, error :  function(xhr, status, error) {
+    			  alert(error);
+    		  }
+    	  });
+      });
+      
+      $(document).on('click', '.refuse', function() {
+		var no = $(this).parents('tr').children().eq(0).text();
+		var me = this;
+
+    	  $.ajax({
+    		  url : 'updateSuggest.do/' + no + '/' + 1,
+    		  type : 'PUT',
+    		  contentType : 'application/json;charset=UTF-8',
+//     		  data : parameter,
+    		  success : function(data) {
+    			  alert("거절되었습니다.");
+    			  $(me).parents('tr').children().eq(6).text('반려');
+    			  $(me).parents('tr').children().eq(7).children().hide();
+    		  }, error :  function(xhr, status, error) {
+    			  alert(error);
+    		  }
+    	  });
+      });
+     }); 
     </script>
   </body>
 </html>

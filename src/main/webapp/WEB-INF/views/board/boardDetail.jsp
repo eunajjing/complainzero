@@ -121,7 +121,16 @@ date : 2019-01-18
 			<div class="card my-4">
 				<div class="card-body rightOutDiv">
 					<!-- 만약 내가 쓴 글이 아니면 -->
-					이 글이 공감되시나요? <i id="like" class="far fa-heart"></i>
+					이 글이 공감되시나요?
+					
+					<c:if test="${like == 0}">
+					<i id="like" class="far fa-heart"></i>
+					</c:if>
+					
+					<c:if test="${like == 1}">
+					<i id="like" class="fas fa-heart"></i>
+					</c:if>
+					
 					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
 					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
 
@@ -226,7 +235,6 @@ $(document).ready(function(){
 	  			  data : {'bno' : bno},
 	  			  success : function() {
 					$('#like').attr('class','fas fa-heart');
-	  	    		alert("like~!");
 	  	          },
 	  	          error : function(){
 	  	        	  alert("error");
@@ -239,7 +247,6 @@ $(document).ready(function(){
 	  			  data : {'bno' : bno},
 	  			  success : function() {
 	  				$('#like').attr('class','far fa-heart');
-	  	    		alert("no~!");
 	  	          },
 	  	          error : function(){
 	  	        	  alert("error");
