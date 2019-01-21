@@ -67,7 +67,7 @@ Date : 19-01-15
 							<se:authorize ifAnyGranted="ROLE_ADMIN">
 							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
 							</se:authorize>
-							<a class="dropdown-item" href="#">로그아웃</a>
+							<a class="dropdown-item" href="j_spring_security_logout">로그아웃</a>
 						</div></li>
 						
 											<li class="nav-item"><a class="nav-link" href="#"> <i
