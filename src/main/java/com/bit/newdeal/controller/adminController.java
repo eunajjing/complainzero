@@ -53,17 +53,15 @@ public class adminController {
     return "suggestView";
   }
   
-  @RequestMapping(value="updateApproveSuggest.do/{sno}", method=RequestMethod.PUT)
-  public void updateApproveSuggest(Suggest suggest) {
-	  suggest.setStatusCode("S02");
-    suggestService.updateSuggest(suggest);
+  @RequestMapping("updateApproveSuggest.do")
+  public void updateApproveSuggest(int sno) {
+    suggestService.updateSuggest(sno);
     // updateSuggest 확인해봐야함
   }
   
-  @RequestMapping(value="updateRefuseSuggest.do/{sno}", method=RequestMethod.PUT)
-  public void updateRefuseSuggest(Suggest suggest) {
-	  suggest.setStatusCode("S01");
-    suggestService.updateSuggest(suggest);
+  @RequestMapping("updateRefuseSuggest.do")
+  public void updateRefuseSuggest(int sno) {
+    suggestService.updateSuggest(sno);
     // updateSuggest 확인해봐야함
   }
   

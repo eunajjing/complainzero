@@ -27,10 +27,7 @@
               <td>${suggest.mid }</td>
               <td>${suggest.bno }</td>
               <c:if test="${suggest.statusCode == 'S00' }">
-              <td>대기
-               	<button type="button" onclick="approve(this)" id="approve" class="btn btn-outline-warning">승인</button>
-  				<button type="button" onclick="refuse(this)" id="refuse" class="btn btn-outline-danger">반려</button>
-  			  </td>
+              <td>대기</td>
               </c:if>
               <c:if test="${suggest.statusCode == 'S01' }">
               <td>반려</td>
@@ -95,44 +92,6 @@
       }); 
      }); 
      
-     function approve(e){
-    	 
-    	 var sno = $('.table-primary').children().eq(0).text();
-    	 
-    	$.ajax({
-    			url : 'updateApproveSuggest.do/' + sno,
-    				  type : 'PUT',
-    				  success : function() {
-    					  $('.table-primary').children().eq(3).text('승인');
-    					  $('#approve').remove();
-    					  $('#refuse').remove();
-    					  
-    		    		  alert("승인되었습니다.");
-    		          },
-    		          error : function(){
-    		        	  alert("error");
-    		          }
-  			});
-     }
-     
-     function refuse(e){
-    	 var sno = $('.table-primary').children().eq(0).text();
-
-    	 $.ajax({
-    		url : 'updateRefuseSuggest.do/' + sno, 
-    		type : 'PUT',
-    		success : function() {
-				  $('.table-primary').children().eq(3).text('반려');
-				  $('#approve').remove();
-				  $('#refuse').remove();
-				  
-	    		  alert("반려되었습니다.");
-	          },
-	          error : function(){
-	        	  alert("error");
-	          }
-    	 });
-     }
     </script>
   </body>
 </html>

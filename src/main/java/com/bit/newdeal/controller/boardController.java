@@ -151,7 +151,7 @@ public class boardController {
     
     params.put("board", boardService.selectMyBoard(principal.getName()));
     params.put("comment", commentService.mySelectComment(principal.getName()));
-//    params.put("likes", ); id로 찾고 글 번호로 조인해서 리스트 뽑아옴
+    params.put("likes", boardService.likeBoard(principal.getName()));
     mav.addObject("myBoard", params);
     mav.setViewName("mypage/user/userMyPage_board");
     
@@ -162,7 +162,7 @@ public class boardController {
   @RequestMapping("mySuggest.do")
   public ModelAndView mySuggest(Principal principal) {
     ModelAndView mav = new ModelAndView();
-    /*mav.addObject("mySuggest", suggestService.selectOneSuggest(principal.getName()));*/
+    mav.addObject("mySuggest", suggestService.selectMySuggest(principal.getName()));
     mav.setViewName("mypage/enter/enterUserMyPage_suggest");
     
     return mav;

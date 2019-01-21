@@ -60,6 +60,13 @@
 	<delete id="deleteLike" parameterType="HashMap">
 		delete from likelist where id = #{id} and bno = #{bno}
 	</delete>
+	
+	<select id="likeBoard" parameterType="String" resultType="Board">
+		select b.title, b.writeDate, b.readCount
+		from board b join likelist l
+		on b.bno = l.bno
+		where id = #{id}
+	</select>
 
 </mapper>
 

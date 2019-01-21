@@ -111,4 +111,8 @@ public class boardService {
 		
 		return session.getMapper(boardDao.class).deleteLike(map);
 	}
+	
+	public List<Board> likeBoard(String id) {
+		return session.getMapper(boardDao.class).likeBoard(id);
+	}
 }

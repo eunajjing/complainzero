@@ -112,13 +112,7 @@ public class memberController {
 	  boolean result = bCryptPasswordEncoder.matches(rawPassword, encodePassword);
 	  */
 	  boolean result = true;
-	  
-    /* 여기서 권한 체크 후 
-     각 권한별 마이페이지로 이동
-      adminForm.do - 관리자
-      enterUserMyPage.do - 기업회원
-      userMyPage.do - 일반회원
-    */
+
 	  return result;
   }
   

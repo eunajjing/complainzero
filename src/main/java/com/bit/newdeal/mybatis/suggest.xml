@@ -18,7 +18,14 @@
   	</insert>
   	
   	<update id="updateSuggest" parameterType="Suggest">
-  		update suggestion set statusCode = #{statusCode} where sno = #{sno}
+  	
   	</update>
+  	
+  	<select id="selectMySuggest" parameterType="String" resultType="HashMap">
+  		select s.sno, s.statusCode, s.etc, b.title
+		from suggestion s join board b
+		on s.bno = b.bno
+		where id = #{id}
+  	</select>
   
   </mapper>
