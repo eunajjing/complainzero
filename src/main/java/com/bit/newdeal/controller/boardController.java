@@ -135,7 +135,8 @@ public class boardController {
   
   @RequestMapping(value="writeSuggest.do", method = RequestMethod.POST)
   public @ResponseBody boolean writeSuggest(@ModelAttribute Suggest suggest, Principal principal) {
-	return suggestService.insertSuggest(suggest);
+	  suggest.setMid(principal.getName());
+	  return suggestService.insertSuggest(suggest);
   }
   
   @RequestMapping("deleteSuggest.do")
