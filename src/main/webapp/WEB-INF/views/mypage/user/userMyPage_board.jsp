@@ -64,7 +64,7 @@ img{
 		          		<tr>
 		          			<th>내용</th>
 		          			<th>작성시간</th>
-		          			<!-- <th>게시글제목</th> -->
+		          			<th>게시글제목</th>
 		          		</tr>
 		          	</thead>
 		          	<tbody>
@@ -141,7 +141,7 @@ img{
 		          		<tr>
 		          			<th>내용</th>
 		          			<th>작성시간</th>
-		          			<!-- <th>게시글제목</th> -->
+		          			<th>게시글제목</th>
 		          		</tr>
 		          	</thead>
 		          	<tbody>
@@ -149,7 +149,7 @@ img{
 		          		<tr>
 							<td>${comment.cContent}</td>
 							<td>${comment.writeDate}</td>
-							<%-- <td>${comment.title}</td> --%>
+							<td>${comment.title}</td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
