@@ -16,7 +16,7 @@ date : 19-01-21
 		          <p class="help-block"></p>
 		          
 		          <label>비밀번호:</label>
-	              	<input type="password" class="form-control" id="pw" name="pw" required="required">
+	              	<input type="password" class="form-control" id="upw" name="upw" required="required">
 	           	  <p class="help-block"></p>
 	              
 	              <label>닉네임:</label>
@@ -24,9 +24,8 @@ date : 19-01-21
 	              <p class="help-block"></p>
 	              
 	            <label>
-	            	
-	           		<center><img src="img/profile/Jellyfish.jpg" id="img" style="width:300px; width:300px;"></center><br>
-	            	<input type="file" id="input_img" name="img" style="opacity: 0;"/>
+	           		<center><img src="http://localhost:8888/img/profile/${member.id}.jpg" id="img" style="width:300px; width:300px;"></center><br>
+	            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp">
 	            </label>
 	              
 	            <p class="help-block"></p>
@@ -62,11 +61,12 @@ date : 19-01-21
     			$('#img').attr('src', e.target.result);
     		}
     		reader.readAsDataURL(f);
+    		
     	});
     }
     
 	   	$('#updateBtn').click(function(){
-	   		if($('#pw') == ""){
+	   		if($('#upw') == ""){
 	       		alert("비밀번호를 입력하세요");
 	       	}else if($('#nickname') == ""){
 	       		alert("닉네임을 입력하세요");
@@ -75,7 +75,7 @@ date : 19-01-21
 	       		$.ajax({
 					url : 'pwCheck.do',
 		  			  type : 'POST',
-		  			  data : {epw : $('#pw').val()},
+		  			  data : {epw : $('#upw').val()},
 		  			  success : function(data) {
 		  				  //성공시 정보변경
 		  				  if(data == true){
@@ -91,7 +91,7 @@ date : 19-01-21
 		  		  			contentType: false,
 		  					processData: false,
 		  		  			  success : function() {
-		  		  	    		  $('#pw').val('');
+		  		  	    		  $('#upw').val('');
 		  		  	    		  alert("수정되었습니다.");
 		  		  	          },
 		  		  	          error : function(){

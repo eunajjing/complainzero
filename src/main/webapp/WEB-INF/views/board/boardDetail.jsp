@@ -174,8 +174,8 @@ date : 2019-01-18
 				<c:forEach items="${commentList}" var="commentList">
 					<div class="comment" seq="${commentList.cno}">
 						<div class="media mb-4">
-							<img class="d-flex mr-3 rounded-circle"
-								src="http://placehold.it/50x50" alt="">
+							<img class="d-flex mr-3 rounded-circle" style="width:50px; height:50px;"
+								src="http://localhost:8888/img/profile/${commentList.profile}.jpg" alt="">
 							<div class="media-body">
 								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
 								<button class="btn btn-outline-danger btn-sm"
@@ -281,8 +281,8 @@ function makeList(memos) {
 		for(var i = 0; i < len; i++) {
 			output += '<div class="comment" seq="' + memos[i].cno + '">';
 	 		output += '<div class="media mb-4">';
- 			output += '<img class="d-flex mr-3 rounded-circle"';
-			output += 'src="http://placehold.it/50x50" alt="">';
+ 			output += '<img class="d-flex mr-3 rounded-circle" style="width:50px; height:50px;"';
+			output += 'src="http://localhost:8888/img/profile/' + memos[i].cno + '.jpg" alt="">';
 			output += '<div class="media-body">';
 			output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
 			output += '<button class="btn btn-outline-danger btn-sm"';

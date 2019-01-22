@@ -56,13 +56,6 @@ public class boardController {
     
     mav.addObject("boardList", boardService.selectAllBoard(cri));
     
-   System.out.println(cri.getPage());
-   System.out.println(cri.getPageStart());
-   System.out.println(cri.getPerPageNum());
-   
-   /*
-   mav.addObject("boardList", boardService.listCriteria(cri));
-   */
    PageMaker pageMaker = new PageMaker();
    pageMaker.setCri(cri);
    pageMaker.setTotalCount(boardService.countPageing(cri));

@@ -2,7 +2,6 @@ package com.bit.newdeal.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Criteria;
