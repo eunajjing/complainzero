@@ -2,7 +2,9 @@ package com.bit.newdeal.dao;
 
 import java.util.HashMap;
 import java.util.List;
+
 import com.bit.newdeal.dto.Board;
+import com.bit.newdeal.dto.Criteria;
 
 public interface boardDao {
   public List<Board> containerOne();
@@ -18,4 +20,6 @@ public interface boardDao {
   public int insertLike(HashMap<String, Object> map);
   public int deleteLike(HashMap<String, Object> map);
   public List<Board> likeBoard(String id);
+  public List<Board> listCriteria(Criteria cri);
+  public int countPaging(Criteria cri);
 }

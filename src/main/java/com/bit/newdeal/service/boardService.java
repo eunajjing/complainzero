@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.newdeal.dao.boardDao;
 import com.bit.newdeal.dto.Board;
+import com.bit.newdeal.dto.Criteria;
 
 @Service
 public class boardService {
@@ -129,4 +130,13 @@ public class boardService {
 	public List<Board> likeBoard(String id) {
 		return session.getMapper(boardDao.class).likeBoard(id);
 	}
+	
+	public List<Board> listCriteria(Criteria cri){
+		return session.getMapper(boardDao.class).listCriteria(cri);
+	}
+	
+	public int countPageing(Criteria cri) {
+		return session.getMapper(boardDao.class).countPaging(cri);
+	}
+	
 }

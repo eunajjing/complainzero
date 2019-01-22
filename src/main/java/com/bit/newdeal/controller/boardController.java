@@ -22,6 +22,8 @@ import org.springframework.web.servlet.View;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
+import com.bit.newdeal.dto.Criteria;
+import com.bit.newdeal.dto.PageMaker;
 import com.bit.newdeal.dto.Suggest;
 import com.bit.newdeal.service.boardService;
 import com.bit.newdeal.service.commentService;
@@ -37,11 +39,18 @@ public class boardController {
   private suggestService suggestService;
   
   @RequestMapping("boardForm.do")
-  public ModelAndView boardForm() {
+  public ModelAndView boardForm(Criteria cri) {
     ModelAndView mav = new ModelAndView();
     
-   mav.addObject("boardList", boardService.selectAllBoard());
-   /*System.out.println(boardService.selectAllBoard().);*/
+   /*mav.addObject("boardList", boardService.selectAllBoard());*/
+    /*System.out.println(boardService.selectAllBoard().);*/
+   mav.addObject("boardList", boardService.listCriteria(cri));
+   
+   PageMaker pageMaker = new PageMaker();
+   pageMaker.setCri(cri);
+   pageMaker.setTotalCount(boardService.countPageing(cri));
+   mav.addObject("pageMaker", pageMaker);
+   
    mav.setViewName("board/boardForm");
    
     return mav;

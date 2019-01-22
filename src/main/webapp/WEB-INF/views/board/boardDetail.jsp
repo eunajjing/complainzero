@@ -182,12 +182,14 @@ date : 2019-01-18
 									data-toggle="modal" data-target="#reportModal">신고</button>
 
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
+								<c:if test="${pageContext.request.userPrincipal.name == commentList.id}">
 								<div class="btn-group btn-group-sm">
 									<button type="button" onclick="updateBtn(${commentList.cno})"
 										class="btn btn-outline-warning">수정</button>
 									<button type="button" onclick="deleteComment(this)"
 										class="btn btn-outline-danger">삭제</button>
 								</div>
+								</c:if>
 								<br>
 								<div id="updateText${commentList.cno}" style="display: none;">
 									<textarea class="form-control" rows="2">${commentList.cContent}</textarea>

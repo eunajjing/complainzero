@@ -52,7 +52,7 @@ Date : 19-01-21
 					<div class="col-lg-12">
 						<p class="card-text">게시글이 없습니다. 곧 게시판을 닫아야 할지도 모르겠군요.</p>
 					</div>
-r
+
 				</div>
 			</div>
 		</div>
@@ -75,6 +75,25 @@ r
 				</div>
 			</c:if>
 		</c:forEach>
+	</div>
+	<div>
+		<ul class="pagination">
+			<c:if test="${pageMaker.prev}">
+				<li><a href="boardForm.do?page=${pageMaker.startPage - 1}">&laquo;</a></li>
+			</c:if>
+			
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				<li
+					<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+					<a href="boardForm.do?page=${idx}">${idx}</a>
+				</li>
+			</c:forEach>
+			
+			<c:if test="${pageMaker.next}">
+				<li><a href="boardForm.do?page=${pageMaker.endPage +1}">&raquo;</a></li>
+			</c:if>
+			
+		</ul>
 	</div>
 </div>
 

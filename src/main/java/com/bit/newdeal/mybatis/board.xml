@@ -72,6 +72,14 @@
 		on b.bno = l.bno
 		where id = #{id}
 	</select>
+	
+	<select id="listCriteria" resultType="Board">
+		select * from board where bDelete = 0 order by bno desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countPaging" resultType="int">
+		select count(bno) from board where bDelete = 0;
+	</select>
 
 </mapper>
 
