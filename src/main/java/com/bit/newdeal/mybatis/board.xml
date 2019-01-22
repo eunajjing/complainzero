@@ -35,6 +35,8 @@
          and (title like '%${keyword}%'
          or bContent like '%${keyword}%')
          </if>
+         order by bno desc
+         limit #{pageStart}, #{perPageNum}
 
 	</select>
 
@@ -54,7 +56,7 @@
 
 	  	
   	<select id="selectMyBoard" parameterType="String" resultType="Board">
-  		select title, bcontent, writedate, readCount from board where mid=#{id}
+  		select bno, title, bcontent, writedate, readCount from board where mid=#{id}
   	</select>
   	
 
@@ -75,10 +77,27 @@
 	</delete>
 	
 	<select id="likeBoard" parameterType="String" resultType="Board">
-		select b.title, b.writeDate, b.readCount
+		select b.title, b.writeDate, b.readCount, b.bno
 		from board b join likelist l
 		on b.bno = l.bno
 		where id = #{id}
+	</select>
+	
+	<select id="listCriteria" resultType="Board">
+		select * from board where bDelete = 0 order by bno desc limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="countPaging" resultType="int">
+		SELECT count(bno)
+          FROM board
+         WHERE bDelete='0'
+         <if test="categorycode != null">
+         	and categorycode=#{categorycode}
+         </if>
+         <if test="keyword != null">
+         and (title like '%${keyword}%'
+         or bContent like '%${keyword}%')
+         </if>
 	</select>
 
 </mapper>

@@ -15,7 +15,7 @@ public class commentService {
   @Autowired
   SqlSession session;
   
-  public List<Comment> selectComment(int bno) {
+  public List<HashMap> selectComment(int bno) {
     return session.getMapper(commentDao.class).selectComment(bno);
   }
   
