@@ -34,6 +34,8 @@
          and (title like '%${keyword}%'
          or bContent like '%${keyword}%')
          </if>
+         order by bno desc
+         limit #{pageStart}, #{perPageNum}
 
 	</select>
 
@@ -85,7 +87,16 @@
 	</select>
 	
 	<select id="countPaging" resultType="int">
-		select count(bno) from board where bDelete = 0;
+		SELECT count(bno)
+          FROM board
+         WHERE bDelete='0'
+         <if test="categorycode != null">
+         	and categorycode=#{categorycode}
+         </if>
+         <if test="keyword != null">
+         and (title like '%${keyword}%'
+         or bContent like '%${keyword}%')
+         </if>
 	</select>
 
 </mapper>

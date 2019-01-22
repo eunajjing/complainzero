@@ -1,5 +1,11 @@
 package com.bit.newdeal.dto;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PageMaker {
 
 	private int totalCount;
@@ -34,6 +40,37 @@ public class PageMaker {
 		prev = startPage == 1? false : true;
 		next = endPage * cri.getPerPageNum() >= totalCount ? false : true;
 		
+	}
+	
+	public String makeSearch(int page) {
+		
+		String result = "";
+		
+		if(((SearchCriteria)cri).getCategorycode() == null) {
+			UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+					.queryParam("keyword", ((SearchCriteria)cri).getKeyword()).build();
+			result = uriComponents.toString();
+		}else {
+			UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+					.queryParam("categorycode", ((SearchCriteria)cri).getCategorycode())
+					.queryParam("keyword", ((SearchCriteria)cri).getKeyword()).build();
+			result = uriComponents.toString();
+		}
+		
+		
+		return result;
+	}
+	
+	private String encoding(String keyword) {
+		if(keyword == null || keyword.trim().length() == 0) {
+			return "";
+		}
+		
+		try {
+			return URLEncoder.encode(keyword, "UTF-8");
+		}catch(UnsupportedEncodingException e) {
+			return "";
+		}
 	}
 
 	public int getTotalCount() {

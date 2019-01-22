@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bit.newdeal.dao.boardDao;
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Criteria;
+import com.bit.newdeal.dto.SearchCriteria;
 
 @Service
 public class boardService {
@@ -33,8 +34,8 @@ public class boardService {
 		return session.getMapper(boardDao.class).selectOneBoard(no);
 	}
 
-	public List<Board> selectAllBoard(Map<String, String> selectQuery) {
-		return session.getMapper(boardDao.class).selectAllBoard(selectQuery);
+	public List<Board> selectAllBoard(SearchCriteria cri) {
+		return session.getMapper(boardDao.class).selectAllBoard(cri);
 	}
 	
 	public int updateBoard(Board board) {
@@ -135,7 +136,7 @@ public class boardService {
 		return session.getMapper(boardDao.class).listCriteria(cri);
 	}
 	
-	public int countPageing(Criteria cri) {
+	public int countPageing(SearchCriteria cri) {
 		return session.getMapper(boardDao.class).countPaging(cri);
 	}
 	

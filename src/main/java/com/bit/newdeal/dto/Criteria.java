@@ -9,9 +9,6 @@ public class Criteria {
 		this.page = 1;
 		this.perPageNum = 12;
 	}
-	public int getPage() {
-		return page;
-	}
 	public void setPage(int page) {
 		if(page <= 0) {
 			this.page = 1;
@@ -19,9 +16,6 @@ public class Criteria {
 		}
 		
 		this.page = page;
-	}
-	public int getPerPageNum() {
-		return perPageNum;
 	}
 	public void setPerPageNum(int perPageNum) {
 		if(perPageNum <=0 || perPageNum > 100) {
@@ -31,9 +25,14 @@ public class Criteria {
 		
 		this.perPageNum = perPageNum;
 	}
-
+	public int getPage() {
+		return page;
+	}
 	public int getPageStart() {
 		return (this.page - 1) * perPageNum;
+	}
+	public int getPerPageNum() {
+		return this.perPageNum;
 	}
 	
 	@Override
