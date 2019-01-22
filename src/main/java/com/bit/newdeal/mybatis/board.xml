@@ -13,15 +13,16 @@
 
 	</select>
 
-	<select id="selectOneBoard" parameterType="int"
-		resultType="Board">
-
-	   SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
+<!-- 	<select id="selectOneBoard" parameterType="Board" statementType="CALLABLE">
+{ call selectOneBoard(#{bno, mode=IN, jdbcType=INTEGER})}
+	</select> -->
+	<select id="selectOneBoard" parameterType="Board">
+		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
           FROM board
          WHERE bDelete='0'
          and bno = #{bno}
+    </select>
       
-	</select>
 
 	<select id="selectAllBoard" parameterType="HashMap" resultType="Board">
 		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete

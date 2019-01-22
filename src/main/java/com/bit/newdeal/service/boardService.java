@@ -29,6 +29,8 @@ public class boardService {
 	}
 
 	public Board selectOneBoard(int no) {
+		Board test = session.getMapper(boardDao.class).selectOneBoard(no);
+		System.out.println(test.getBno());
 		return session.getMapper(boardDao.class).selectOneBoard(no);
 	}
 
