@@ -14,9 +14,9 @@
 	</select>
 
 	<select id="selectOneBoard" parameterType="int"
-		resultType="Board">
+		resultType="board">
 
-	   SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
+	 SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete, likeCount
           FROM board
          WHERE bDelete='0'
          and bno = #{bno}
@@ -24,15 +24,15 @@
 	</select>
 
 	<select id="selectAllBoard" resultType="Board">
-		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
+		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete, likeCount
           FROM board
-         WHERE bDelete='0'
+           WHERE bDelete='0' order by bno desc 
 
 	</select>
 
   	<insert id="insertBoard" parameterType="Board">
-  	   insert into board(mid, title, bContent, thumbNail, bDelete)
-  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail}, #{0})
+  	   insert into board(mid, title, bContent, thumbNail, categoryCode)
+  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail}, #{categoryCode})
   	</insert>
   	
 	<update id="updateBoard" parameterType="Board">
@@ -43,6 +43,30 @@
 		resultType="Board">
 
 	</select>
+	
+	<update id="readCount" parameterType="int">
+
+        update board
+
+        set readCount = readCount + 1
+
+        where bno = #{bno}
+
+ 		</update>
+ 		
+ 		<select id="likeCount" parameterType="int">
+
+        select count(bno) from liklist where bno=#{bno} 
+    
+
+ 		</select>
+ 		
+ 		<update id="likelist" parameterType="int">
+ 		select b.*, (select count(*) from likelist l where l.bno = b.bno) "like"
+		from board b
+		where b.bno = #{bno}
+ 		
+ 		</update>
 
 	  	
   	<select id="selectMyBoard" parameterType="String" resultType="Board">

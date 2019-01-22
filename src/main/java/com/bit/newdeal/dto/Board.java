@@ -12,6 +12,7 @@ public class Board {
   private String thumbNail;
   private String categoryCode;
   private String bDelete;
+  private int likeCount;
   
   public int getBno() {
     return bno;
@@ -67,4 +68,10 @@ public class Board {
   public void setbDelete(String bDelete) {
     this.bDelete = bDelete;
   }
+public int getLikeCount() {
+	return likeCount;
+}
+public void setLikeCount(int likeCount) {
+	this.likeCount = likeCount;
+}
 }

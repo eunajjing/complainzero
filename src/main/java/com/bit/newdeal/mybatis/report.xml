@@ -16,6 +16,7 @@
   	   values(#{rno}, #{isTo}, #{isFrom}, #{targetTypeCode}, #{targetCode}, #{reasonCode}, #{rContent}, #{processCode})
   	</insert>
   	
+  	
   	<update id="updateReport" parameterType="java.util.Map">
   	   update report set 
   	   <if test="num == 1">

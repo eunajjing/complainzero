@@ -8,6 +8,7 @@ date : 2019-01-18
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <link href="css/boardDetail.css" rel="stylesheet">
@@ -20,20 +21,21 @@ date : 2019-01-18
 				<h4 class="modal-title">신고하기</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
+			<input type="hidden" id="targetCode" value="${boardDetail.bno}">
 			<div class="modal-body">
 				<div class="form-group">
 					<label for="reasonCode">신고사유</label> <select class="form-control"
 						id="reasonCode">
 						<option>신고사유 선택</option>
-						<option>무분별한 비속어 사용</option>
-						<option>광고성 게시물</option>
-						<option>음란성 게시물</option>
-						<option>명예훼손 게시물</option>
-						<option>기타 사유</option>
+						<option value = "RC01">무분별한 비속어 사용</option>
+						<option value = "RC02">광고성 게시물</option>
+						<option value = "RC03">음란성 게시물</option>
+						<option value = "RC04">명예훼손 게시물</option>
+						<option value = "RC00">기타 사유</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<textarea class="form-control" rows="3" placeholder="자세한 내용을 적어주세요"></textarea>
+					<textarea class="form-control" rows="3" placeholder="자세한 내용을 적어주세요" id="rContent"></textarea>
 				</div>
 			</div>
 
@@ -42,7 +44,7 @@ date : 2019-01-18
 				<strong>허위 신고 시</strong> 회원 활동에 있어 불이익이 발생할 수 있습니다.
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger">전송</button>
+				<button type="button" id="report" class="btn btn-danger">전송</button>
 			</div>
 		</div>
 	</div>
@@ -95,45 +97,7 @@ date : 2019-01-18
 
 <div class="container">
 
-<<<<<<< HEAD
-	     <h1 class="mt-4 mb-3"> ${boardDetail.title}
-        <small>by
-          <a href="#"> 카테고리</a>
-        </small>
-      </h1>
-      <div class="row">
-      	<div class="col-lg-8">
-      		<img class="img-fluid rounded" src="http://localhost:8888/img/boardThumbNail/${boardDetail.thumbNail }" alt="http://placehold.it/50x50" 
-      		width="200px" height="300px">
-      		<hr>
-      		<p> ${boardDetail.writeDate}</p>
-          	<hr>
-          	<div class = "bContentimg">
-          	<!-- 콘텐츠 내용 시작 -->
-          	 ${boardDetail.bContent}
-          	<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->          
-          	</div>
-          	<hr>
-   
-          	<div class="rightOutDiv">
-          	<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>
-          	  
-          	</div>
-          	<div class="card my-4">
-				<div class="card-body rightOutDiv">
-				<!-- 만약 내가 쓴 글이 아니면 -->
-		            이 글이 공감되시나요? <i class="far fa-heart"></i>
-		            <!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
-		            <br>
-		        
-		        <!-- 만약 내가 쓴 글이면 -->
-		        <div class="btn-group btn-group-sm">
-				<button type="button"class="btn btn-outline-danger" onclick="location.href='boardDeleteForm.do?bno=${boardDetail.bno}'">삭제</button> 
 
-   
-					</div>
-		        </div>
-	        </div>
 
 	<h1 class="mt-4 mb-3">
 		${boardDetail.title} <small>by <a href="#"> 카테고리</a>
@@ -145,18 +109,24 @@ date : 2019-01-18
 				src="http://localhost:8888/img/boardThumbNail/${boardDetail.thumbNail }"
 				alt="http://placehold.it/50x50" width="200px" height="300px">
 			<hr>
-			<p>${boardDetail.writeDate}</p>
+			
+			<p><fmt:formatDate value="${boardDetail.writeDate}" pattern="yyyy.MM.dd"/></p>
+			<%-- <p>${boardDetail.writeDate}</p> --%>
 			<hr>
 			<div class="bContentimg">
 				<!-- 콘텐츠 내용 시작 -->
 				${boardDetail.bContent}
 				<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->
 			</div>
+			
+			<p>조회수 :  ${boardDetail.readCount}</p>
+			<p id="isTo">작성자 :  ${boardDetail.mid}</p>  
+	
 			<hr>
 
 			<div class="rightOutDiv">
 				<button class="btn btn-outline-danger btn-sm" data-toggle="modal"
-					data-target="#reportModal">신고</button>
+					data-target="#reportModal" targetTypeCode="BOARD">신고</button>
 			</div>
 			<div class="card my-4">
 				<div class="card-body rightOutDiv">
@@ -261,6 +231,41 @@ date : 2019-01-18
 
 
 </div>
+
+<!-- //신고하기 -->
+<script>
+
+
+
+$('#report').click(function() {
+	console.log("targetTypeCode"+$('this').data("targetTypeCode"));
+	console.log($('#reasonCode').val());
+	console.log($('#rContent').val());
+  
+/*     $.ajax({
+        type: "POST",
+        url: "insertReport.do",
+        data: { 
+            "isTo" : ${boardDetail.mid},
+            /* "targetTypeCode" : $('targetTypeCode').val(), 
+            "targetCode" :$('#tagetCode').val(),
+            "reasonCode" :$('#reasonCode').val(),
+            "rContent" :$('#rContent').val()
+        },
+        success: function() {
+            alert('신고 처리가 완료되었습니다.');
+            location.reload();
+        }, error: function() {
+            alert('신고처리가 실패되었습니다.');
+        }
+    }); */
+});
+
+
+
+
+
+</script>
 
 <script>
 $(document).ready(function(){
@@ -390,6 +395,9 @@ function deleteComment(e){
     	  }
 	});
 }
+
+
+
 // 링크 검사
 function linkCheck() {
 	// url 정규표현식

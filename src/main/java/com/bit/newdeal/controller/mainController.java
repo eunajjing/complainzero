@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.newdeal.dto.Alarm;
+import com.bit.newdeal.dto.Comment;
 import com.bit.newdeal.dto.Report;
 import com.bit.newdeal.service.alarmService;
 import com.bit.newdeal.service.boardService;
+import com.bit.newdeal.service.memberService;
 import com.bit.newdeal.service.reportService;
 
 @Controller
@@ -29,7 +32,7 @@ public class mainController {
   @RequestMapping(value = {"main.do", "/"})
   public ModelAndView main() {
     ModelAndView mav = new ModelAndView();
-    
+    mav.addObject("boardList", boardService.selectAllBoard());
 //    mav.addObject("popList", boardService.containerOne());
 //    mav.addObject("lastList", boardService.containerTwo());
     mav.setViewName("main");
@@ -41,6 +44,8 @@ public class mainController {
   public void insertAlarm(Alarm alarm) {
     alarmService.insertAlarm(alarm);
   }
+  
+
   
   @RequestMapping(value = "updateAlarm.do", method = RequestMethod.PUT)
   public void updateAlarm(int ano) {
@@ -62,9 +67,11 @@ public class mainController {
     return mav;
   }
   
-  @RequestMapping("insertReport.do")
-  public void insertReport(Report report) {
-    reportService.insertReport(report);
+  @RequestMapping( value="insertReport.do",method = RequestMethod.POST)
+  public @ResponseBody void insertReport(Report report, Principal principal) {
+	  report.setIsFrom(principal.getName());
+	  reportService.insertReport(report);
+	  
   }
   
   @RequestMapping(value="insertLikes.do", method=RequestMethod.POST)
