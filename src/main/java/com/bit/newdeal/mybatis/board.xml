@@ -23,10 +23,17 @@
       
 	</select>
 
-	<select id="selectAllBoard" resultType="Board">
+	<select id="selectAllBoard" parameterType="HashMap" resultType="Board">
 		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
           FROM board
          WHERE bDelete='0'
+         <if test="categorycode != null">
+         	and categorycode=#{categorycode}
+         </if>
+         <if test="keyword != null">
+         and (title like '%${keyword}%'
+         or bContent like '%${keyword}%')
+         </if>
 
 	</select>
 

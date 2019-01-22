@@ -2,6 +2,7 @@ package com.bit.newdeal.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,12 +40,13 @@ public class boardController {
   public ModelAndView boardForm(@RequestParam(value="categorycode", required=false) String categorycode,
 		  @RequestParam(value="keyword", required=false) String keyword) {
 	  
-	  if (categorycode != null) {
-		  System.out.println(categorycode);
-	  }
+	Map<String, String> selectQuery = new HashMap();
+	selectQuery.put("categorycode", categorycode);
+	selectQuery.put("keyword", keyword);
+	
     ModelAndView mav = new ModelAndView();
     
-   mav.addObject("boardList", boardService.selectAllBoard());
+   mav.addObject("boardList", boardService.selectAllBoard(selectQuery));
    /*System.out.println(boardService.selectAllBoard().);*/
    mav.setViewName("board/boardForm");
    

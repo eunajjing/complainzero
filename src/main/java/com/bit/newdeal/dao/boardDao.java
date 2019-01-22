@@ -2,13 +2,15 @@ package com.bit.newdeal.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.bit.newdeal.dto.Board;
 
 public interface boardDao {
   public List<Board> containerOne();
   public List<Board> containerTwo();
   public Board selectOneBoard(int no);
-  public List<Board> selectAllBoard();
+  public List<Board> selectAllBoard(Map<String, String> selectQuery);
   public int insertBoard(Board board);
   public int updateBoard(Board board);
   public List<Board> searchBoard(HashMap<String, Object> params);

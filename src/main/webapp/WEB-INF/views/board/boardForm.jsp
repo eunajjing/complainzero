@@ -9,6 +9,8 @@ Date : 19-01-19
 내용 : 게시판 뷰 게시물 없을 때 제어
 Date : 19-01-21
 내용 : 게시판 뷰 정렬
+Date : 19-01-22
+내용 : 셀렉트 박스 제어
 작성자 : 고은아
  -->
 <div class="container">
@@ -21,7 +23,7 @@ Date : 19-01-21
 			<form class="form-inline">
 				<div class="form-group">
 					<select class="form-control" id="categorycodeSelect">
-						<option>전체</option>
+						<option value="all">전체</option>
 						<option value="C01">식품</option>
 						<option value="C02">보건/의료</option>
 						<option value="C03">주거/시설</option>
@@ -35,8 +37,8 @@ Date : 19-01-21
 						<option value="C11">관광/운송</option>
 						<option value="C00">기타</option>
 					</select> &nbsp; <input class="form-control" type="search"
-						placeholder="검색 키워드 입력"> &nbsp;
-					<button class="btn" type="submit">검색</button>
+						placeholder="검색 키워드 입력" id="keyword"> &nbsp;
+					<button class="btn" type="button" id="searchBtn">검색</button>
 				</div>
 			</form>
 		</div>
@@ -45,23 +47,23 @@ Date : 19-01-21
 		</se:authorize>
 	</div>
 	<hr>
-	<c:if test="${empty boardList}">
-		<div class="card mb-4">
-			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-12">
-						<p class="card-text">게시글이 없습니다. 곧 게시판을 닫아야 할지도 모르겠군요.</p>
+	<c:choose>
+		<c:when test="${empty boardList}">
+			<div class="card mb-4">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-lg-12">
+							<p class="card-text">게시글이 없습니다. 곧 게시판을 닫아야 할지도 모르겠군요.</p>
+						</div>
 					</div>
-r
 				</div>
 			</div>
-		</div>
-	</c:if>
-	<div class="row">
-		<c:forEach items="${boardList}" var="boardList">
-			<c:if test="${boardList.thumbNail != null }">
-				<div class="col-lg-4 col-sm-6 portfolio-item">
-					<div class="card h-100">
+		</c:when>
+		<c:otherwise>
+			<div class="row">
+				<c:forEach items="${boardList}" var="boardList">
+						<div class="col-lg-4 col-sm-6 portfolio-item">
+							<div class="card h-100">
 						<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
 							src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
 							class="card-img-top" alt=""></a>
@@ -73,20 +75,50 @@ r
 						</div>
 					</div>
 				</div>
-			</c:if>
 		</c:forEach>
 	</div>
+		</c:otherwise>
+	</c:choose>
 </div>
+	
 <script type="text/javascript">
 $(function() {
+	let url = decodeURIComponent(location.href);
+	
+	let params = url.substring( url.indexOf('?')+1, url.length );
+	params = params.split("&");
+	for (let i = 0; i < params.length; i++) {
+		if (params[i].split("=")[0] == 'categorycode') {
+			$('#categorycodeSelect').val(params[i].split("=")[1]);
+		} else {
+			$('#keyword').val(params[i].split("=")[1]);
+		}
+	}
+	
+	
 	$('#categorycodeSelect').on('change',handleCategorycodeSelect);
 })
 
 function handleCategorycodeSelect(e) {
-	var target = e.target;
-	var categorycode = target.options[target.selectedIndex].value;
-	location.href='boardForm.do?categorycode='+categorycode;
+	let target = e.target;
+	let categorycode = target.options[target.selectedIndex].value;
+	if ($('#categorycodeSelect').val() != 'all') {
+		location.href='boardForm.do?categorycode='+categorycode;
+	} else {
+		console.log("?");
+		location.href='boardForm.do';
+	}
 }
+
+$('#searchBtn').click(function() {
+	let categorycode = $('#categorycodeSelect').val();
+	let keyword = $('#keyword').val().trim();
+	if (categorycode == 'all') {
+		location.href='boardForm.do?keyword='+keyword;
+	} else {
+		location.href='boardForm.do?categorycode='+categorycode+'&keyword='+keyword;	
+	}
+})
 </script>
 
 
