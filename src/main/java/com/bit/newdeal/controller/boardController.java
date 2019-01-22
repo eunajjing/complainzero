@@ -2,7 +2,11 @@ package com.bit.newdeal.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.util.Map;
+>>>>>>> master
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,6 +43,7 @@ public class boardController {
   private suggestService suggestService;
   
   @RequestMapping("boardForm.do")
+<<<<<<< HEAD
   public ModelAndView boardForm(Criteria cri) {
     ModelAndView mav = new ModelAndView();
     
@@ -51,6 +56,19 @@ public class boardController {
    pageMaker.setTotalCount(boardService.countPageing(cri));
    mav.addObject("pageMaker", pageMaker);
    
+=======
+  public ModelAndView boardForm(@RequestParam(value="categorycode", required=false) String categorycode,
+		  @RequestParam(value="keyword", required=false) String keyword) {
+	  
+	Map<String, String> selectQuery = new HashMap();
+	selectQuery.put("categorycode", categorycode);
+	selectQuery.put("keyword", keyword);
+	
+    ModelAndView mav = new ModelAndView();
+    
+   mav.addObject("boardList", boardService.selectAllBoard(selectQuery));
+   /*System.out.println(boardService.selectAllBoard().);*/
+>>>>>>> master
    mav.setViewName("board/boardForm");
    
     return mav;

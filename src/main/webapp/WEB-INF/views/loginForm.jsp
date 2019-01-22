@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <!-- 
-     작성자 : 고은아
-     내용 : 로그인 페이지 작성
-    date : 19-01-14
-     내용 : 시큐리티 에러 메시지 출력
-    date : 19-01-15
-     -->
+<!-- 
+date : 19-01-14
+내용 : 로그인 페이지 작성
+date : 19-01-15 
+내용 : 시큐리티 에러 메시지 출력
+date : 19-01-21
+내용 : 시큐리티 에러 메시지 출력
+작성자 : 고은아
+-->
     
     <div>
 	<div class="modal-dialog modal-sm">
@@ -29,7 +31,7 @@
 					
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default">비밀번호 찾기</button>
+					<!-- <button type="button" class="btn btn-default">비밀번호 찾기</button> -->
 					<!-- 비밀번호 찾기 단 구현 안됨 -->
 					<button type="submit" name="submit" class="btn btn-primary">로그인</button>
 				</div>

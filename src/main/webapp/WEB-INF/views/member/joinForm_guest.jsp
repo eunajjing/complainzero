@@ -6,6 +6,8 @@ date : 19-01-10
 내용 : 회원가입 폼 작성
 date : 19-01-15 ~ 16
 내용 : 회원가입 제어
+date : 19-01-21
+내용 : 인증번호 발송 단 주석, 프로필 사진 등록 제어 중
 작성자 : 고은아
 -->
 
@@ -39,11 +41,11 @@ date : 19-01-15 ~ 16
 								<button id="validateBtn" type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button>
 							</div>
 						</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="validityCheck">인증번호</label> <input id="validityCheck"
 							type="number" class="form-control" placeholder="발송된 인증번호를 입력해주세요"
 							required="required">
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label for="pw1">비밀번호</label> <input id="pw1" name="pw"
 							type="password" class="form-control" placeholder="password"
@@ -63,7 +65,7 @@ date : 19-01-15 ~ 16
 					</div>
 					<div class="form-group">
 						<label for="profile">프로필 이미지</label>
-						<input type="file" name="profile" multiple="multiple">
+						<input id="input_img" type="file" name="profile" multiple="multiple">
 					</div>
 					<div id="profilePrewDiv">
 						<img alt="" src="https://tettra.co/wp-content/logos/github.png" id="profilePrew">
@@ -215,6 +217,28 @@ $('#validateBtn').click(function() {
 	});
 });
 
+// 프로필 사진 업로드
+$(function() {
+	$('#input_img').on('change',handleImgFileSelect);
+})
+
+// 프로필 사진 핸들러
+function handleImgFileSelect(e){
+    	var files = e.target.files;
+    	var fileArr = Array.prototype.slice.call(files);
+    	
+    	fileArr.forEach(function(f){
+    		if(!f.type.match("image.*")){
+    			alert("확장자는 이미지 확장자만 가능합니다.");
+    			return;
+    		} 
+	    		var reader = new FileReader();
+	    		reader.onload = function(e){
+	    			$('#profilePrew').attr('src', e.target.result);
+	    		}
+	    		reader.readAsDataURL(f);
+    	});
+    }
 
 $('#joinForm').keyup(function() {
 	id() // 이메일 인증 해야함

@@ -33,8 +33,8 @@ public class boardService {
 		return session.getMapper(boardDao.class).selectOneBoard(no);
 	}
 
-	public List<Board> selectAllBoard() {
-		return session.getMapper(boardDao.class).selectAllBoard();
+	public List<Board> selectAllBoard(Map<String, String> selectQuery) {
+		return session.getMapper(boardDao.class).selectAllBoard(selectQuery);
 	}
 	
 	public int updateBoard(Board board) {
