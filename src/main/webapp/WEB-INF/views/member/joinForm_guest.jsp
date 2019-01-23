@@ -38,7 +38,7 @@ date : 19-01-21
 							<div class="validateDiv" id="idValidateDiv">
 							</div>
 								<input id="id" name="id" type="email" class="form-control" placeholder="Email" required="required">
-								<button id="validateBtn" type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button>
+								<!-- <button id="validateBtn" type="button" class="btn-xs btn" disabled="disabled">인증번호 발송</button> -->
 							</div>
 						</div>
 					<!-- <div class="form-group">

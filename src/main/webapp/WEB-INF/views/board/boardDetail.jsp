@@ -5,6 +5,8 @@ date : 2019-01-18
 내용 : 제안서 모달 뷰단 초기 구현
 date : 2019-01-22
 내용 : 신고 기능 추가
+date : 2019-01-23
+내용 : 신고 기능 추가
 작성자 : 고은아
  -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -14,6 +16,7 @@ date : 2019-01-22
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <link href="css/boardDetail.css" rel="stylesheet">
+<<<<<<< HEAD
 
 <style>
 #cProfile{
@@ -22,6 +25,9 @@ date : 2019-01-22
 }
 </style>
 
+=======
+<sec:authentication var="principal" property="principal" />
+>>>>>>> master
 <!-- 신고 모달 -->
 
 <div class="modal" id="reportModal" aria-hidden="true">
@@ -115,9 +121,47 @@ date : 2019-01-22
 <!-- 제안 모달 끝  -->
 
 <div class="container">
-
 	<h1 class="mt-4 mb-3">
-		${boardDetail.title} <small>by <a href="#"> 카테고리</a>
+		${boardDetail.title} <small>by <a href="boardForm.do?categorycode=${boardDetail.categoryCode}">
+		<c:choose>
+			<c:when test="${boardDetail.categoryCode eq 'C01'}">
+				식품
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C02'}">
+				보건/의료
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C03'}">
+				주거/시설
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C04'}">
+				가전/생활용품
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C05'}">
+				의류/세탁
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C06'}">
+				자동차/기계류
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C07'}">
+				정보통신
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C08'}">
+				금융/보험
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C09'}">
+				교육/문화
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C10'}">
+				레져/스포츠
+			</c:when>
+			<c:when test="${boardDetail.categoryCode eq 'C11'}">
+				관광/운송
+			</c:when>
+			<c:otherwise>
+				기타
+			</c:otherwise>
+		</c:choose>
+		</a>
 		</small>
 	</h1>
 	<div class="row">
@@ -126,19 +170,17 @@ date : 2019-01-22
 				src="http://localhost:8888/img/boardThumbNail/${boardDetail.thumbNail }"
 				alt="http://placehold.it/50x50" width="200px" height="300px">
 			<hr>
-			
-			<p><fmt:formatDate value="${boardDetail.writeDate}" pattern="yyyy.MM.dd"/></p>
-			<%-- <p>${boardDetail.writeDate}</p> --%>
+			<div class="rightOutDiv">
+				<div class="rightInDiv">
+					작성자 :  ${boardDetail.nickname} &emsp;
+					조회수 :  ${boardDetail.readCount} &emsp;
+					작성일 : <fmt:formatDate value="${boardDetail.writeDate}" pattern="yyyy-MM-dd"/>
+				</div>
+			</div>
 			<hr>
 			<div class="bContentimg">
-				<!-- 콘텐츠 내용 시작 -->
 				${boardDetail.bContent}
-				<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->
 			</div>
-			
-			<p>조회수 :  ${boardDetail.readCount}</p>
-			<p id="isTo">작성자 :  ${boardDetail.mid}</p>  
-	
 			<hr>
 
 			<div class="rightOutDiv">
@@ -150,34 +192,41 @@ date : 2019-01-22
 			</div>
 			<div class="card my-4">
 				<div class="card-body rightOutDiv">
-					<!-- 만약 내가 쓴 글이 아니면 -->
-					이 글이 공감되시나요?
-
-					<c:if test="${like == 0}">
-						<i id="like" class="far fa-heart"></i>
-					</c:if>
-
-					<c:if test="${like == 1}">
-						<i id="like" class="fas fa-heart"></i>
-					</c:if>
-					<p id="likeCount">${likeCount}</p>
-					
-
-					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
-					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
-
-
-					<!-- 만약 내가 쓴 글이면 -->
-					<div class="btn-group btn-group-sm">
-						<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
-						<button type="button" class="btn btn-outline-danger"
-							onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
-						<sec:authorize ifAnyGranted="ROLE_COMPANY">
-							<button type="button" class="btn btn-outline-primary"
-								data-toggle="modal" data-target="#suggestModal">제안</button>
-						</sec:authorize>
-
-					</div>
+				<c:choose>
+					<c:when test="${empty boardDetail.link}">
+						<c:choose>
+							<c:when test="${boardDetail.mid == principal.username}">
+							<!-- 만약 내가 쓴 글이면 -->
+									<div class="btn-group btn-group-sm">
+										<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
+										<button type="button" class="btn btn-outline-danger"
+											onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
+										<sec:authorize ifAnyGranted="ROLE_COMPANY">
+											<button type="button" class="btn btn-outline-primary"
+												data-toggle="modal" data-target="#suggestModal">제안</button>
+										</sec:authorize>
+									</div>
+							</c:when>
+							<c:otherwise>
+							<!-- 만약 내가 쓴 글이 아니면 -->
+									이 글이 공감되시나요? 현재 이 글에 공감하신 분은 <span id="likeCount">${likeCount}</span>명 입니다.
+									<c:if test="${like == 0}">
+										<i id="like" class="far fa-heart"></i>
+									</c:if>
+				
+									<c:if test="${like == 1}">
+										<i id="like" class="fas fa-heart"></i>
+									</c:if>
+									<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
+									<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
+									</c:otherwise>
+			</c:choose>
+					</c:when>
+					<c:otherwise>
+						이 불만은 개선을 노리고 출시된 상품이 있습니다. 관심이 있으시다면<br>
+						<strong><a href="${boardDetail.link}">쇼핑몰로 이동</a></strong>
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</div>
 
@@ -566,7 +615,11 @@ $("#deleteBoard").click(function(){
 /* $('#reportBoardBtn').click(function() {
 	$('#targetTypeCode').val("BOARD");
 	$('#targetCode').val(${boardDetail.bno});
+<<<<<<< HEAD
 }) */
+=======
+});
+>>>>>>> master
 
 $('#reportCommBtn').click(function() {
 	$('#targetTypeCode').val("COMM");
