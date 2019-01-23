@@ -92,7 +92,10 @@ Date : 19-01-15
     				"type" : "get",
     				
     				"success" : function(data){
+  
     					$('#nickname').text(data.nickname);
+    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile);
+    					
     					
 					}
 			});

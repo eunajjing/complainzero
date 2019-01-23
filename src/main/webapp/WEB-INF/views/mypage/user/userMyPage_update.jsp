@@ -1,7 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <!-- Content Column -->
-        <div>
+        
+        <link href="css/joinForm.css" rel="stylesheet">
+        
+      <div>
+	<div class="modal-dialog">
+		<div class="modal-content" id="joinForm">
+			<div class="modal-header">
+				<h4 class="modal-title" align="center">정보 수정</h4>
+			</div>
+			<form action="updateMember.do" id="formdata" method="post" enctype="multipart/form-data">
+			<!-- 멀티파트! -->
+			<div class="modal-body">
+			
+					<div class="form-group">
+							<label for="id">이메일</label>
+							<div>
+							<div class="validateDiv" id="idValidateDiv">
+							</div>
+								<input type="text" class="form-control" id="id" name="id" value="${member.id}" readonly>
+							
+							</div>
+						</div>
+					
+					<div class="form-group">
+						<label for="pw1">비밀번호</label> <input type="password" class="form-control"
+						 id="pw" name="pw" required="required">
+					</div>
+					
+					
+					<div class="form-group">
+					<div class="validateDiv" id="nicknameValidateDiv"></div>
+						<label for="nickname">닉네임</label> <input id="nickname"
+							name="nickname" type="text" class="form-control"
+							placeholder="닉네임" required="required">
+					</div>
+					<div class="form-group">
+						<label for="profile">프로필 이미지</label>
+						<input type="file" id="input_img" name="img" style="opacity: 0;"/>
+						<p class="help-block"></p>
+						</div>
+					<!-- <div id="profilePrewDiv">
+						<img alt="" src="https://tettra.co/wp-content/logos/github.png" id="profilePrew">
+					</div> -->
+					
+					  <div id="profileprewDiv">
+	            	
+	           		<center><img src="img/profile/Jellyfish.jpg" id="img" style="width:300px; width:300px;"></center><br>
+	            	<input type="file" id="input_img" name="img" style="opacity: 0;"/>
+	            </div>
+				
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" id="updateBtn" type="button">수정완료</button>
+			</div>
+			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div> 
+ <%--     <div>
           <h2>정보 수정</h2>
           
           	<div>
@@ -34,7 +94,7 @@
       </div>
       <!-- /.row -->
 
-    </div>
+    </div> --%>
     <!-- /.container -->
     
     <script>

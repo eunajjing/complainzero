@@ -26,7 +26,6 @@ date : 19-01-14
 					action="writeBoard.do" id="form" method="post">
 						<div class="form-group">
 							<select class="form-control" id="categoryCode" name="categoryCode">
-								<option>전체</option>
 								<option value="C01">식품</option>
 								<option value="C02">보건/의료</option>
 								<option value="C03">주거/시설</option>

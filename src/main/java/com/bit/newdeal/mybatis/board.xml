@@ -16,17 +16,32 @@
 	<select id="selectOneBoard" parameterType="int"
 		resultType="board">
 
-	 SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete, likeCount
-          FROM board
-         WHERE bDelete='0'
-         and bno = #{bno}
+	 select temp.bno "bno", temp.mid "mid", temp.title "title",
+temp.bContent "bContent", temp.writeDate "writeDate",
+temp.readCount "readCount", temp.thumbNail "thumbNail",
+temp.categoryCode "categoryCode", temp.bDelete "bDelete",
+temp.categoryName "categoryName",
+m.nickname "nickname"
+from member m join
+(SELECT b.bno "bno", b.mid "mid", b.title "title",
+b.bContent "bContent", DATE_FORMAT(b.writeDate,'%Y-%m-%d') "writeDate",
+b.readCount "readCount", b.thumbNail "thumbNail",
+b.categoryCode "categoryCode", b.bDelete "bDelete",
+c.categoryName "categoryName"
+FROM board b join categoryCode c using(categoryCode)) temp
+on m.id = temp.mid
+WHERE temp.bDelete='0'
+and temp.bno = #{bno}
+
       
 	</select>
 
 	<select id="selectAllBoard" resultType="Board">
-		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete, likeCount
+	
+
+	   SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete, likeCount
           FROM board
-           WHERE bDelete='0' order by bno desc 
+           WHERE bDelete='0' order by bno desc  
 
 	</select>
 
@@ -54,19 +69,14 @@
 
  		</update>
  		
- 		<select id="likeCount" parameterType="int">
+ 		<select id="likeCount" parameterType="int" resultType="int">
 
-        select count(bno) from liklist where bno=#{bno} 
+        select count(bno) from likelist where bno=#{bno} 
     
 
  		</select>
  		
- 		<update id="likelist" parameterType="int">
- 		select b.*, (select count(*) from likelist l where l.bno = b.bno) "like"
-		from board b
-		where b.bno = #{bno}
- 		
- 		</update>
+ 
 
 	  	
   	<select id="selectMyBoard" parameterType="String" resultType="Board">

@@ -48,7 +48,7 @@ public class boardService {
 	}
 	
 	public int likeCount(int bno) {
-		return session.getMapper(boardDao.class).readCount(bno);
+		return session.getMapper(boardDao.class).likeCount(bno);
 	}
 	
 

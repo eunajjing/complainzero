@@ -140,6 +140,7 @@ date : 2019-01-18
 					<c:if test="${like == 1}">
 					<i id="like" class="fas fa-heart"></i>
 					</c:if>
+					<p id="likeCount">${likeCount}</p>
 					
 					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
 					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
@@ -281,6 +282,7 @@ $(document).ready(function(){
 	  			  data : {'bno' : bno},
 	  			  success : function() {
 					$('#like').attr('class','fas fa-heart');
+					$('#likeCount').text(Number($('#likeCount').text())+1);
 	  	          },
 	  	          error : function(){
 	  	        	  alert("error");
@@ -293,6 +295,7 @@ $(document).ready(function(){
 	  			  data : {'bno' : bno},
 	  			  success : function() {
 	  				$('#like').attr('class','far fa-heart');
+	  				$('#likeCount').text(Number($('#likeCount').text())-1);
 	  	          },
 	  	          error : function(){
 	  	        	  alert("error");
