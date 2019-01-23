@@ -55,9 +55,9 @@ date : 19-01-19
        <!-- 최근 게시글 시작 -->
       <hr>
       <h2>최근 게시글</h2>
-      <div class="row">
       <c:forEach items="${boardList}" var="boardList">
       <c:if test="${boardList.thumbNail != null }">
+      <div class="row">
 		<br>
       <br>
         <div class="col-lg-4 col-sm-6 portfolio-item">

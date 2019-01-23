@@ -22,6 +22,11 @@ input[type=password] {
 	text-align: right;
 }
 
+.userupdate { 
+	text-align: center;
+}
+
+
 .rightInDiv {
 	display: inline-block;
 }
