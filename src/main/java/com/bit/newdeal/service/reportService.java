@@ -17,8 +17,9 @@ public class reportService {
     return session.getMapper(reportDao.class).selectReport();
   }
   
-  public int insertReport(Report report) {
-    return session.getMapper(reportDao.class).insertReport(report);
+  public boolean insertReport(Report report) {
+	int result = session.getMapper(reportDao.class).insertReport(report);
+    return (result > 0)?true:false;
   }
   
   public int updateReport(Map<String, Object> params) {

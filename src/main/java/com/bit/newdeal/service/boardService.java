@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.newdeal.dao.boardDao;
+import com.bit.newdeal.dao.suggestDao;
 import com.bit.newdeal.dto.Board;
+import com.bit.newdeal.dto.Criteria;
+import com.bit.newdeal.dto.SearchCriteria;
 
 @Service
 public class boardService {
@@ -29,11 +31,17 @@ public class boardService {
 	}
 
 	public Board selectOneBoard(int no) {
-		return session.getMapper(boardDao.class).selectOneBoard(no);
+		
+		int suggestionCount = session.getMapper(suggestDao.class).selectCount(no);
+		if (suggestionCount > 0) {
+			return session.getMapper(boardDao.class).selectOneBoardAddSuggestion(no);
+		}else {
+			return session.getMapper(boardDao.class).selectOneBoard(no);
+		}		
 	}
 
-	public List<Board> selectAllBoard() {
-		return session.getMapper(boardDao.class).selectAllBoard();
+	public List<Board> selectAllBoard(SearchCriteria cri) {
+		return session.getMapper(boardDao.class).selectAllBoard(cri);
 	}
 	
 	public int updateBoard(Board board) {
@@ -138,4 +146,13 @@ public class boardService {
 	public List<Board> likeBoard(String id) {
 		return session.getMapper(boardDao.class).likeBoard(id);
 	}
+	
+	public List<Board> listCriteria(Criteria cri){
+		return session.getMapper(boardDao.class).listCriteria(cri);
+	}
+	
+	public int countPageing(SearchCriteria cri) {
+		return session.getMapper(boardDao.class).countPaging(cri);
+	}
+		
 }

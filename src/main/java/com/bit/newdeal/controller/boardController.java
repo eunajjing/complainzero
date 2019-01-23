@@ -2,6 +2,7 @@ package com.bit.newdeal.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.View;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
+import com.bit.newdeal.dto.PageMaker;
+import com.bit.newdeal.dto.SearchCriteria;
 import com.bit.newdeal.dto.Suggest;
 import com.bit.newdeal.service.boardService;
 import com.bit.newdeal.service.commentService;
@@ -36,19 +39,37 @@ public class boardController {
   private suggestService suggestService;
   
   @RequestMapping("boardForm.do")
-  public ModelAndView boardForm() {
+  public ModelAndView boardForm(/*@RequestParam(value="categorycode", required=false) String categorycode,
+		  @RequestParam(value="keyword", required=false) String keyword, */@ModelAttribute SearchCriteria cri) {
+	  
+	/*  
+	Map<String, Object> selectQuery = new HashMap();
+	selectQuery.put("categorycode", categorycode);
+	selectQuery.put("keyword", keyword);
+	selectQuery.put("pageStart", cri.getPageStart());
+	selectQuery.put("perPageNum", cri.getPerPageNum());
+	*/
+	  
     ModelAndView mav = new ModelAndView();
     
-   mav.addObject("boardList", boardService.selectAllBoard());
+    mav.addObject("boardList", boardService.selectAllBoard(cri));
+    
+   System.out.println(cri.getPage());
+   System.out.println(cri.getPageStart());
+   System.out.println(cri.getPerPageNum());
+   
+   /*
+   mav.addObject("boardList", boardService.listCriteria(cri));
+   */
+   PageMaker pageMaker = new PageMaker();
+   pageMaker.setCri(cri);
+   pageMaker.setTotalCount(boardService.countPageing(cri));
+   mav.addObject("pageMaker", pageMaker);
+
    
    mav.setViewName("board/boardForm");
    
     return mav;
-  }
-  
-  @RequestMapping("searchBoard.do")
-  public void searchBoard() {
-    // 필요없을수도 있음
   }
   
   @RequestMapping("writeBoardForm.do")
@@ -75,6 +96,7 @@ public class boardController {
     mav.addObject("readCount", boardService.readCount(bno));
     mav.addObject("likeCount", boardService.likeCount(bno));
     mav.addObject("like", boardService.selectLike(principal.getName(), bno));
+    
     mav.setViewName("board/boardDetail");
     
     return mav;
@@ -116,8 +138,13 @@ public class boardController {
   
 
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
-  public @ResponseBody void boardCommentSelect(int bno, Model model){
-	  model.addAttribute("comment", commentService.selectComment(bno));
+  public @ResponseBody List<HashMap> boardCommentSelect(int bno, Model model){
+	  
+	  /*model.addAttribute("comment", commentService.selectComment(bno));*/
+	  
+	  List<HashMap> comment = commentService.selectComment(bno);
+	  
+	  return comment;
   }
   
   //댓글 추가

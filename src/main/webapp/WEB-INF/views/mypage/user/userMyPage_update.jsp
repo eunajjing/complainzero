@@ -1,3 +1,8 @@
+<!-- 
+date : 19-01-21
+내용 : 오탈자 수정
+작성자 : 고은아
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <!-- Content Column -->
@@ -74,7 +79,7 @@
 	              	<input type="password" class="form-control" id="pw" name="pw" required="required">
 	           	  <p class="help-block"></p>
 	              
-	              <label>니네임:</label>
+	              <label>닉네임:</label>
 	              	<input type="text" class="form-control" id="nickname" name="nickname" value="${member.nickname}">
 	              <p class="help-block"></p>
 	              

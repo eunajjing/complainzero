@@ -12,4 +12,5 @@ public interface suggestDao {
   public int insertSuggest(Suggest suggest);
   public int updateSuggest(Map<String, Object> params);
   public List<HashMap> selectMySuggest(String id);
+  public int selectCount(int no);
 }

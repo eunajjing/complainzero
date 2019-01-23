@@ -51,6 +51,7 @@ date : 19-01-19
     <!-- Page Content -->
     <div class="container">
 
+
        <!-- 최근 게시글 시작 -->
       <hr>
       <h2>최근 게시글</h2>

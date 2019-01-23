@@ -3,6 +3,8 @@ date : 2019-01-11
 내용 : 게시글 상세보기 뷰단 초기 구현
 date : 2019-01-18
 내용 : 제안서 모달 뷰단 초기 구현
+date : 2019-01-22
+내용 : 신고 기능 추가
 작성자 : 고은아
  -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -23,9 +25,13 @@ date : 2019-01-18
 			</div>
 			<input type="hidden" id="targetCode" value="${boardDetail.bno}">
 			<div class="modal-body">
+			<form id="reportForm">
+				<input type="hidden" id="targetCode" name="targetCode"> <input
+					type="hidden" id="targetTypeCode" name="targetTypeCode">
+
 				<div class="form-group">
 					<label for="reasonCode">신고사유</label> <select class="form-control"
-						id="reasonCode">
+					id="reasonCode">
 						<option>신고사유 선택</option>
 						<option value = "RC01">무분별한 비속어 사용</option>
 						<option value = "RC02">광고성 게시물</option>
@@ -35,8 +41,11 @@ date : 2019-01-18
 					</select>
 				</div>
 				<div class="form-group">
-					<textarea class="form-control" rows="3" placeholder="자세한 내용을 적어주세요" id="rContent"></textarea>
+					<textarea id="rContent" name="rContent" class="form-control" rows="3"
+						placeholder="자세한 내용을 적어주세요"></textarea>
+
 				</div>
+				</form>
 			</div>
 
 			<div class="alert alert-info">
@@ -45,6 +54,8 @@ date : 2019-01-18
 			</div>
 			<div class="modal-footer">
 				<button type="button" id="report" class="btn btn-danger">전송</button>
+
+
 			</div>
 		</div>
 	</div>
@@ -93,11 +104,9 @@ date : 2019-01-18
 	</div>
 </div>
 
-<!-- 신고 모달 끝  -->
+<!-- 제안 모달 끝  -->
 
 <div class="container">
-
-
 
 	<h1 class="mt-4 mb-3">
 		${boardDetail.title} <small>by <a href="#"> 카테고리</a>
@@ -126,29 +135,33 @@ date : 2019-01-18
 
 			<div class="rightOutDiv">
 				<button class="btn btn-outline-danger btn-sm" data-toggle="modal"
-					data-target="#reportModal" targetTypeCode="BOARD">신고</button>
+			data-target="#reportModal" targetTypeCode="BOARD">신고</button>
+
+				
+
 			</div>
 			<div class="card my-4">
 				<div class="card-body rightOutDiv">
 					<!-- 만약 내가 쓴 글이 아니면 -->
 					이 글이 공감되시나요?
-					
+
 					<c:if test="${like == 0}">
-					<i id="like" class="far fa-heart"></i>
+						<i id="like" class="far fa-heart"></i>
 					</c:if>
-					
+
 					<c:if test="${like == 1}">
-					<i id="like" class="fas fa-heart"></i>
+						<i id="like" class="fas fa-heart"></i>
 					</c:if>
 					<p id="likeCount">${likeCount}</p>
 					
+
 					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
 					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
 
 
 					<!-- 만약 내가 쓴 글이면 -->
 					<div class="btn-group btn-group-sm">
-						<button type="button" class="btn btn-outline-warning">수정</button>
+						<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
 						<button type="button" class="btn btn-outline-danger"
 							onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
 						<sec:authorize ifAnyGranted="ROLE_COMPANY">
@@ -172,7 +185,7 @@ date : 2019-01-18
 							rows="3"></textarea>
 					</div>
 					<div class="rightOutDiv">
-						<button type="button" onclick="insertComment()"
+						<button type="button" onclick="insertComment(${boardDetail.bno})"
 							class="btn btn-primary">등록</button>
 					</div>
 					<!-- </form> -->
@@ -187,17 +200,21 @@ date : 2019-01-18
 							<img class="d-flex mr-3 rounded-circle"
 								src="http://placehold.it/50x50" alt="">
 							<div class="media-body">
-								${commentList.id}&nbsp;
+								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
 								<button class="btn btn-outline-danger btn-sm"
-									data-toggle="modal" data-target="#reportModal">신고</button>
+									data-toggle="modal" data-target="#reportModal"
+									id="reportCommBtn">신고</button>
 
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
-								<div class="btn-group btn-group-sm">
-									<button type="button" onclick="updateBtn(${commentList.cno})"
-										class="btn btn-outline-warning">수정</button>
-									<button type="button" onclick="deleteComment(this)"
-										class="btn btn-outline-danger">삭제</button>
-								</div>
+								<c:if
+									test="${pageContext.request.userPrincipal.name == commentList.id}">
+									<div class="btn-group btn-group-sm">
+										<button type="button" onclick="updateBtn(${commentList.cno})"
+											class="btn btn-outline-warning">수정</button>
+										<button type="button" onclick="deleteComment(this)"
+											class="btn btn-outline-danger">삭제</button>
+									</div>
+								</c:if>
 								<br>
 								<div id="updateText${commentList.cno}" style="display: none;">
 									<textarea class="form-control" rows="2">${commentList.cContent}</textarea>
@@ -224,10 +241,10 @@ date : 2019-01-18
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 위로 가기 버튼 -->
 	<div id="upBtn">
-	<a href="#">위로</a>
+		<a href="#">위로</a>
 	</div>
 
 
@@ -306,37 +323,65 @@ $(document).ready(function(){
 	});
 });
 
-function insertComment(){
+function getMemoList(bno) {
+	  $.ajax({
+	      url : 'boardCommentSelect.do',
+	      data : {bno : bno},
+	      type : 'GET',
+	      contentType : 'application/json;charset=UTF-8',
+	      dataType : 'json',
+	      success : function(data) {
+	        makeList(data);
+	      }
+	  });
+}
+
+function makeList(memos) {
+	  $(".commentList").empty();
+		var output = "";
+		var len = memos.length;
+		for(var i = 0; i < len; i++) {
+			output += '<div class="comment" seq="' + memos[i].cno + '">';
+	 		output += '<div class="media mb-4">';
+ 			output += '<img class="d-flex mr-3 rounded-circle"';
+			output += 'src="http://placehold.it/50x50" alt="">';
+			output += '<div class="media-body">';
+			output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+			output += '<button class="btn btn-outline-danger btn-sm"';
+			output += 'data-toggle="modal" data-target="#reportModal" id="reportCommBtn">신고</button>';
+
+			output += '<div class="btn-group btn-group-sm">';
+			output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
+			output += 'class="btn btn-outline-warning">수정</button>';
+			output += '<button type="button" onclick="deleteComment(this)"';
+			output += 'class="btn btn-outline-danger">삭제</button>';
+			output += '</div>';
+			output += '<br>';
+			output += '<div id="updateText' + memos[i].cno + '" style="display: none;">';
+			output += '<textarea class="form-control" rows="2">' + memos[i].cContent + '</textarea>';
+			output += '<button input="button"';
+			output += 'onclick="updateComment(' + memos[i].cno + ')"';
+			output += 'class="btn btn-outline-warning">수정</button>';
+			output += '</div>';
+			output += '<span id="originText' + memos[i].cno + '">' + memos[i].cContent + '</span>';
+			output += '</div>';
+			output += '</div>';
+			output += '</div>';
+			
+		}
+		
+		$(".commentList").append(output);
+}
+
+
+function insertComment(bno){
 	$.ajax({
 		  url : 'boardCommentInsert.do',
 		  type : 'POST',
-		  data : {cContent : $('#cContent').val()},
+		  data : {bno : bno , cContent : $('#cContent').val()},
 		  success : function() {
-			/* alert('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}'); */
 		 	alert("작성되었습니다.");
-		 	//동적으로 태그 생성
-		 	
-		 	var output = "";
-
-		 	
-		 	output += '<div class="comment" seq="' + $('.comment').attr('seq') + '">';
-		 	
-			output += '<div class="media mb-4">';
-			output += '<img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">';
-			output += '<div class="media-body">';
-			output += '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}&nbsp;<button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#reportModal">신고</button>';
-			output += '<div class="btn-group btn-group-sm">';
-			output += '<button type="button" class="btn btn-outline-warning">수정</button>';
-			output += '<button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>';
-		    output += '</div>';
-			output += '<br>';
-			output += $('#cContent').val();
-			output += '</div>';
-			output += '</div>';
-			
-			
-			$(".commentList").append(output);
-			$('#cContent').val('');
+		 	getMemoList(bno);
      	  },
      	  error : function(){
     	  	alert("error");
@@ -355,6 +400,7 @@ function updateBtn(e){
 }
 
 function updateComment(e){
+	var bno = $('#bno').val();
 	var cno = e;
 	var cContent = $('#updateText' + e).children('.form-control').val();
 	var parameter = JSON.stringify({cno : cno, cContent : cContent});
@@ -365,11 +411,13 @@ function updateComment(e){
 			  data : parameter,
 			  contentType : 'application/json;charset=UTF-8',
 			  success : function() {
+				  /* 
 				  $('#updateText' + e).children('.form-control').val(cContent);
 				  $('#originText' + e).text(cContent);
 				  $('#updateText' + e).hide();
 				  $('#originText' + e).show();
-				  
+				   */
+				  getMemoList(bno);
 	    		  alert("수정되었습니다.");
 	          },
 	          error : function(){
@@ -379,7 +427,7 @@ function updateComment(e){
 }
 
 function deleteComment(e){
-	
+	var bno = $('#bno').val();
 	//임시
 	var cno = e.parentNode.parentNode.parentNode.parentNode.getAttribute('seq');
 	//임시
@@ -389,9 +437,7 @@ function deleteComment(e){
 		  type : 'PUT',
 		  success : function() {
 		 	alert("삭제되었습니다.");
-		 	//임시
-			e.parentNode.parentNode.parentNode.parentNode.remove();
-		 	//임시
+			getMemoList(bno);
    	  	  },
 	 	  error : function(){
   	  	 	 alert("error");
@@ -475,7 +521,6 @@ $('#suggestSubmitBtn').click(function () {
 	});
 })
 
-
 /* 
 $("#deleteBoard").click(function(){
 	$("#modalHeader").text("삭제 여부 확인");
@@ -484,5 +529,34 @@ $("#deleteBoard").click(function(){
     $("#myModal").modal();
 });
  */
+ 
+$('#reportBoardBtn').click(function() {
+	$('#targetTypeCode').val("BOARD");
+	$('#targetCode').val(${boardDetail.bno});
+})
+
+$('#reportCommBtn').click(function() {
+	$('#targetTypeCode').val("COMM");
+	let targetCode = $(this).prev().attr("id").substring(4);
+	$('#targetCode').val(targetCode);
+})
+
+$('#reportBtn').click(function() {
+	var report = $('#reportForm').serialize();
+	
+	$.ajax({
+		type: 'post',
+		url : 'insertReport.do',
+		data : report,
+		success : function(data) {
+			if (data) {
+				alert("신고 성공");
+				$('#targetTypeCode').val("");
+				$('#targetCode').val("");
+				history.go(0);
+			}
+		}
+	});
+});
 
 </script>
