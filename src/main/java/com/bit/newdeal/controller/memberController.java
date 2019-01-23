@@ -39,6 +39,13 @@ public class memberController {
     return "joinForm_enter";
   }
   
+  @RequestMapping("headerInfo.do")
+  public @ResponseBody Member headerInfo(Principal principal, Model model) {
+	 Member member = memberService.selectOneMember(principal.getName());
+	model.addAttribute("headerMember", member);
+	 return member;
+  }
+  
   @RequestMapping(value = "join.do", method = RequestMethod.POST)
   public String join(Member member) {
 	  //, MultipartHttpServletRequest request

@@ -22,7 +22,6 @@ import org.springframework.web.servlet.View;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
-import com.bit.newdeal.dto.PageMaker;
 import com.bit.newdeal.dto.SearchCriteria;
 import com.bit.newdeal.dto.Suggest;
 import com.bit.newdeal.service.boardService;
@@ -72,14 +71,16 @@ public class boardController {
     
     mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
+    mav.addObject("readCount", boardService.readCount(bno));
+    mav.addObject("likeCount", boardService.likeCount(bno));
     mav.addObject("like", boardService.selectLike(principal.getName(), bno));
     
     mav.setViewName("board/boardDetail");
     
     return mav;
   }
- 
-  @RequestMapping("deleteBoard.do")
+
+@RequestMapping("deleteBoard.do")
   public String deleteBoard(@RequestParam int bno) {
 	  
 	  boardService.deleteBoard(bno);
@@ -105,6 +106,9 @@ public class boardController {
 	  System.out.println("asdfjkl");
 	  return "redirect:boardForm.do";
   }
+  
+  //게시판 조회수
+  
 
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
   public @ResponseBody List<HashMap> boardCommentSelect(int bno, Model model){

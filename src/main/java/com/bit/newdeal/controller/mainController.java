@@ -20,6 +20,7 @@ import com.bit.newdeal.service.reportService;
 
 @Controller
 public class mainController {
+
 	@Autowired
 	private boardService boardService;
 	@Autowired
@@ -79,4 +80,5 @@ public class mainController {
 	public @ResponseBody void deleteLikes(Principal principal, @RequestParam("bno") int bno) {
 		boardService.deleteLike(principal.getName(), bno);
 	}
+
 }

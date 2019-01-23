@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!--
 date : 19-01-10
 내용 : 뷰단 초기 설정 진행
@@ -50,53 +51,29 @@ date : 19-01-19
     <!-- Page Content -->
     <div class="container">
 
-      <!-- 인기 게시글 시작 -->
-      <br>
-      <h2>인기 게시글</h2>
-      <br>
-      <div class="row">
-      <%for(int i = 0 ; i< 6 ; i++) { %>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://pbs.twimg.com/media/Dd2nz3iU8AEnyWu.jpg" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="#">Project One</a>
-              </h4>
-              <p class="card-text">몇 글자까지 프론트에서 감당할 수 있을지를 시험하고 있습니다. 나중에 글자 수를 세면 되겠지? 더 써야겠네 아직도 중반이네
-              세상에 그래서 얼마나 써야 되는 거야 할 말도 없어 죽겠구만 오 여기까지다</p>
-              <!-- 124 자수 204 byte -->
-            </div>
-          </div>
-        </div>
-        <%} %>
-      </div>
-        <div class="rightOutDiv">
-	        <div class="rightInDiv">
-	          	<a class="btn btn-secondary" href="boardForm.do">더보기</a>
-	      	</div>
-        </div>
-      <!-- 인기 게시글 끝 -->
+
        <!-- 최근 게시글 시작 -->
       <hr>
       <h2>최근 게시글</h2>
+      <c:forEach items="${boardList}" var="boardList">
+      <c:if test="${boardList.thumbNail != null }">
+      <div class="row">
 		<br>
       <br>
-      <div class="row">
-      <%for(int i = 0 ; i< 6 ; i++) { %>
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="https://pbs.twimg.com/profile_images/975015892579893249/3ezbF4DG_400x400.jpg" alt=""></a>
+            <a href="selectOneBoard.do?bno=${boardList.bno}"><img class="card-img-top" src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail } alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#">Project One</a>
+                <a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
               </h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt?</p>
+              <p class="card-text">${boardList.mid}</p>
             </div>
           </div>
         </div>
-        <%} %>
       </div>
+    	</c:if>
+    </c:forEach>
         <div class="rightOutDiv">
 	        <div class="rightInDiv">
 	          	<a class="btn btn-secondary" href="boardForm.do">더보기</a>
@@ -107,4 +84,7 @@ date : 19-01-19
     </div>
     <!-- /.container -->
 <br><br>
+
+
+
     

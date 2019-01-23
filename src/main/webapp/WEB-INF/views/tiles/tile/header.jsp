@@ -53,7 +53,7 @@ Date : 19-01-15
 						id="navbarDropdownPortfolio" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"> <img alt=""
 							src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
-							id="profile">&nbsp<span id="nickname"></span> 님
+							id="profile" name="profile">&nbsp&nbsp<span id="nickname"name="nickname">님</span> 
 					</a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPortfolio">
@@ -87,6 +87,20 @@ Date : 19-01-15
 	$(function() {
 		if (session != null) {
 			// ajax 돌려서 프로필 이미지, 닉네임 붙여넣기!
+			$.ajax({
+    				"url" : "headerInfo.do",
+    				"type" : "get",
+    				
+    				"success" : function(data){
+  
+    					$('#nickname').text(data.nickname);
+    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile);
+    					
+    					
+					}
+			});
 		}
-	})
+   	
+    });
+	
 	</script>
