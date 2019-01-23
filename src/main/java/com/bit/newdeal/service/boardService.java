@@ -52,6 +52,15 @@ public class boardService {
 	public int deleteBoard(int bno) {
 		return session.getMapper(boardDao.class).deleteBoard(bno);
 	}
+	public int readCount(int bno) {
+		return session.getMapper(boardDao.class).readCount(bno);
+	}
+	
+	public int likeCount(int bno) {
+		return session.getMapper(boardDao.class).likeCount(bno);
+	}
+	
+
 
 	
 

@@ -3,6 +3,7 @@ package com.bit.newdeal.dto;
 import java.util.Date;
 
 public class Board {
+
 	private int bno;
 	private String mid;
 	private String title;
@@ -103,4 +104,5 @@ public class Board {
 		this.nickname = nickname;
 	}
 	
+
 }

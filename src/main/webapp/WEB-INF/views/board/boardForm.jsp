@@ -47,6 +47,7 @@ Date : 19-01-22
 		</se:authorize>
 	</div>
 	<hr>
+
 	<c:choose>
 		<c:when test="${empty boardList}">
 			<div class="card mb-4">
@@ -55,6 +56,7 @@ Date : 19-01-22
 						<div class="col-lg-12">
 							<p class="card-text">게시글이 없습니다. 곧 게시판을 닫아야 할지도 모르겠군요.</p>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -72,6 +74,7 @@ Date : 19-01-22
 								<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
 							</h4>
 							<p class="card-text">${boardList.mid}</p>
+							<p class="card-text">${boardList.readCount}</p>
 						</div>
 					</div>
 				</div>
