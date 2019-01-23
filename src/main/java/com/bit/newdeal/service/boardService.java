@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,6 @@ public class boardService {
 	}
 
 	public Board selectOneBoard(int no) {
-		Board test = session.getMapper(boardDao.class).selectOneBoard(no);
-		System.out.println(test.getBno());
 		return session.getMapper(boardDao.class).selectOneBoard(no);
 	}
 
@@ -141,5 +138,5 @@ public class boardService {
 	public int countPageing(SearchCriteria cri) {
 		return session.getMapper(boardDao.class).countPaging(cri);
 	}
-	
+		
 }
