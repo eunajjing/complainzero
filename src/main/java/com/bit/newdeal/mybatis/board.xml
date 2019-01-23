@@ -98,13 +98,12 @@ and temp.bno = #{bno}
 
  		</select>
  		
- 
-
 
 	<select id="selectMyBoard" parameterType="String"
 		resultType="Board">
 		select bno, title, bcontent, writedate, readCount from board where mid=#{id}
 	</select>
+
 
 
 	<update id="deleteBoard">
