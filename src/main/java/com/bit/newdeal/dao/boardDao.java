@@ -2,7 +2,6 @@ package com.bit.newdeal.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Criteria;
@@ -24,4 +23,5 @@ public interface boardDao {
   public List<Board> likeBoard(String id);
   public List<Board> listCriteria(Criteria cri);
   public int countPaging(SearchCriteria cri);
+  public Board selectOneBoardAddSuggestion(int bno);
 }

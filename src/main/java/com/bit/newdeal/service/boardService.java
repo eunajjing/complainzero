@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.newdeal.dao.boardDao;
+import com.bit.newdeal.dao.suggestDao;
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Criteria;
 import com.bit.newdeal.dto.SearchCriteria;
@@ -30,7 +31,13 @@ public class boardService {
 	}
 
 	public Board selectOneBoard(int no) {
-		return session.getMapper(boardDao.class).selectOneBoard(no);
+		
+		int suggestionCount = session.getMapper(suggestDao.class).selectCount(no);
+		if (suggestionCount > 0) {
+			return session.getMapper(boardDao.class).selectOneBoardAddSuggestion(no);
+		}else {
+			return session.getMapper(boardDao.class).selectOneBoard(no);
+		}		
 	}
 
 	public List<Board> selectAllBoard(SearchCriteria cri) {
