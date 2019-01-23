@@ -17,8 +17,7 @@
 		{ call selectOneBoard(#{bno, mode=IN, jdbcType=INTEGER})} </select> -->
 	<select id="selectOneBoard" parameterType="int"
 		resultType="Board">
-		SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d')
-		WriteDate, readCount, thumbNail, categoryCode, bDelete
+		SELECT bno, mid, title, bContent, writeDate, readCount, thumbNail, categoryCode, bDelete
 		FROM board
 		WHERE bDelete='0'
 		and bno = #{bno}
@@ -27,8 +26,7 @@
 
 	<select id="selectAllBoard" parameterType="HashMap"
 		resultType="Board">
-		SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d')
-		WriteDate, readCount, thumbNail, categoryCode, bDelete
+		SELECT bno, mid, title, bContent, writeDate, readCount, thumbNail, categoryCode, bDelete
 		FROM board
 		WHERE bDelete='0'
 		<if test="categorycode != null">
@@ -111,25 +109,25 @@
 
 	<select id="selectOneBoardAddSuggestion" parameterType="int"
 		resultType="Board">
+	
 		select temp.bno "bno", temp.mid "mid", temp.title "title",
 				temp.bContent "bContent", temp.writeDate "writeDate",
 				temp.readCount "readCount", temp.thumbNail "thumbNail",
 				temp.categoryCode "categoryCode", temp.bDelete "bDelete",
-				temp.categoryName "categoryName",
-				m.nickname "nickname"
+				m.nickname "nickname", temp.link "link"
 		from member m join
 				(SELECT b.bno "bno", b.mid "mid", b.title "title",
-					b.bContent "bContent",
-					DATE_FORMAT(b.writeDate,'%Y-%m-%d') "writeDate",
-					b.readCount "readCount", b.thumbNail "thumbNail",
-					b.categoryCode "categoryCode", b.bDelete "bDelete",
-					c.categoryName "categoryName"
-				FROM board b join categoryCode c
-				using(categoryCode)) temp
+						b.bContent "bContent",
+						b.writeDate "writeDate",
+						b.readCount "readCount", b.thumbNail "thumbNail",
+						b.categoryCode "categoryCode", b.bDelete "bDelete",
+						s.link "link"
+						FROM board b join suggestion s
+						using(bno) where s.statuscode='S02'
+                ) temp
 		on m.id = temp.mid
-		WHERE temp.bDelete='0' and temp.bno = #{bno}
+		WHERE temp.bDelete='0' and temp.bno = #{bno};
 	</select>
-
 </mapper>
 
 
