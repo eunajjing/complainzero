@@ -13,6 +13,7 @@ public class Board {
 	private String categoryCode;
 	private String bDelete;
 	private String link;
+	private String nickname;
 
 	public int getBno() {
 		return bno;
@@ -93,4 +94,13 @@ public class Board {
 	public void setLink(String link) {
 		this.link = link;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
 }
