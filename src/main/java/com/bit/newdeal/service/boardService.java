@@ -34,7 +34,6 @@ public class boardService {
 		
 		int suggestionCount = session.getMapper(suggestDao.class).selectCount(no);
 		if (suggestionCount > 0) {
-			Board board = session.getMapper(boardDao.class).selectOneBoardAddSuggestion(no);
 			return session.getMapper(boardDao.class).selectOneBoardAddSuggestion(no);
 		}else {
 			return session.getMapper(boardDao.class).selectOneBoard(no);
