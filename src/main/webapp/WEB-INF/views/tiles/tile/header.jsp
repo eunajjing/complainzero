@@ -53,7 +53,7 @@ Date : 19-01-15
 						id="navbarDropdownPortfolio" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"> <img alt=""
 							src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
-							id="profile" name="profile">&nbsp&nbsp<span id="nickname"name="nickname">님</span> 
+							id="profile" name="profile">&nbsp&nbsp<span id="hnickname"name="hnickname">님</span> 
 					</a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdownPortfolio">
@@ -93,8 +93,8 @@ Date : 19-01-15
     				
     				"success" : function(data){
   
-    					$('#nickname').text(data.nickname);
-    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile);
+    					$('#hnickname').text(data.nickname);
+    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile+'.jpg');
     					
     					
 					}

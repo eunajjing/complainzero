@@ -82,22 +82,15 @@ public class memberController {
   //자기정보 변경
   @RequestMapping(value="updateMember.do", method= RequestMethod.POST)
   public @ResponseBody void updateMember(Member member, MultipartHttpServletRequest multipart) throws Exception {
-
+	  
     memberService.updateMember(member, multipart);
   }
   
   //제공자 마이페이지
   @RequestMapping("enterUserMyPage.do")
-  public String enterUserMyPage(Principal principal, Model model, Member member) {
-    String id = principal.getName();
-    
-    member = memberService.selectOneMember(id);
-    
-    String profile = "img/profile/" + memberService.selectOneMember(id).getProfile();
-    
-    member.setProfile(profile);
-    
-    model.addAttribute("member", member);
+  public String enterUserMyPage(Principal principal, Model model) {
+	  String id = principal.getName();
+	    model.addAttribute("member", memberService.selectOneMember(id));
     
     return "mypage/enter/enterUserMyPage_update";
   }

@@ -14,6 +14,14 @@ date : 2019-01-22
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <link href="css/boardDetail.css" rel="stylesheet">
+
+<style>
+#cProfile{
+	width : 50px;
+	height : 50px;
+}
+</style>
+
 <!-- 신고 모달 -->
 
 <div class="modal" id="reportModal" aria-hidden="true">
@@ -193,12 +201,24 @@ date : 2019-01-22
 			</div>
 
 			<!-- 기존에 달렸던 댓글들 뿌려주기 -->
+			<c:set var="session" value="${pageContext.request.userPrincipal.name}"/>
 			<div class="commentList">
 				<c:forEach items="${commentList}" var="commentList">
 					<div class="comment" seq="${commentList.cno}">
 						<div class="media mb-4">
-							<img class="d-flex mr-3 rounded-circle" style="width:50px; height:50px;"
-								src="http://localhost:8888/img/profile/${commentList.profile}.jpg" alt="">
+							<c:choose>
+								<c:when test="${empty commentList.profile}">
+									<img class="d-flex mr-3 rounded-circle" id="cProfile"
+										src="http://localhost:8888/img/profile/profile.jpeg" alt="">
+								</c:when>
+								<c:otherwise>
+									<img class="d-flex mr-3 rounded-circle" id="cProfile"
+										src="http://localhost:8888/img/profile/${commentList.profile}.jpg" alt="">
+								</c:otherwise>
+							</c:choose>
+						
+								
+								
 							<div class="media-body">
 								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
 								<button class="btn btn-outline-danger btn-sm"
@@ -343,19 +363,31 @@ function makeList(memos) {
 		for(var i = 0; i < len; i++) {
 			output += '<div class="comment" seq="' + memos[i].cno + '">';
 	 		output += '<div class="media mb-4">';
- 			output += '<img class="d-flex mr-3 rounded-circle" style="width:50px; height:50px;"';
-			output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '.jpg" alt="">';
-			output += '<div class="media-body">';
-			output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
-			output += '<button class="btn btn-outline-danger btn-sm"';
-			output += 'data-toggle="modal" data-target="#reportModal" id="reportCommBtn">신고</button>';
+	 		
+	 		if(memos[i].profile == null){
+				output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
+				output += 'src="http://localhost:8888/img/profile/profile.jpeg" alt="">';
+				output += '<div class="media-body">';
+				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+				output += '<button class="btn btn-outline-danger btn-sm"';
+				output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+	 		}else{
+	 			output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
+				output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '.jpg" alt="">';
+				output += '<div class="media-body">';
+				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+				output += '<button class="btn btn-outline-danger btn-sm"';
+				output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+	 		}
 
-			output += '<div class="btn-group btn-group-sm">';
-			output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
-			output += 'class="btn btn-outline-warning">수정</button>';
-			output += '<button type="button" onclick="deleteComment(this)"';
-			output += 'class="btn btn-outline-danger">삭제</button>';
-			output += '</div>';
+			if('${session}' == memos[i].id){
+				output += '<div class="btn-group btn-group-sm">';
+				output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
+				output += 'class="btn btn-outline-warning">수정</button>';
+				output += '<button type="button" onclick="deleteComment(this)"';
+				output += 'class="btn btn-outline-danger">삭제</button>';
+				output += '</div>';
+			}
 			output += '<br>';
 			output += '<div id="updateText' + memos[i].cno + '" style="display: none;">';
 			output += '<textarea class="form-control" rows="2">' + memos[i].cContent + '</textarea>';
@@ -382,6 +414,7 @@ function insertComment(bno){
 		  success : function() {
 		 	alert("작성되었습니다.");
 		 	getMemoList(bno);
+		 	$('#cContent').val('');
      	  },
      	  error : function(){
     	  	alert("error");
@@ -530,10 +563,10 @@ $("#deleteBoard").click(function(){
 });
  */
  
-$('#reportBoardBtn').click(function() {
+/* $('#reportBoardBtn').click(function() {
 	$('#targetTypeCode').val("BOARD");
 	$('#targetCode').val(${boardDetail.bno});
-})
+}) */
 
 $('#reportCommBtn').click(function() {
 	$('#targetTypeCode').val("COMM");
