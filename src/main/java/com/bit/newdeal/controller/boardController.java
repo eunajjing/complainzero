@@ -41,26 +41,13 @@ public class boardController {
   private suggestService suggestService;
   
   @RequestMapping("boardForm.do")
-  public ModelAndView boardForm(/*@RequestParam(value="categorycode", required=false) String categorycode,
-		  @RequestParam(value="keyword", required=false) String keyword, */@ModelAttribute SearchCriteria cri) {
-	  
-	/*  
-	Map<String, Object> selectQuery = new HashMap();
-	selectQuery.put("categorycode", categorycode);
-	selectQuery.put("keyword", keyword);
-	selectQuery.put("pageStart", cri.getPageStart());
-	selectQuery.put("perPageNum", cri.getPerPageNum());
-	*/
+  public ModelAndView boardForm(@ModelAttribute SearchCriteria cri) {
 	  
     ModelAndView mav = new ModelAndView();
     
     mav.addObject("boardList", boardService.selectAllBoard(cri));
+    mav.addObject("pageMaker", boardService.countPageing(cri));
     
-   PageMaker pageMaker = new PageMaker();
-   pageMaker.setCri(cri);
-   pageMaker.setTotalCount(boardService.countPageing(cri));
-   mav.addObject("pageMaker", pageMaker);
-   
    mav.setViewName("board/boardForm");
    
     return mav;

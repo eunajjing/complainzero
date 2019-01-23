@@ -36,7 +36,6 @@
          </if>
          order by bno desc
          limit #{pageStart}, #{perPageNum}
-
 	</select>
 
   	<insert id="insertBoard" parameterType="Board">

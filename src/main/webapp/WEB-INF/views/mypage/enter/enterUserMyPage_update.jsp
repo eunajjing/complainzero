@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <style>
+    #img{
+		width:300px;
+    }
+    input[name="img"]{
+    	opacity: 0;
+    }
+    </style>
         <!-- Content Column -->
         <div>
           <h2>정보 수정</h2>
@@ -19,9 +28,8 @@
 	              <p class="help-block"></p>
 	              
 	            <label>
-	            	
-	           		<center><img src="img/profile/Jellyfish.jpg" id="img" style="width:300px; width:300px;"></center><br>
-	            	<input type="file" id="input_img" name="img" style="opacity: 0;"/>
+	           		<center><img src="http://localhost:8888/img/profile/${member.id}.jpg" id="img""></center><br>
+	            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            </label>
 	              
 	            <p class="help-block"></p>
@@ -38,26 +46,16 @@
     <!-- /.container -->
     
     <script>
-    $(document).ready(function(){
-    	$('#input_img').on('change',handleImgFileSelect);
+    $('#input_img').change(function(){
+    	filePreShow(this);
     });
     
-    function handleImgFileSelect(e){
-    	var files = e.target.files;
-    	var fileArr = Array.prototype.slice.call(files);
-    	
-    	fileArr.forEach(function(f){
-    		if(!f.type.match("image.*")){
-    			alert("확장자는 이미지 확장자만 가능합니다.");
-    			return;
-    		}
-    		
-    		var reader = new FileReader();
-    		reader.onload = function(e){
-    			$('#img').attr('src', e.target.result);
-    		}
-    		reader.readAsDataURL(f);
-    	});
+    function filePreShow(e){
+    	var reader = new FileReader();
+    	reader.onload = function(e){
+    		$('#img').attr('src',e.target.result);
+    	}
+    	reader.readAsDataURL(e.files[0]);
     }
     
 	   	$('#updateBtn').click(function(){

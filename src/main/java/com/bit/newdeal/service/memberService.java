@@ -53,10 +53,8 @@ public class memberService {
 	  long fileSize = profile.getSize();
 	  
 	  if(fileSize > 0) {
-		  /*String originFileName = profile.getOriginalFilename();*/
 		  String originFileName = member.getId();
 		  String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");
-		  System.out.println(path);
 		  String saveFile = path + originFileName + ".jpg";
 		  profile.transferTo(new File(saveFile));
 		  

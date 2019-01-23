@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bit.newdeal.dao.boardDao;
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Criteria;
+import com.bit.newdeal.dto.PageMaker;
 import com.bit.newdeal.dto.SearchCriteria;
 
 @Service
@@ -136,8 +136,12 @@ public class boardService {
 		return session.getMapper(boardDao.class).listCriteria(cri);
 	}
 	
-	public int countPageing(SearchCriteria cri) {
-		return session.getMapper(boardDao.class).countPaging(cri);
+	public PageMaker countPageing(SearchCriteria cri) {
+		PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(session.getMapper(boardDao.class).countPaging(cri));
+	    
+		return pageMaker;
 	}
 	
 }
