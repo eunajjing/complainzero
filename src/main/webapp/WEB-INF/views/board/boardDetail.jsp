@@ -292,7 +292,7 @@ function makeList(memos) {
 			output += '<div class="comment" seq="' + memos[i].cno + '">';
 	 		output += '<div class="media mb-4">';
  			output += '<img class="d-flex mr-3 rounded-circle" style="width:50px; height:50px;"';
-			output += 'src="http://localhost:8888/img/profile/' + memos[i].cno + '.jpg" alt="">';
+			output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '.jpg" alt="">';
 			output += '<div class="media-body">';
 			output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
 			output += '<button class="btn btn-outline-danger btn-sm"';

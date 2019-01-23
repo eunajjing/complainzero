@@ -5,6 +5,7 @@ date : 19-01-21
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
     <style>
     #showImg{
@@ -34,7 +35,14 @@ date : 19-01-21
 	              <p class="help-block"></p>
 	              
 	            <label>
-	           		<center><img src="http://localhost:8888/img/profile/${member.id}.jpg" id="showImg"></center><br>
+	            	<c:choose>
+		            	<c:when test="${empty member.profile}">
+		           		<center><img src="http://localhost:8888/img/profile/profile.jpeg" id="showImg"></center><br>
+		           		</c:when>
+		           		<c:otherwise>
+		           		<center><img src="http://localhost:8888/img/profile/${member.profile}.jpg" id="showImg"></center><br>
+		           		</c:otherwise>
+	           		</c:choose>
 	            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp">
 	            </label>
 	              

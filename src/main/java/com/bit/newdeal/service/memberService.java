@@ -56,6 +56,7 @@ public class memberService {
 		  String originFileName = member.getId();
 		  String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");
 		  String saveFile = path + originFileName + ".jpg";
+		  System.out.println(path);
 		  profile.transferTo(new File(saveFile));
 		  
 		  dbProfile = originFileName;

@@ -28,7 +28,14 @@
 	              <p class="help-block"></p>
 	              
 	            <label>
-	           		<center><img src="http://localhost:8888/img/profile/${member.id}.jpg" id="img""></center><br>
+	           		<c:choose>
+		            	<c:when test="${empty member.profile}">
+		           		<center><img src="http://localhost:8888/img/profile/profile.jpeg" id="img"></center><br>
+		           		</c:when>
+		           		<c:otherwise>
+		           		<center><img src="http://localhost:8888/img/profile/${member.profile}.jpg" id="img"></center><br>
+		           		</c:otherwise>
+	           		</c:choose>
 	            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            </label>
 	              
