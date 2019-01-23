@@ -23,4 +23,5 @@ public interface boardDao {
   public List<Board> likeBoard(String id);
   public List<Board> listCriteria(Criteria cri);
   public int countPaging(SearchCriteria cri);
+  public Board selectOneBoardAddSuggestion(int bno);
 }

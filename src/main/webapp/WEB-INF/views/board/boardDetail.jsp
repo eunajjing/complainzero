@@ -3,6 +3,8 @@ date : 2019-01-11
 내용 : 게시글 상세보기 뷰단 초기 구현
 date : 2019-01-18
 내용 : 제안서 모달 뷰단 초기 구현
+date : 2019-01-22
+내용 : 신고 기능 추가
 작성자 : 고은아
  -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -21,20 +23,26 @@ date : 2019-01-18
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
+			<form id="reportForm">
+				<input type="hidden" id="targetCode" name="targetCode"> <input
+					type="hidden" id="targetTypeCode" name="targetTypeCode">
+
 				<div class="form-group">
 					<label for="reasonCode">신고사유</label> <select class="form-control"
-						id="reasonCode">
-						<option>신고사유 선택</option>
-						<option>무분별한 비속어 사용</option>
-						<option>광고성 게시물</option>
-						<option>음란성 게시물</option>
-						<option>명예훼손 게시물</option>
-						<option>기타 사유</option>
+						id="reasonCode" name="reasonCode">
+						<option value="default">신고사유 선택</option>
+						<option value="RC01">무분별한 비속어 사용</option>
+						<option value="RC02">광고성 게시물</option>
+						<option value="RC03">음란성 게시물</option>
+						<option value="RC04">명예훼손 게시물</option>
+						<option value="RC00">기타 사유</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<textarea class="form-control" rows="3" placeholder="자세한 내용을 적어주세요"></textarea>
+					<textarea id="rContent" name="rContent" class="form-control" rows="3"
+						placeholder="자세한 내용을 적어주세요"></textarea>
 				</div>
+				</form>
 			</div>
 
 			<div class="alert alert-info">
@@ -42,7 +50,7 @@ date : 2019-01-18
 				<strong>허위 신고 시</strong> 회원 활동에 있어 불이익이 발생할 수 있습니다.
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger">전송</button>
+				<button id="reportBtn" type="button" class="btn btn-danger">전송</button>
 			</div>
 		</div>
 	</div>
@@ -91,7 +99,7 @@ date : 2019-01-18
 	</div>
 </div>
 
-<!-- 신고 모달 끝  -->
+<!-- 제안 모달 끝  -->
 
 <div class="container">
 
@@ -117,21 +125,21 @@ date : 2019-01-18
 
 			<div class="rightOutDiv">
 				<button class="btn btn-outline-danger btn-sm" data-toggle="modal"
-					data-target="#reportModal">신고</button>
+					data-target="#reportModal" id="reportBoardBtn">신고</button>
 			</div>
 			<div class="card my-4">
 				<div class="card-body rightOutDiv">
 					<!-- 만약 내가 쓴 글이 아니면 -->
 					이 글이 공감되시나요?
-					
+
 					<c:if test="${like == 0}">
-					<i id="like" class="far fa-heart"></i>
+						<i id="like" class="far fa-heart"></i>
 					</c:if>
-					
+
 					<c:if test="${like == 1}">
-					<i id="like" class="fas fa-heart"></i>
+						<i id="like" class="fas fa-heart"></i>
 					</c:if>
-					
+
 					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
 					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
 
@@ -179,16 +187,18 @@ date : 2019-01-18
 							<div class="media-body">
 								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
 								<button class="btn btn-outline-danger btn-sm"
-									data-toggle="modal" data-target="#reportModal">신고</button>
+									data-toggle="modal" data-target="#reportModal"
+									id="reportCommBtn">신고</button>
 
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
-								<c:if test="${pageContext.request.userPrincipal.name == commentList.id}">
-								<div class="btn-group btn-group-sm">
-									<button type="button" onclick="updateBtn(${commentList.cno})"
-										class="btn btn-outline-warning">수정</button>
-									<button type="button" onclick="deleteComment(this)"
-										class="btn btn-outline-danger">삭제</button>
-								</div>
+								<c:if
+									test="${pageContext.request.userPrincipal.name == commentList.id}">
+									<div class="btn-group btn-group-sm">
+										<button type="button" onclick="updateBtn(${commentList.cno})"
+											class="btn btn-outline-warning">수정</button>
+										<button type="button" onclick="deleteComment(this)"
+											class="btn btn-outline-danger">삭제</button>
+									</div>
 								</c:if>
 								<br>
 								<div id="updateText${commentList.cno}" style="display: none;">
@@ -216,10 +226,10 @@ date : 2019-01-18
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 위로 가기 버튼 -->
 	<div id="upBtn">
-	<a href="#">위로</a>
+		<a href="#">위로</a>
 	</div>
 
 
@@ -286,7 +296,7 @@ function makeList(memos) {
 			output += '<div class="media-body">';
 			output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
 			output += '<button class="btn btn-outline-danger btn-sm"';
-			output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+			output += 'data-toggle="modal" data-target="#reportModal" id="reportCommBtn">신고</button>';
 
 			output += '<div class="btn-group btn-group-sm">';
 			output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
@@ -456,7 +466,6 @@ $('#suggestSubmitBtn').click(function () {
 	});
 })
 
-
 /* 
 $("#deleteBoard").click(function(){
 	$("#modalHeader").text("삭제 여부 확인");
@@ -465,5 +474,34 @@ $("#deleteBoard").click(function(){
     $("#myModal").modal();
 });
  */
+ 
+$('#reportBoardBtn').click(function() {
+	$('#targetTypeCode').val("BOARD");
+	$('#targetCode').val(${boardDetail.bno});
+})
+
+$('#reportCommBtn').click(function() {
+	$('#targetTypeCode').val("COMM");
+	let targetCode = $(this).prev().attr("id").substring(4);
+	$('#targetCode').val(targetCode);
+})
+
+$('#reportBtn').click(function() {
+	var report = $('#reportForm').serialize();
+	
+	$.ajax({
+		type: 'post',
+		url : 'insertReport.do',
+		data : report,
+		success : function(data) {
+			if (data) {
+				alert("신고 성공");
+				$('#targetTypeCode').val("");
+				$('#targetCode').val("");
+				history.go(0);
+			}
+		}
+	});
+});
 
 </script>

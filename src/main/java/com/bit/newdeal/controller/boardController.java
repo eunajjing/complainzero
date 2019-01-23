@@ -3,7 +3,6 @@ package com.bit.newdeal.controller;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.View;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
-import com.bit.newdeal.dto.Criteria;
 import com.bit.newdeal.dto.PageMaker;
 import com.bit.newdeal.dto.SearchCriteria;
 import com.bit.newdeal.dto.Suggest;
@@ -51,11 +49,6 @@ public class boardController {
    mav.setViewName("board/boardForm");
    
     return mav;
-  }
-  
-  @RequestMapping("searchBoard.do")
-  public void searchBoard() {
-    // 필요없을수도 있음
   }
   
   @RequestMapping("writeBoardForm.do")

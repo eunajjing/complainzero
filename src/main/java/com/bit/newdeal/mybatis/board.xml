@@ -13,16 +13,18 @@
 
 	</select>
 
+	<!-- <select id="selectOneBoard" parameterType="Board" statementType="CALLABLE"> 
+		{ call selectOneBoard(#{bno, mode=IN, jdbcType=INTEGER})} </select> -->
 	<select id="selectOneBoard" parameterType="int"
 		resultType="Board">
-
-	   SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
-          FROM board
-         WHERE bDelete='0'
-         and bno = #{bno}
-      
+		SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d')
+		WriteDate, readCount, thumbNail, categoryCode, bDelete
+		FROM board
+		WHERE bDelete='0'
+		and bno = #{bno}
 	</select>
 
+<<<<<<< HEAD
 	<select id="selectAllBoard" parameterType="HashMap" resultType="Board">
 		  SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d') WriteDate, readCount, thumbNail, categoryCode, bDelete
           FROM board
@@ -36,13 +38,32 @@
          </if>
          order by bno desc
          limit #{pageStart}, #{perPageNum}
+=======
+
+	<select id="selectAllBoard" parameterType="HashMap"
+		resultType="Board">
+		SELECT bno, mid, title, bContent, DATE_FORMAT(writeDate,'%Y-%m-%d')
+		WriteDate, readCount, thumbNail, categoryCode, bDelete
+		FROM board
+		WHERE bDelete='0'
+		<if test="categorycode != null">
+			and categorycode=#{categorycode}
+		</if>
+		<if test="keyword != null">
+			and (title like '%${keyword}%'
+			or bContent like '%${keyword}%')
+		</if>
+		order by bno desc
+		limit #{pageStart}, #{perPageNum}
+
+>>>>>>> master
 	</select>
 
-  	<insert id="insertBoard" parameterType="Board">
-  	   insert into board(mid, title, bContent, thumbNail)
-  	   values(#{mid}, #{title}, #{bContent}, #{thumbNail})
-  	</insert>
-  	
+	<insert id="insertBoard" parameterType="Board">
+		insert into board(mid, title, bContent, thumbNail)
+		values(#{mid}, #{title}, #{bContent}, #{thumbNail})
+	</insert>
+
 	<update id="updateBoard" parameterType="Board">
 
 	</update>
@@ -52,50 +73,77 @@
 
 	</select>
 
-	  	
-  	<select id="selectMyBoard" parameterType="String" resultType="Board">
-  		select bno, title, bcontent, writedate, readCount from board where mid=#{id}
-  	</select>
-  	
+
+	<select id="selectMyBoard" parameterType="String"
+		resultType="Board">
+		select bno, title, bcontent, writedate, readCount from board where mid=#{id}
+	</select>
+
 
 	<update id="deleteBoard">
 		update board set bDelete = 1 where bno = #{bno}
 	</update>
-	
+
 	<select id="selectLike" parameterType="HashMap" resultType="int">
-		select EXISTS(select id, bno from likelist where id=#{id} and bno = #{bno}) as success;
+		select EXISTS(select id, bno from likelist where id=#{id} and bno =
+		#{bno}) as success;
 	</select>
-	
+
 	<insert id="insertLike" parameterType="HashMap">
-		insert into likelist(id, bno) values(#{id}, #{bno})
+		insert into likelist(id,
+		bno) values(#{id}, #{bno})
 	</insert>
-	
+
 	<delete id="deleteLike" parameterType="HashMap">
-		delete from likelist where id = #{id} and bno = #{bno}
+		delete from likelist where
+		id = #{id} and bno = #{bno}
 	</delete>
-	
+
 	<select id="likeBoard" parameterType="String" resultType="Board">
-		select b.title, b.writeDate, b.readCount, b.bno
+		select
+		b.title, b.writeDate, b.readCount, b.bno
 		from board b join likelist l
 		on b.bno = l.bno
 		where id = #{id}
 	</select>
-	
+
 	<select id="listCriteria" resultType="Board">
-		select * from board where bDelete = 0 order by bno desc limit #{pageStart}, #{perPageNum}
+		select * from board where
+		bDelete = 0 order by bno desc limit #{pageStart}, #{perPageNum}
 	</select>
-	
+
 	<select id="countPaging" resultType="int">
 		SELECT count(bno)
-          FROM board
-         WHERE bDelete='0'
-         <if test="categorycode != null">
-         	and categorycode=#{categorycode}
-         </if>
-         <if test="keyword != null">
-         and (title like '%${keyword}%'
-         or bContent like '%${keyword}%')
-         </if>
+		FROM board
+		WHERE bDelete='0'
+		<if test="categorycode != null">
+			and categorycode=#{categorycode}
+		</if>
+		<if test="keyword != null">
+			and (title like '%${keyword}%'
+			or bContent like '%${keyword}%')
+		</if>
+	</select>
+
+	<select id="selectOneBoardAddSuggestion" parameterType="int"
+		resultType="Board">
+		select temp.bno "bno", temp.mid "mid", temp.title "title",
+				temp.bContent "bContent", temp.writeDate "writeDate",
+				temp.readCount "readCount", temp.thumbNail "thumbNail",
+				temp.categoryCode "categoryCode", temp.bDelete "bDelete",
+				temp.categoryName "categoryName",
+				m.nickname "nickname"
+		from member m join
+				(SELECT b.bno "bno", b.mid "mid", b.title "title",
+					b.bContent "bContent",
+					DATE_FORMAT(b.writeDate,'%Y-%m-%d') "writeDate",
+					b.readCount "readCount", b.thumbNail "thumbNail",
+					b.categoryCode "categoryCode", b.bDelete "bDelete",
+					c.categoryName "categoryName"
+				FROM board b join categoryCode c
+				using(categoryCode)) temp
+		on m.id = temp.mid
+		WHERE temp.bDelete='0' and temp.bno = #{bno}
 	</select>
 
 </mapper>

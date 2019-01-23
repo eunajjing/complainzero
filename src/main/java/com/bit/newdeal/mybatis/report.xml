@@ -3,31 +3,37 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  
-  <mapper namespace="com.bit.newdeal.dao.reportDao">
-  
-  	<select id="selectReport" resultType="Report">
-  	 select * from report
-  	</select>
-  	
-  	<insert id="insertReport" parameterType="Report">
-  		insert into board(rno, istTo, isFrom, targetTypeCode, targetCode,
-  		reasonCode, rContent, processCode )
-  	   values(#{rno}, #{isTo}, #{isFrom}, #{targetTypeCode}, #{targetCode}, #{reasonCode}, #{rContent}, #{processCode})
-  	</insert>
-  	
-  	<update id="updateReport" parameterType="java.util.Map">
-  	   update report set 
-  	   <if test="num == 1">
-  	   processCode='R01'
-  	   </if>
-  	   <if test="num == 2">
-       processCode='R02'
-       </if>
-       where rno=#{rno}
-  	</update>
-  
-  </mapper>
+
+<mapper namespace="com.bit.newdeal.dao.reportDao">
+
+	<select id="selectReport" resultType="Report">
+		select rno, isFrom, targetTypeCode, targetCode,
+		reasoncode, rContent,
+		if (targetTypeCode='BOARD',
+		(select mid from board where bno=targetCode),
+		(select id from comment where cno=targetCode)) "isTo"
+		from report;
+	</select>
+
+	<insert id="insertReport" parameterType="Report">
+		insert into report(isFrom, targetTypeCode, targetCode,
+		reasonCode, rContent)
+		values(#{isFrom}, #{targetTypeCode}, #{targetCode}, #{reasonCode},
+		#{rContent})
+	</insert>
+
+	<update id="updateReport" parameterType="java.util.Map">
+		update report set
+		<if test="num == 1">
+			processCode='R01'
+		</if>
+		<if test="num == 2">
+			processCode='R02'
+		</if>
+		where rno=#{rno}
+	</update>
+
+</mapper>
 
 
 

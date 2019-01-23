@@ -18,8 +18,6 @@
     values(#{mid}, #{bno}, #{link}, #{tel}, #{etc, jdbcType=VARCHAR})
   </insert>
 
-
-  	
   	<update id="updateSuggest" parameterType="java.util.Map">
 
 		update suggestion set
@@ -37,6 +35,10 @@
 		from suggestion s join board b
 		on s.bno = b.bno
 		where id = #{id}
+  	</select>
+  	
+  	<select id="selectCount" parameterType="int" resultType="int">
+  		select count(*) from suggestion where bno=#{bno} and statusCode='S02'
   	</select>
   
 </mapper>
