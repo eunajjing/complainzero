@@ -137,7 +137,7 @@ date : 2019-01-22
 			</div>
 			
 			<p>조회수 :  ${boardDetail.readCount}</p>
-			<p id="isTo">작성자 :  ${boardDetail.mid}</p>  
+			<p id="isTo">작성자 :  ${boardDetail.nickname}</p>  
 	
 			<hr>
 
@@ -213,7 +213,7 @@ date : 2019-01-22
 								</c:when>
 								<c:otherwise>
 									<img class="d-flex mr-3 rounded-circle" id="cProfile"
-										src="http://localhost:8888/img/profile/${commentList.profile}.jpg" alt="">
+										src="http://localhost:8888/img/profile/${commentList.profile}" alt="">
 								</c:otherwise>
 							</c:choose>
 						
@@ -373,7 +373,7 @@ function makeList(memos) {
 				output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
 	 		}else{
 	 			output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
-				output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '.jpg" alt="">';
+				output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '" alt="">';
 				output += '<div class="media-body">';
 				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
 				output += '<button class="btn btn-outline-danger btn-sm"';
