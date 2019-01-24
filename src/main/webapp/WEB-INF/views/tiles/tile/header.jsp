@@ -83,8 +83,9 @@ Date : 19-01-15
 	</nav>
 	
 	<script type="text/javascript">
-	var session  = ('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}');
 	$(function() {
+		var session  = '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}';
+		alert(session);
 		if (session != null) {
 			// ajax 돌려서 프로필 이미지, 닉네임 붙여넣기!
 			$.ajax({

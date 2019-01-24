@@ -69,6 +69,7 @@ public class mainController {
 	public @ResponseBody boolean insertReport(@ModelAttribute Report report, Principal principal) {
 		
 		report.setIsFrom(principal.getName());
+		System.out.println(report.toString());
 		
 		return reportService.insertReport(report);
 	}
