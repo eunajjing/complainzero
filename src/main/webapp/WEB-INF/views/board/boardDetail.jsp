@@ -307,7 +307,7 @@ date : 2019-01-23
 
 	<!-- 위로 가기 버튼 -->
 	<div id="upBtn">
-		<a href="#">위로</a>
+		<button class="btn btn-info btn-lg"><a id="upBtnLink" href="#"><i class="far fa-arrow-alt-circle-up"></i></a></button>
 	</div>
 
 
