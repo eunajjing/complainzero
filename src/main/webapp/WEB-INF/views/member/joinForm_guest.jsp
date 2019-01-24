@@ -74,9 +74,9 @@ date : 19-01-24
 						<div class="centerOutDiv">
 						<label>
 						<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
-						<!-- 
-							<img src="http://localhost:8888/img/profile/profile.jpeg" id="profilePrew"> -->
-							<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQwDa_ynSI8uzJz2KL5d84t2XHtot7uJG_wDOZUmMub4hDYqD8yg" id="profilePrew">
+						
+							<img src="http://localhost:8888/img/profile/profile.jpeg" id="profilePrew">
+							
 						</label>
 					</div>
 					
