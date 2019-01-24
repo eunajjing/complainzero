@@ -33,7 +33,7 @@ date : 2019-01-22
 			</div>
 			<div class="modal-body">
 			<form id="reportForm">
-				<input type="hidden" id="targetCode" name="targetCode" value="${boardDetail.bno}"> 
+				<input type="hidden" id="targetCode" name="targetCode"> 
 				<input type="hidden" id="targetTypeCode" name="targetTypeCode">
 
 				<div class="form-group">
@@ -164,7 +164,7 @@ date : 2019-01-22
 				alt="http://placehold.it/50x50" width="200px" height="300px">
 			<hr>
 			
-			<p><fmt:formatDate value="${boardDetail.writeDate}" pattern="yyyy.MM.dd"/></p>
+			<p><fmt:formatDate value="${boardDetail.writeDate}" pattern="yyyy-MM-dd"/></p>
 			<%-- <p>${boardDetail.writeDate}</p> --%>
 			<hr>
 			<div class="bContentimg">
@@ -258,9 +258,8 @@ date : 2019-01-22
 							<div class="media-body">
 								<c:if test="${commentList.id != pageContext.request.userPrincipal.name}">
 								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
-								<button class="btn btn-outline-danger btn-sm"
-									data-toggle="modal" data-target="#reportModal"
-									id="reportCommBtn" name="reportCommBtn">신고</button>
+								<button class="btn btn-outline-danger btn-sm reportCommBtn"
+									data-toggle="modal" data-target="#reportModal">신고</button>
 								</c:if>
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
 								<c:if
@@ -372,18 +371,21 @@ function makeList(memos) {
 				output += '<div class="media-body">';
 				if('${session}' != memos[i].id){
 					output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
-					output += '<button class="btn btn-outline-danger btn-sm"';
+					output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
 					output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+
 				}
 	 		}else{
 	 			output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
 				output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '" alt="">';
 				output += '<div class="media-body">';
+
 				if('${session}' != memos[i].id){
 					output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
-					output += '<button class="btn btn-outline-danger btn-sm"';
+					output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
 					output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
 				}
+
 	 		}
 
 			if('${session}' == memos[i].id){
@@ -561,22 +563,20 @@ $("#deleteBoard").click(function(){
  */
  
 $('#reportBoardBtn').click(function() {
-	alert("게시판 신고");
 	$('#targetTypeCode').val("BOARD");
-	let targetCode = $(this).prev().attr("id").substring(4);
+	let targetCode = ${boardDetail.bno};
 	$('#targetCode').val(targetCode);
 })
 
-$('#reportCommBtn').click(function() {
-	
-	alert("댓글 신고");
+
+$('.reportCommBtn').click(function() {
 	$('#targetTypeCode').val("COMM");
 	let targetCode = $(this).prev().attr("id").substring(4);
-	$('#targetCode').val($(this).parents('div').find('.comment').attr('seq'));
+	console.log(targetCode);
+	$('#targetCode').val(targetCode);
 })
 
 $('#reportBtn').click(function() {
-	alert('전송');
 	var report = $('#reportForm').serialize();
 	
 	$.ajax({
