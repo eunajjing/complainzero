@@ -15,14 +15,14 @@ Date : 19-01-15
 	display: inline-block;
 }
 
-#profilePrewDiv {
-	text-align: center;
-}
-
 .validateDiv {
 	color: red;
 }
 
 .validateGreenDiv {
 	color: green;
+}
+
+#input_img {
+	display: none;
 }

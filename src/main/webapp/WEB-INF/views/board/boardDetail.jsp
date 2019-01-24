@@ -3,14 +3,27 @@ date : 2019-01-11
 내용 : 게시글 상세보기 뷰단 초기 구현
 date : 2019-01-18
 내용 : 제안서 모달 뷰단 초기 구현
+date : 2019-01-22
+내용 : 신고 기능 추가
+date : 2019-01-23
+내용 : 신고 기능 추가
 작성자 : 고은아
  -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <link href="css/boardDetail.css" rel="stylesheet">
+<sec:authentication var="principal" property="principal" />
+<style>
+#cProfile{
+	width : 50px;
+	height : 50px;
+}
+</style>
+
 <!-- 신고 모달 -->
 
 <div class="modal" id="reportModal" aria-hidden="true">
@@ -21,20 +34,27 @@ date : 2019-01-18
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
+			<form id="reportForm">
+				<input type="hidden" id="targetCode" name="targetCode"> 
+				<input type="hidden" id="targetTypeCode" name="targetTypeCode">
+
 				<div class="form-group">
 					<label for="reasonCode">신고사유</label> <select class="form-control"
-						id="reasonCode">
+					id="reasonCode" name="reasonCode">
 						<option>신고사유 선택</option>
-						<option>무분별한 비속어 사용</option>
-						<option>광고성 게시물</option>
-						<option>음란성 게시물</option>
-						<option>명예훼손 게시물</option>
-						<option>기타 사유</option>
+						<option value = "RC01">무분별한 비속어 사용</option>
+						<option value = "RC02">광고성 게시물</option>
+						<option value = "RC03">음란성 게시물</option>
+						<option value = "RC04">명예훼손 게시물</option>
+						<option value = "RC00">기타 사유</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<textarea class="form-control" rows="3" placeholder="자세한 내용을 적어주세요"></textarea>
+					<textarea id="rContent" name="rContent" class="form-control" rows="3"
+						placeholder="자세한 내용을 적어주세요"></textarea>
+
 				</div>
+				</form>
 			</div>
 
 			<div class="alert alert-info">
@@ -42,7 +62,9 @@ date : 2019-01-18
 				<strong>허위 신고 시</strong> 회원 활동에 있어 불이익이 발생할 수 있습니다.
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger">전송</button>
+				<button type="button" id="reportBtn" class="btn btn-danger">전송</button>
+
+
 			</div>
 		</div>
 	</div>
@@ -91,13 +113,50 @@ date : 2019-01-18
 	</div>
 </div>
 
-<!-- 신고 모달 끝  -->
+<!-- 제안 모달 끝  -->
 
 <div class="container">
-
-
-	<h1 class="mt-4 mb-3">
-		${boardDetail.title} <small>by <a href="#"> 카테고리</a>
+   <h1 class="mt-4 mb-3">
+      ${boardDetail.title} <small>by <a href="boardForm.do?categorycode=${boardDetail.categoryCode}">
+      <c:choose>
+         <c:when test="${boardDetail.categoryCode eq 'C01'}">
+            식품
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C02'}">
+            보건/의료
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C03'}">
+            주거/시설
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C04'}">
+            가전/생활용품
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C05'}">
+            의류/세탁
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C06'}">
+            자동차/기계류
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C07'}">
+            정보통신
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C08'}">
+            금융/보험
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C09'}">
+            교육/문화
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C10'}">
+            레져/스포츠
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C11'}">
+            관광/운송
+         </c:when>
+         <c:otherwise>
+            기타
+         </c:otherwise>
+      </c:choose>
+      </a>
 		</small>
 	</h1>
 	<div class="row">
@@ -106,47 +165,63 @@ date : 2019-01-18
 				src="http://localhost:8888/img/boardThumbNail/${boardDetail.thumbNail }"
 				alt="http://placehold.it/50x50" width="200px" height="300px">
 			<hr>
-			<p>${boardDetail.writeDate}</p>
+			<div class="rightOutDiv">
+				<div class="rightInDiv">
+					작성자 :  ${boardDetail.nickname} &emsp;
+					조회수 :  ${boardDetail.readCount} &emsp;
+					작성일 : <fmt:formatDate value="${boardDetail.writeDate}" pattern="yyyy-MM-dd"/>
+				</div>
+			</div>
 			<hr>
 			<div class="bContentimg">
-				<!-- 콘텐츠 내용 시작 -->
 				${boardDetail.bContent}
-				<!-- html 내용으로 뿌리는 에디터기를 찾아야 하나..? -->
 			</div>
 			<hr>
 
 			<div class="rightOutDiv">
 				<button class="btn btn-outline-danger btn-sm" data-toggle="modal"
-					data-target="#reportModal">신고</button>
+			data-target="#reportModal" id="reportBoardBtn" targetTypeCode="BOARD">신고</button>
+
+				
+
 			</div>
 			<div class="card my-4">
 				<div class="card-body rightOutDiv">
-					<!-- 만약 내가 쓴 글이 아니면 -->
-					이 글이 공감되시나요?
-					
-					<c:if test="${like == 0}">
-					<i id="like" class="far fa-heart"></i>
-					</c:if>
-					
-					<c:if test="${like == 1}">
-					<i id="like" class="fas fa-heart"></i>
-					</c:if>
-					
-					<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
-					<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
+					<c:choose>
+					<c:when test="${empty boardDetail.link}">
+						<c:choose>
+							<c:when test="${boardDetail.mid == principal.username}">
+							<!-- 만약 내가 쓴 글이면 -->
+									<div class="btn-group btn-group-sm">
+										<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
+										<button type="button" class="btn btn-outline-danger"
+											onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
+										<sec:authorize ifAnyGranted="ROLE_COMPANY">
+											<button type="button" class="btn btn-outline-primary"
+												data-toggle="modal" data-target="#suggestModal">제안</button>
+										</sec:authorize>
+									</div>
+							</c:when>
+							<c:otherwise>
+							<!-- 만약 내가 쓴 글이 아니면 -->
+									이 글이 공감되시나요? 현재 이 글에 공감하신 분은 <span id="likeCount">${likeCount}</span>명 입니다.
+									<c:if test="${like == 0}">
+										<i id="like" class="far fa-heart"></i>
+									</c:if>
 
-
-					<!-- 만약 내가 쓴 글이면 -->
-					<div class="btn-group btn-group-sm">
-						<button type="button" class="btn btn-outline-warning">수정</button>
-						<button type="button" class="btn btn-outline-danger"
-							onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
-						<sec:authorize ifAnyGranted="ROLE_COMPANY">
-							<button type="button" class="btn btn-outline-primary"
-								data-toggle="modal" data-target="#suggestModal">제안</button>
-						</sec:authorize>
-
-					</div>
+									<c:if test="${like == 1}">
+										<i id="like" class="fas fa-heart"></i>
+									</c:if>
+									<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
+									<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
+									</c:otherwise>
+			</c:choose>
+					</c:when>
+					<c:otherwise>
+						이 불만은 개선을 노리고 출시된 상품이 있습니다. 관심이 있으시다면<br>
+						<strong><a href="${boardDetail.link}">쇼핑몰로 이동</a></strong>
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</div>
 
@@ -162,7 +237,7 @@ date : 2019-01-18
 							rows="3"></textarea>
 					</div>
 					<div class="rightOutDiv">
-						<button type="button" onclick="insertComment()"
+						<button type="button" onclick="insertComment(${boardDetail.bno})"
 							class="btn btn-primary">등록</button>
 					</div>
 					<!-- </form> -->
@@ -170,24 +245,39 @@ date : 2019-01-18
 			</div>
 
 			<!-- 기존에 달렸던 댓글들 뿌려주기 -->
+			<c:set var="session" value="${pageContext.request.userPrincipal.name}"/>
 			<div class="commentList">
 				<c:forEach items="${commentList}" var="commentList">
 					<div class="comment" seq="${commentList.cno}">
 						<div class="media mb-4">
-							<img class="d-flex mr-3 rounded-circle"
-								src="http://placehold.it/50x50" alt="">
+							<c:choose>
+								<c:when test="${empty commentList.profile}">
+									<img class="d-flex mr-3 rounded-circle" id="cProfile"
+										src="http://localhost:8888/img/profile/profile.jpeg" alt="">
+								</c:when>
+								<c:otherwise>
+									<img class="d-flex mr-3 rounded-circle" id="cProfile"
+										src="http://localhost:8888/img/profile/${commentList.profile}" alt="">
+								</c:otherwise>
+							</c:choose>
+						
+								
+								
 							<div class="media-body">
-								${commentList.id}&nbsp;
-								<button class="btn btn-outline-danger btn-sm"
+								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
+								<button class="btn btn-outline-danger btn-sm reportCommBtn"
 									data-toggle="modal" data-target="#reportModal">신고</button>
 
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
-								<div class="btn-group btn-group-sm">
-									<button type="button" onclick="updateBtn(${commentList.cno})"
-										class="btn btn-outline-warning">수정</button>
-									<button type="button" onclick="deleteComment(this)"
-										class="btn btn-outline-danger">삭제</button>
-								</div>
+								<c:if
+									test="${pageContext.request.userPrincipal.name == commentList.id}">
+									<div class="btn-group btn-group-sm">
+										<button type="button" onclick="updateBtn(${commentList.cno})"
+											class="btn btn-outline-warning">수정</button>
+										<button type="button" onclick="deleteComment(this)"
+											class="btn btn-outline-danger">삭제</button>
+									</div>
+								</c:if>
 								<br>
 								<div id="updateText${commentList.cno}" style="display: none;">
 									<textarea class="form-control" rows="2">${commentList.cContent}</textarea>
@@ -214,14 +304,49 @@ date : 2019-01-18
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 위로 가기 버튼 -->
 	<div id="upBtn">
-	<a href="#">위로</a>
+		<button class="btn btn-info btn-lg"><a id="upBtnLink" href="#"><i class="far fa-arrow-alt-circle-up"></i></a></button>
 	</div>
 
 
 </div>
+
+<!-- //신고하기 -->
+<script>
+
+
+
+$('#report').click(function() {
+	console.log("targetTypeCode"+$('this').data("targetTypeCode"));
+	console.log($('#reasonCode').val());
+	console.log($('#rContent').val());
+  
+/*     $.ajax({
+        type: "POST",
+        url: "insertReport.do",
+        data: { 
+            "isTo" : ${boardDetail.mid},
+            /* "targetTypeCode" : $('targetTypeCode').val(), 
+            "targetCode" :$('#tagetCode').val(),
+            "reasonCode" :$('#reasonCode').val(),
+            "rContent" :$('#rContent').val()
+        },
+        success: function() {
+            alert('신고 처리가 완료되었습니다.');
+            location.reload();
+        }, error: function() {
+            alert('신고처리가 실패되었습니다.');
+        }
+    }); */
+});
+
+
+
+
+
+</script>
 
 <script>
 $(document).ready(function(){
@@ -237,6 +362,7 @@ $(document).ready(function(){
 	  			  data : {'bno' : bno},
 	  			  success : function() {
 					$('#like').attr('class','fas fa-heart');
+					$('#likeCount').text(Number($('#likeCount').text())+1);
 	  	          },
 	  	          error : function(){
 	  	        	  alert("error");
@@ -249,6 +375,7 @@ $(document).ready(function(){
 	  			  data : {'bno' : bno},
 	  			  success : function() {
 	  				$('#like').attr('class','far fa-heart');
+	  				$('#likeCount').text(Number($('#likeCount').text())-1);
 	  	          },
 	  	          error : function(){
 	  	        	  alert("error");
@@ -281,14 +408,79 @@ function insertComment(){
 			output += '<button type="button" class="btn btn-outline-warning">수정</button>';
 			output += '<button type="button" onclick="deleteComment(this)" class="btn btn-outline-danger">삭제</button>';
 		    output += '</div>';
+
+function getMemoList(bno) {
+	  $.ajax({
+	      url : 'boardCommentSelect.do',
+	      data : {bno : bno},
+	      type : 'GET',
+	      contentType : 'application/json;charset=UTF-8',
+	      dataType : 'json',
+	      success : function(data) {
+	        makeList(data);
+	      }
+	  });
+}
+
+function makeList(memos) {
+	  $(".commentList").empty();
+		var output = "";
+		var len = memos.length;
+		for(var i = 0; i < len; i++) {
+			output += '<div class="comment" seq="' + memos[i].cno + '">';
+	 		output += '<div class="media mb-4">';
+	 		
+	 		if(memos[i].profile == null){
+				output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
+				output += 'src="http://localhost:8888/img/profile/profile.jpeg" alt="">';
+				output += '<div class="media-body">';
+				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+				output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
+				output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+	 		}else{
+	 			output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
+				output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '" alt="">';
+				output += '<div class="media-body">';
+				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+				output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
+				output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+	 		}
+
+			if('${session}' == memos[i].id){
+				output += '<div class="btn-group btn-group-sm">';
+				output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
+				output += 'class="btn btn-outline-warning">수정</button>';
+				output += '<button type="button" onclick="deleteComment(this)"';
+				output += 'class="btn btn-outline-danger">삭제</button>';
+				output += '</div>';
+			}
+
 			output += '<br>';
-			output += $('#cContent').val();
+			output += '<div id="updateText' + memos[i].cno + '" style="display: none;">';
+			output += '<textarea class="form-control" rows="2">' + memos[i].cContent + '</textarea>';
+			output += '<button input="button"';
+			output += 'onclick="updateComment(' + memos[i].cno + ')"';
+			output += 'class="btn btn-outline-warning">수정</button>';
+			output += '</div>';
+			output += '<span id="originText' + memos[i].cno + '">' + memos[i].cContent + '</span>';
+			output += '</div>';
 			output += '</div>';
 			output += '</div>';
 			
-			
-			$(".commentList").append(output);
-			$('#cContent').val('');
+		}
+		
+		$(".commentList").append(output);
+}
+
+
+function insertComment(bno){
+	$.ajax({
+		  url : 'boardCommentInsert.do',
+		  type : 'POST',
+		  data : {bno : bno , cContent : $('#cContent').val()},
+		  success : function() {
+		 	getMemoList(bno);
+		 	$('#cContent').val('');
      	  },
      	  error : function(){
     	  	alert("error");
@@ -307,6 +499,7 @@ function updateBtn(e){
 }
 
 function updateComment(e){
+	var bno = $('#bno').val();
 	var cno = e;
 	var cContent = $('#updateText' + e).children('.form-control').val();
 	var parameter = JSON.stringify({cno : cno, cContent : cContent});
@@ -317,12 +510,7 @@ function updateComment(e){
 			  data : parameter,
 			  contentType : 'application/json;charset=UTF-8',
 			  success : function() {
-				  $('#updateText' + e).children('.form-control').val(cContent);
-				  $('#originText' + e).text(cContent);
-				  $('#updateText' + e).hide();
-				  $('#originText' + e).show();
-				  
-	    		  alert("수정되었습니다.");
+				  getMemoList(bno);
 	          },
 	          error : function(){
 	        	  alert("error");
@@ -331,7 +519,7 @@ function updateComment(e){
 }
 
 function deleteComment(e){
-	
+	var bno = $('#bno').val();
 	//임시
 	var cno = e.parentNode.parentNode.parentNode.parentNode.getAttribute('seq');
 	//임시
@@ -340,16 +528,16 @@ function deleteComment(e){
 		url : 'boardCommentDelete.do/' + cno,
 		  type : 'PUT',
 		  success : function() {
-		 	alert("삭제되었습니다.");
-		 	//임시
-			e.parentNode.parentNode.parentNode.parentNode.remove();
-		 	//임시
+			getMemoList(bno);
    	  	  },
 	 	  error : function(){
   	  	 	 alert("error");
     	  }
 	});
 }
+
+
+
 // 링크 검사
 function linkCheck() {
 	// url 정규표현식
@@ -424,7 +612,6 @@ $('#suggestSubmitBtn').click(function () {
 	});
 })
 
-
 /* 
 $("#deleteBoard").click(function(){
 	$("#modalHeader").text("삭제 여부 확인");
@@ -433,5 +620,36 @@ $("#deleteBoard").click(function(){
     $("#myModal").modal();
 });
  */
+ 
+$('#reportBoardBtn').click(function() {
+	$('#targetTypeCode').val("BOARD");
+	let targetCode = ${boardDetail.bno};
+	$('#targetCode').val(targetCode);
+})
+
+$('.reportCommBtn').click(function() {
+	$('#targetTypeCode').val("COMM");
+	let targetCode = $(this).prev().attr("id").substring(4);
+	console.log(targetCode);
+	$('#targetCode').val(targetCode);
+})
+
+$('#reportBtn').click(function() {
+	var report = $('#reportForm').serialize();
+	
+	$.ajax({
+		type: 'post',
+		url : 'insertReport.do',
+		data : report,
+		success : function(data) {
+			if (data) {
+				alert("신고 성공");
+				$('#targetTypeCode').val("");
+				$('#targetCode').val("");
+				history.go(0);
+			}
+		}
+	});
+});
 
 </script>

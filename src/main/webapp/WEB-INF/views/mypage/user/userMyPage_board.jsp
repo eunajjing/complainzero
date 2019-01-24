@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
 	
 <style>
@@ -9,10 +10,6 @@
 }
 #selectBoard{
 	float:right;
-}
-img{
-	width:100px;
-	height:100px;
 }
 </style>
 	
@@ -39,16 +36,16 @@ img{
 		          		<tr>
 		          			<th>제목</th>
 		          			<!-- <th>내용</th> -->
-		          			<th>작성시간</th>
+		          			<th>작성일자</th>
 		          			<th>조회수</th>
 		          		</tr>
 		       		</thead>
 		       		<tbody>
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
-		          			<td>${board.title}</td>
+		          			<td><a href="selectOneBoard.do?bno=${board.bno}">${board.title}</a></td>
 							<%-- <td>${board.bContent}</td> --%>
-							<td>${board.writeDate}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.writeDate}"/></td>
 							<td>${board.readCount}</td>
 						</tr>
 		          	</c:forEach>
@@ -62,17 +59,17 @@ img{
 		          	<table class="dt">
 		          	<thead>
 		          		<tr>
-		          			<th>내용</th>
-		          			<th>작성시간</th>
+		          			<th>댓글</th>
 		          			<th>게시글제목</th>
+		          			<th>작성일자</th>
 		          		</tr>
 		          	</thead>
 		          	<tbody>
 		          	<c:forEach items="${myBoard.comment}" var="comment">
 		          		<tr>
 							<td>${comment.cContent}</td>
-							<td>${comment.writeDate}</td>
-							<td>${comment.title}</td>
+							<td><a href="selectOneBoard.do?bno=${comment.bno}">${comment.title}</a></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${comment.writeDate}"/></td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -87,16 +84,16 @@ img{
 		          		<tr>
 		          			<th>제목</th>
 		          			<!-- <th>내용</th> -->
-		          			<th>작성시간</th>
+		          			<th>작성일자</th>
 		          			<th>조회수</th>
 		          		</tr>
 		       		</thead>
 		       		<tbody>
 		          	<c:forEach items="${myBoard.likes}" var="likes">
 		          		<tr>
-		          			<td>${likes.title}</td>
+		          			<td><a href="selectOneBoard.do?bno=${likes.bno}">${likes.title}</a></td>
 							<%-- <td>${board.bContent}</td> --%>
-							<td>${likes.writeDate}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${likes.writeDate}"/></td>
 							<td>${likes.readCount}</td>
 						</tr>
 		          	</c:forEach>
@@ -114,16 +111,16 @@ img{
 		          		<tr>
 		          			<th>제목</th>
 		          			<!-- <th>내용</th> -->
-		          			<th>작성시간</th>
+		          			<th>작성일자</th>
 		          			<th>조회수</th>
 		          		</tr>
 		       		</thead>
 		       		<tbody>
 		          	<c:forEach items="${myBoard.board}" var="board">
 		          		<tr>
-		          			<td>${board.title}</td>
+		          			<td><a href="selectOneBoard.do?bno=${board.bno}">${board.title}</a></td>
 							<%-- <td>${board.bContent}</td> --%>
-							<td>${board.writeDate}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.writeDate}"/></td>
 							<td>${board.readCount}</td>
 						</tr>
 		          	</c:forEach>
@@ -139,17 +136,17 @@ img{
 		          	<table class="eachDt">
 		          	<thead>
 		          		<tr>
-		          			<th>내용</th>
-		          			<th>작성시간</th>
+		          			<th>댓글</th>
 		          			<th>게시글제목</th>
+		          			<th>작성일자</th>
 		          		</tr>
 		          	</thead>
 		          	<tbody>
 		          	<c:forEach items="${myBoard.comment}" var="comment">
 		          		<tr>
 							<td>${comment.cContent}</td>
-							<td>${comment.writeDate}</td>
-							<td>${comment.title}</td>
+							<td><a href="selectOneBoard.do?bno=${comment.bno}">${comment.title}</a></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${comment.writeDate}"/></td>
 						</tr>
 		          	</c:forEach>
 		          	</tbody>
@@ -166,16 +163,16 @@ img{
 		          		<tr>
 		          			<th>제목</th>
 		          			<!-- <th>내용</th> -->
-		          			<th>작성시간</th>
+		          			<th>작성일자</th>
 		          			<th>조회수</th>
 		          		</tr>
 		       		</thead>
 		       		<tbody>
 		          	<c:forEach items="${myBoard.likes}" var="likes">
 		          		<tr>
-		          			<td>${likes.title}</td>
+		          			<td><a href="selectOneBoard.do?bno=${likes.bno}">${likes.title}</a></td>
 							<%-- <td>${board.bContent}</td> --%>
-							<td>${likes.writeDate}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd" value="${likes.writeDate}"/></td>
 							<td>${likes.readCount}</td>
 						</tr>
 		          	</c:forEach>

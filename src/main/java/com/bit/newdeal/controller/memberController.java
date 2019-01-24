@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,8 @@ import com.bit.newdeal.service.memberService;
 public class memberController {
   @Autowired
   private memberService memberService;
+  @Autowired
+  BCryptPasswordEncoder bCryptPasswordEncoder;
   
   @RequestMapping("loginForm.do")
   public void loginForm() {}
@@ -34,6 +37,13 @@ public class memberController {
   @RequestMapping("joinFormEnter.do")
   public String joinFormEnter() {
     return "joinForm_enter";
+  }
+  
+  @RequestMapping("headerInfo.do")
+  public @ResponseBody Member headerInfo(Principal principal, Model model) {
+	 Member member = memberService.selectOneMember(principal.getName());
+	model.addAttribute("headerMember", member);
+	 return member;
   }
   
   @RequestMapping(value = "join.do", method = RequestMethod.POST)
@@ -72,22 +82,15 @@ public class memberController {
   //자기정보 변경
   @RequestMapping(value="updateMember.do", method= RequestMethod.POST)
   public @ResponseBody void updateMember(Member member, MultipartHttpServletRequest multipart) throws Exception {
-
+	  
     memberService.updateMember(member, multipart);
   }
   
   //제공자 마이페이지
   @RequestMapping("enterUserMyPage.do")
-  public String enterUserMyPage(Principal principal, Model model, Member member) {
-    String id = principal.getName();
-    
-    member = memberService.selectOneMember(id);
-    
-    String profile = "img/profile/" + memberService.selectOneMember(id).getProfile();
-    
-    member.setProfile(profile);
-    
-    model.addAttribute("member", member);
+  public String enterUserMyPage(Principal principal, Model model) {
+	  String id = principal.getName();
+	    model.addAttribute("member", memberService.selectOneMember(id));
     
     return "mypage/enter/enterUserMyPage_update";
   }
@@ -102,16 +105,14 @@ public class memberController {
   }
   
 
-  //삭제 전 비밀번호 확인
+  //비밀번호 확인
   @RequestMapping(value="pwCheck.do", method=RequestMethod.POST)
-  public @ResponseBody boolean pwCheck(@RequestBody String epw, Principal principal) {
+  public @ResponseBody boolean pwCheck(String epw, Principal principal) {
 	  
 	  String encodePassword = memberService.pwCheck(principal.getName());
 	  String rawPassword = epw;
-	  /*
+	  
 	  boolean result = bCryptPasswordEncoder.matches(rawPassword, encodePassword);
-	  */
-	  boolean result = true;
 
 	  return result;
   }

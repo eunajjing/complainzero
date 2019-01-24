@@ -11,7 +11,7 @@ Date : 19-01-10
 Date : 19-01-15
 내용 : 시큐리티 권한 설정
 작성자 : 고은아
-Date : 19-01-23
+Date : 19-01-24
 내용 : 알림 구현
 작성자 : 조영규
 -->
@@ -96,6 +96,36 @@ Date : 19-01-23
             </div>
             </li>
             <!-- 알림 끝 -->
+
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdownPortfolio" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> <img alt=""
+							src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
+							id="profile" name="profile">&nbsp&nbsp<span id="hnickname"name="hnickname">님</span> 
+					</a>
+						<div class="dropdown-menu dropdown-menu-right"
+							aria-labelledby="navbarDropdownPortfolio">
+							<se:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
+							<a class="dropdown-item" href="#">작성 글 확인</a> 
+							</se:authorize>
+							<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
+							<se:authorize ifAnyGranted="ROLE_COMPANY">
+							<a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
+							</se:authorize>
+							<se:authorize ifAnyGranted="ROLE_ADMIN">
+							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
+							</se:authorize>
+							<a class="dropdown-item" href="j_spring_security_logout">로그아웃</a>
+						</div></li>
+						
+											<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="far fa-bell"></i><span class="badge">0</span>
+					</a>
+					<li class="nav-item"><a class="nav-link" href="#"> <i
+							class="far fa-comments"></i><span class="badge">0</span>
+					</a></li>
+>>>>>>> master
 					</c:if>
 				</ul>
 			</div>
@@ -104,6 +134,7 @@ Date : 19-01-23
 
   <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
+<<<<<<< HEAD
 		var session = ('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}');
 		$(function() {
 			if (session != null) {
@@ -173,4 +204,28 @@ Date : 19-01-23
 			  });
 			})
 		});
+
+	var session  = ('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}');
+	$(function() {
+		if (session != null) {
+			// ajax 돌려서 프로필 이미지, 닉네임 붙여넣기!
+			$.ajax({
+    				"url" : "headerInfo.do",
+    				"type" : "get",
+    				
+    				"success" : function(data){
+  
+    					$('#hnickname').text(data.nickname);
+    					if(data.profile == null){
+    						$('#profile').attr('src', 'http://localhost:8888/img/profile/profile.jpeg');
+    					}else{
+	    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile);    						
+    					}
+    					
+    					
+					}
+			});
+		}
+   	
+    });
 	</script>

@@ -5,10 +5,13 @@ Date : 19-01-16
 내용 : 글꼴 추가
 Date : 19-01-19
 내용 : 게시판 목록 단 img 태그 제어
+Date : 19-01-23
+내용 : 가운데 정렬 클래스 생성
 작성자 : 고은아
 */
-
-@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
 
 body {
 	font-family: 'NanumSquare';
@@ -31,16 +34,16 @@ input[type=password] {
 }
 
 .card-img-top {
-	max-width : 100%;
-	max-height : 100%;
-	width : 700px;
-	height : 300px;
+	max-width: 100%;
+	max-height: 100%;
+	width: 700px;
+	height: 300px;
 	display: inline-block;
 	padding: 15px;
-} 
+}
 
 .portfolio-item {
-	height: 500px;
+	height: 450px;
 }
 
 .card {
@@ -49,4 +52,16 @@ input[type=password] {
 
 .card-text {
 	text-align: justify;
+}
+
+.centerOutDiv {
+	text-align: center;
+}
+
+input[name="img"]{
+	opacity: 0;
+}
+
+#profilePrew, #showImg {
+	cursor: pointer;
 }

@@ -2,6 +2,7 @@ package com.bit.newdeal.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.View;
 
 import com.bit.newdeal.dto.Board;
 import com.bit.newdeal.dto.Comment;
+import com.bit.newdeal.dto.SearchCriteria;
 import com.bit.newdeal.dto.Suggest;
 import com.bit.newdeal.service.boardService;
 import com.bit.newdeal.service.commentService;
@@ -36,19 +38,16 @@ public class boardController {
   private suggestService suggestService;
   
   @RequestMapping("boardForm.do")
-  public ModelAndView boardForm() {
+  public ModelAndView boardForm(@ModelAttribute SearchCriteria cri) {
+	  
     ModelAndView mav = new ModelAndView();
     
-   mav.addObject("boardList", boardService.selectAllBoard());
-   /*System.out.println(boardService.selectAllBoard().);*/
+    mav.addObject("boardList", boardService.selectAllBoard(cri));
+    mav.addObject("pageMaker", boardService.countPageing(cri));
+    
    mav.setViewName("board/boardForm");
    
     return mav;
-  }
-  
-  @RequestMapping("searchBoard.do")
-  public void searchBoard() {
-    // 필요없을수도 있음
   }
   
   @RequestMapping("writeBoardForm.do")
@@ -72,13 +71,18 @@ public class boardController {
     
     mav.addObject("boardDetail", boardService.selectOneBoard(bno));
     mav.addObject("commentList", commentService.selectComment(bno));
+    mav.addObject("readCount", boardService.readCount(bno));
+    mav.addObject("likeCount", boardService.likeCount(bno));
     mav.addObject("like", boardService.selectLike(principal.getName(), bno));
+
+    
+
     mav.setViewName("board/boardDetail");
     
     return mav;
   }
- 
-  @RequestMapping("deleteBoard.do")
+
+@RequestMapping("deleteBoard.do")
   public String deleteBoard(@RequestParam int bno) {
 	  
 	  boardService.deleteBoard(bno);
@@ -104,10 +108,18 @@ public class boardController {
 	  System.out.println("asdfjkl");
 	  return "redirect:boardForm.do";
   }
+  
+  //게시판 조회수
+  
 
   @RequestMapping(value = "boardCommentSelect.do", method = RequestMethod.GET)
-  public @ResponseBody void boardCommentSelect(int bno, Model model){
-	  model.addAttribute("comment", commentService.selectComment(bno));
+  public @ResponseBody List<HashMap> boardCommentSelect(int bno, Model model){
+	  
+	  /*model.addAttribute("comment", commentService.selectComment(bno));*/
+	  
+	  List<HashMap> comment = commentService.selectComment(bno);
+	  
+	  return comment;
   }
   
   //댓글 추가

@@ -53,16 +53,14 @@ public class memberService {
 	  long fileSize = profile.getSize();
 	  
 	  if(fileSize > 0) {
-		  String originFileName = profile.getOriginalFilename();
+		  int index = profile.getOriginalFilename().lastIndexOf(".");
+		  String ext = profile.getOriginalFilename().substring(index + 1);
+		  String originFileName = member.getId();
 		  String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");
-/*
-		  System.out.println(multipart.getClass().getResource(""));
-		  System.out.println(multipart.getClass().getResource("").getPath());
-		  */
-		  String saveFile = path + originFileName;
+		  String saveFile = path + originFileName + '.' + ext;
 		  profile.transferTo(new File(saveFile));
 		  
-		  dbProfile = originFileName;
+		  dbProfile = originFileName + '.' + ext;
 		  member.setProfile(dbProfile);
 	  }
 	  

@@ -58,4 +58,11 @@ public class Report {
   public void setProcessCode(String processCode) {
     this.processCode = processCode;
   }
+  
+  @Override
+  public String toString() {
+  	return "Report [rno=" + rno + ", isFrom=" + isFrom + ", isTo=" + isTo + ", targetTypeCode=" + targetTypeCode
+  			+ ", targetCode=" + targetCode + ", reasonCode=" + reasonCode + ", rContent=" + rContent + ", processCode="
+  			+ processCode + "]";
+  }
 }

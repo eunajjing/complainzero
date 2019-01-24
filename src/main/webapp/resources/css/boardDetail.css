@@ -1,3 +1,10 @@
+/* 
+Date : 19-01-21
+내용 : 스크롤 제어
+Date : 19-01-24
+내용 : 버튼 css
+작성자 : 고은아
+ */
 .bContentimg img {
 	width: 500px;
 	height: 375px;
@@ -8,6 +15,26 @@
 
 #upBtn {
 	position: fixed;
-	bottom: 5px;
-	right: 5px;
+	bottom: 10px;
+	right: 10px;
 }
+
+.bContentimg {
+	min-height: 30rem;
+	/* min-height: 700px; */
+}
+
+#upBtnLink:link {
+	color: white;
+	text-decoration: none;
+}
+
+#upBtnLink:visited {
+	color: white;
+	text-decoration: none;
+}
+#upBtnLink:hover {
+	color: white;
+	text-decoration: none;
+}
+

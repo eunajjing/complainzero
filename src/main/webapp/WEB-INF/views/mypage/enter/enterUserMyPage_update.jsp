@@ -1,27 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
+    <style>
+    #eshowImg{
+		width:300px;
+    }
+    input[name="img"]{
+    	opacity: 0;
+    }
+    </style>
         <!-- Content Column -->
         <div>
           <h2>정보 수정</h2>
           
           	<div>
-          		<form id="formdata" enctype="multipart/form-data">
+          		<form action="updateMember.do" id="formdata" method="post" enctype="multipart/form-data">
 		          <label>아이디: </label>
 		          	<input type="text" class="form-control" id="id" name="id" value="${member.id}" readonly>
 		          <p class="help-block"></p>
 		          
 		          <label>비밀번호:</label>
-	              	<input type="password" class="form-control" id="pw" name="pw" required="required">
+	              	<input type="password" class="form-control" id="wpw" name="pw" required="required">
 	           	  <p class="help-block"></p>
 	              
-	              <label>니네임:</label>
+	              <label>닉네임:</label>
 	              	<input type="text" class="form-control" id="nickname" name="nickname" value="${member.nickname}">
 	              <p class="help-block"></p>
 	              
 	            <label>
-	            	
-	           		<center><img src="img/profile/Jellyfish.jpg" id="img" style="width:300px; width:300px;"></center><br>
-	            	<input type="file" id="input_img" name="img" style="opacity: 0;"/>
+	            	<c:choose>
+	            		<c:when test="${empty member.profile}">
+							<center><img src="http://localhost:8888/img/profile/profile.jpeg" id="eshowImg"></center><br>
+	            			<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
+	            		</c:when>
+	            		<c:otherwise>
+			           		<center><img src="http://localhost:8888/img/profile/${member.profile}" id="eshowImg"></center><br>
+			            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
+	            		</c:otherwise>
+	            	</c:choose>
 	            </label>
 	              
 	            <p class="help-block"></p>
@@ -38,30 +55,20 @@
     <!-- /.container -->
     
     <script>
-    $(document).ready(function(){
-    	$('#input_img').on('change',handleImgFileSelect);
+    $('#input_img').change(function(){
+    	filePreShow(this);
     });
     
-    function handleImgFileSelect(e){
-    	var files = e.target.files;
-    	var fileArr = Array.prototype.slice.call(files);
-    	
-    	fileArr.forEach(function(f){
-    		if(!f.type.match("image.*")){
-    			alert("확장자는 이미지 확장자만 가능합니다.");
-    			return;
-    		}
-    		
-    		var reader = new FileReader();
-    		reader.onload = function(e){
-    			$('#img').attr('src', e.target.result);
-    		}
-    		reader.readAsDataURL(f);
-    	});
+    function filePreShow(e){
+    	var reader = new FileReader();
+    	reader.onload = function(e){
+    		$('#eshowImg').attr('src',e.target.result);
+    	}
+    	reader.readAsDataURL(e.files[0]);
     }
     
 	   	$('#updateBtn').click(function(){
-	   		if($('#pw') == ""){
+	   		if($('#wpw') == ""){
 	       		alert("비밀번호를 입력하세요");
 	       	}else if($('#nickname') == ""){
 	       		alert("닉네임을 입력하세요");
@@ -70,12 +77,12 @@
 	       		$.ajax({
 					url : 'pwCheck.do',
 		  			  type : 'POST',
-		  			  data : {epw : $('#pw').val()},
+		  			  data : {epw : $('#wpw').val()},
 		  			  success : function(data) {
 		  				  //성공시 정보변경
 		  				  if(data == true){
 		  					/* var form = document.getElementById('formdata'); */
-		  			   		var form = $('form')[0];
+		  			   		var form = $('form')[1];
 		  			   		var formData = new FormData(form);
 		  		       		
 		  		    		$.ajax({
@@ -86,7 +93,7 @@
 		  		  			contentType: false,
 		  					processData: false,
 		  		  			  success : function() {
-		  		  	    		  $('#pw').val('');
+		  		  	    		  $('#wpw').val('');
 		  		  	    		  alert("수정되었습니다.");
 		  		  	          },
 		  		  	          error : function(){
