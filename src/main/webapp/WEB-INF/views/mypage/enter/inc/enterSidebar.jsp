@@ -12,7 +12,7 @@
         <li class="breadcrumb-item">
           <a href="main.do">Home</a>
         </li>
-        <li class="breadcrumb-item active">제안서 조회</li>
+        <li class="breadcrumb-item active">제공자회원 개인정보</li>
       </ol>
 
       <!-- Content Row -->

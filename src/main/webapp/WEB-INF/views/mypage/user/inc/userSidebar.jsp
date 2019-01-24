@@ -13,7 +13,7 @@
         <li class="breadcrumb-item">
           <a href="main.do">Home</a>
         </li>
-        <li class="breadcrumb-item active">글조회</li>
+        <li class="breadcrumb-item active">일반회원 개인정보</li>
       </ol>
 
       <!-- Content Row -->
