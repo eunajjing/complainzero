@@ -39,7 +39,7 @@ date : 19-01-21
 					<div class="validateDiv" id="nicknameValidateDiv"></div>
 						<label for="nickname">닉네임</label> <input id="nickname"
 							name="nickname" type="text" class="form-control"
-							placeholder="닉네임" required="required">
+							placeholder="닉네임" required="required" value="${member.nickname}">
 					</div>
 					<div class="form-group">
 						<label for="profile">프로필 이미지</label>
@@ -51,9 +51,10 @@ date : 19-01-21
 					</div> -->
 					
 					  <div id="profileprewDiv">
-	            	
+	            	<label>
 	           		<center><img src="img/profile/Jellyfish.jpg" id="img" style="width:300px; width:300px;"></center><br>
 	            	<input type="file" id="input_img" name="img" style="opacity: 0;"/>
+	            </label>
 	            </div>
 				
 			</div>
