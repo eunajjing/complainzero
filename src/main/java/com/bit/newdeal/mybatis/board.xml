@@ -56,17 +56,19 @@ and temp.bno = #{bno}
 
 	<select id="selectAllBoard" parameterType="HashMap"
 		resultType="Board">
-		SELECT bno, mid, title, bContent, writeDate, readCount, thumbNail, categoryCode, bDelete
-		FROM board
-		WHERE bDelete='0'
+		SELECT b.bno "bno", b.mid "mid", b.title "title", b.bContent "bContent",
+		b.writeDate "writeDate", b.readCount "readCount", b.thumbNail "thumbNail",
+		b.categoryCode "categoryCode", b.bDelete "bDelete", m.nickname "nickname"
+		FROM board b join member m on b.mid=id
+		WHERE b.bDelete='0'
 		<if test="categorycode != null">
-			and categorycode=#{categorycode}
+			and b.categorycode=#{categorycode}
 		</if>
 		<if test="keyword != null">
-			and (title like '%${keyword}%'
-			or bContent like '%${keyword}%')
+			and (b.title like '%${keyword}%'
+			or b.bContent like '%${keyword}%')
 		</if>
-		order by bno desc
+		order by b.bno desc
 		limit #{pageStart}, #{perPageNum}
 
 	</select>

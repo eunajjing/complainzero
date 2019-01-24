@@ -12,6 +12,8 @@ Date : 19-01-21
 내용 : 게시판 뷰 정렬
 Date : 19-01-22
 내용 : 셀렉트 박스 제어
+Date : 19-01-24
+내용 : 뷰단 수정
 작성자 : 고은아
  -->
 <div class="container">
@@ -90,8 +92,9 @@ Date : 19-01-22
 				              		</c:otherwise>
 				              	</c:choose>
 							</h4>
-							<p class="card-text">${boardList.mid}</p>
-							<p class="card-text">${boardList.readCount}</p>
+							<p class="centerOutDiv"><strong>${boardList.nickname}</strong> 님의 불만</p>
+							<p class="rightOutDiv">
+							&emsp;이 불만을 ${boardList.readCount} 명이 읽었습니다.</p>
 						</div>
 					</div>
 				</div>
