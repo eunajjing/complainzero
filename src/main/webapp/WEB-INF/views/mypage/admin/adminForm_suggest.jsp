@@ -67,7 +67,7 @@ Date : 19-01-19
             <c:forEach var="suggest" items="${suggestList }">
             <tr class="table-primary">
               <td>${suggest.sno }</td>
-              <td>${suggest.mid }</td>
+              <td>${suggest.id }</td>
               <td>${suggest.bno }</td>
               <td>${suggest.link }</td>
 <%--               <td>${suggest.companyName }</td> --%>

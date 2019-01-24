@@ -190,7 +190,7 @@ date : 2019-01-23
 					<c:choose>
 					<c:when test="${empty boardDetail.link}">
 						<c:choose>
-							<c:when test="${boardDetail.mid == principal.username}">
+							<c:when test="${boardDetail.mid != principal.username}">
 							<!-- 만약 내가 쓴 글이면 -->
 									<div class="btn-group btn-group-sm">
 										<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->

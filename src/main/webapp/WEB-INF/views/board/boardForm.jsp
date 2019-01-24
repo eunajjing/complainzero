@@ -67,9 +67,18 @@ Date : 19-01-22
 				<c:forEach items="${boardList}" var="boardList">
 						<div class="col-lg-4 col-sm-6 portfolio-item">
 							<div class="card h-100">
-						<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
-							src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
-							class="card-img-top" alt=""></a>
+						<c:choose>
+			          		<c:when test="${empty boardList.thumbNail}">
+			          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+			                     src="http://localhost:8888/img/boardThumbNail/thumbnail.png"
+			                     class="card-img-top" alt=""></a>
+			          		</c:when>
+			          		<c:otherwise>
+			          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+			                     src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
+			                     class="card-img-top" alt=""></a>
+			          		</c:otherwise>
+			          	</c:choose>
 						<div class="card-body">
 							<h4 class="card-title">
 								<c:choose>
