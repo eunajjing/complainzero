@@ -94,7 +94,7 @@ Date : 19-01-24
 							</h4>
 							<p class="centerOutDiv"><strong>${boardList.nickname}</strong> 님의 불만</p>
 							<p class="rightOutDiv">
-							&emsp;이 불만을 ${boardList.readCount} 명이 읽었습니다.</p>
+							이 불만을 ${boardList.readCount} 명이 읽었습니다.</p>
 						</div>
 					</div>
 				</div>

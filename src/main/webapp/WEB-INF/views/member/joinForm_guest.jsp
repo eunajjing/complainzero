@@ -8,6 +8,8 @@ date : 19-01-15 ~ 16
 내용 : 회원가입 제어
 date : 19-01-21
 내용 : 인증번호 발송 단 주석, 프로필 사진 등록 제어 중
+date : 19-01-24
+내용 : css 수정 중
 작성자 : 고은아
 -->
 
@@ -21,16 +23,18 @@ date : 19-01-21
 			<form action="join.do" method="post">
 			<!-- 멀티파트! -->
 			<div class="modal-body">
+			<div class="centerOutDiv">
 					<div class="form-group">
 						<label class="radio-inline">
 						<input type="radio"
 							name="roleCode" id="ROLE_USER" value="ROLE_USER" checked="checked">
 							일반 회원
-						</label>
+						</label>&emsp;
 						<label class="radio-inline"> <input type="radio"
 							name="roleCode" id="ROLE_COMPANY" value="ROLE_COMPANY">
 							기업 회원
 						</label>
+						</div>
 						</div>
 						<div class="form-group">
 							<label for="id">이메일</label>
@@ -63,13 +67,19 @@ date : 19-01-21
 							name="nickname" type="text" class="form-control"
 							placeholder="닉네임" required="required">
 					</div>
-					<div class="form-group">
-						<label for="profile">프로필 이미지</label>
-						<input id="input_img" type="file" name="profile" multiple="multiple">
+					
+						<div class="form-group">
+							<label for="profile">프로필 이미지</label>
+						</div>
+						<div class="centerOutDiv">
+						<label>
+						<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
+						
+							<img src="http://localhost:8888/img/profile/profile.jpeg" id="profilePrew">
+							
+						</label>
 					</div>
-					<div id="profilePrewDiv">
-						<img alt="" src="https://tettra.co/wp-content/logos/github.png" id="profilePrew">
-					</div>
+					
 				
 			</div>
 			<div class="modal-footer">
@@ -224,20 +234,11 @@ $(function() {
 
 // 프로필 사진 핸들러
 function handleImgFileSelect(e){
-    	var files = e.target.files;
-    	var fileArr = Array.prototype.slice.call(files);
-    	
-    	fileArr.forEach(function(f){
-    		if(!f.type.match("image.*")){
-    			alert("확장자는 이미지 확장자만 가능합니다.");
-    			return;
-    		} 
-	    		var reader = new FileReader();
-	    		reader.onload = function(e){
-	    			$('#profilePrew').attr('src', e.target.result);
-	    		}
-	    		reader.readAsDataURL(f);
-    	});
+	var reader = new FileReader();
+	reader.onload = function(e){
+		$('#profilePrew').attr('src',e.target.result);
+	}
+	reader.readAsDataURL(e.files[0]);
     }
 
 $('#joinForm').keyup(function() {
