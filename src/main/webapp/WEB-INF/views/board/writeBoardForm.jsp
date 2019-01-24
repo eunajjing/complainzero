@@ -13,14 +13,6 @@ date : 19-01-14
 			<div class="modal-header">
 				<h4 class="modal-title">글쓰기</h4>
 			</div>
-
-		<!-- 	<div class="rightOutDiv">
-				<div class="rightInDiv">
-					<form class="form-inline">
-					</form>
-				</div>
-			</div> -->
-
 			<div class="modal-body">
 				<form class="form-horizontal" enctype="multipart/form-data"
 					action="writeBoard.do" id="form" method="post">
@@ -57,8 +49,10 @@ date : 19-01-14
 						<label for="profile">썸네일</label> <input type="file" name="uFile">
 					</div>
 					<!-- 					<div class="modal-footer"> -->
-					<div class="form-group">
-						<input type="submit" class="btn btn-primary" id="btn" value="등록">
+					<div class="centerOutDiv">
+						<div class="form-group rightInDiv">
+							<input type="submit" class="btn btn-primary" id="btn" value="등록">
+						</div>
 					</div>
 					<!--           </div> -->
 				</form>
