@@ -6,9 +6,9 @@ public class Alarm {
   private String alarmCode;
   private Date alarmDate;
   private String isFrom;
-  private boolean readCheck;
+  private int readCheck;
   private int ano;
-  private int alarmTarget;
+  private int bno;
   
   public String getAlarmCode() {
     return alarmCode;
@@ -28,10 +28,10 @@ public class Alarm {
   public void setIsFrom(String isFrom) {
     this.isFrom = isFrom;
   }
-  public boolean isReadCheck() {
+  public int getReadCheck() {
     return readCheck;
   }
-  public void setReadCheck(boolean readCheck) {
+  public void setReadCheck(int readCheck) {
     this.readCheck = readCheck;
   }
   public int getAno() {
@@ -40,10 +40,15 @@ public class Alarm {
   public void setAno(int ano) {
     this.ano = ano;
   }
-  public int getAlarmTarget() {
-    return alarmTarget;
+  public int getBno() {
+    return bno;
   }
-  public void setAlarmTarget(int alarmTarget) {
-    this.alarmTarget = alarmTarget;
+  public void setBno(int bno) {
+    this.bno = bno;
+  }
+  @Override
+  public String toString() {
+    return "Alarm [alarmCode=" + alarmCode + ", alarmDate=" + alarmDate + ", isFrom=" + isFrom
+        + ", readCheck=" + readCheck + ", ano=" + ano + ", bno=" + bno + "]";
   }
 }
