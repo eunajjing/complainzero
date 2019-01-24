@@ -74,7 +74,9 @@ public class boardController {
     mav.addObject("readCount", boardService.readCount(bno));
     mav.addObject("likeCount", boardService.likeCount(bno));
     mav.addObject("like", boardService.selectLike(principal.getName(), bno));
+
     
+
     mav.setViewName("board/boardDetail");
     
     return mav;
