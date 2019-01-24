@@ -9,8 +9,9 @@ Date : 19-01-23
 내용 : 가운데 정렬 클래스 생성
 작성자 : 고은아
 */
-
-@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+@import
+	url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css)
+	;
 
 body {
 	font-family: 'NanumSquare';
@@ -33,13 +34,13 @@ input[type=password] {
 }
 
 .card-img-top {
-	max-width : 100%;
-	max-height : 100%;
-	width : 700px;
-	height : 300px;
+	max-width: 100%;
+	max-height: 100%;
+	width: 700px;
+	height: 300px;
 	display: inline-block;
 	padding: 15px;
-} 
+}
 
 .portfolio-item {
 	height: 450px;
@@ -55,4 +56,12 @@ input[type=password] {
 
 .centerOutDiv {
 	text-align: center;
+}
+
+input[name="img"]{
+	opacity: 0;
+}
+
+#profilePrew, #showImg {
+	cursor: pointer;
 }

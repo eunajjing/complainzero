@@ -1,6 +1,8 @@
 <!-- 
 date : 19-01-21
 내용 : 오탈자 수정
+date : 19-01-24
+내용 : 겹치는 css main css로 이동
 작성자 : 고은아
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,9 +12,6 @@ date : 19-01-21
     <style>
     #showImg{
 		width:300px;
-    }
-    input[name="img"]{
-    	opacity: 0;
     }
     </style>
     
