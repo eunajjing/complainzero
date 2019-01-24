@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.newdeal.dto.Alarm;
 import com.bit.newdeal.dto.Report;
+import com.bit.newdeal.dto.SearchCriteria;
 import com.bit.newdeal.service.alarmService;
 import com.bit.newdeal.service.boardService;
 import com.bit.newdeal.service.reportService;
@@ -29,11 +30,11 @@ public class mainController {
 	private reportService reportService;
 
 	@RequestMapping(value = { "main.do", "/" })
-	public ModelAndView main() {
+	public ModelAndView main(SearchCriteria cri) {
 		ModelAndView mav = new ModelAndView();
 
-		// mav.addObject("popList", boardService.containerOne());
-		// mav.addObject("lastList", boardService.containerTwo());
+		mav.addObject("boardList", boardService.selectAllBoard(cri));
+		
 		mav.setViewName("main");
 
 		return mav;
