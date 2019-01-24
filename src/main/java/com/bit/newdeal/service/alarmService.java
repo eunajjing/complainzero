@@ -20,7 +20,7 @@ public class alarmService {
     return session.getMapper(alarmDao.class).insertAlarm(alarm);
   }
   
-  public int updateAlarm(Alarm alarm) {
-    return session.getMapper(alarmDao.class).updateAlarm(alarm);
+  public int updateAlarm(int ano) {
+    return session.getMapper(alarmDao.class).updateAlarm(ano);
   }
 }

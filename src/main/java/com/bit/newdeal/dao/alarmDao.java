@@ -6,5 +6,5 @@ import com.bit.newdeal.dto.Alarm;
 public interface alarmDao {
   public List<Alarm> selectAlarm(String id);
   public int insertAlarm(Alarm alarm);
-  public int updateAlarm(Alarm alarm);
+  public int updateAlarm(int ano);
 }

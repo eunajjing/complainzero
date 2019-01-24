@@ -270,7 +270,6 @@ function insertComment(){
 		 	//동적으로 태그 생성
 		 	
 		 	var output = "";
-
 		 	
 		 	output += '<div class="comment" seq="' + $('.comment').attr('seq') + '">';
 		 	

@@ -13,8 +13,8 @@
   	
   	</insert>
   	
-  	<update id="updateAlarm" parameterType="Alarm">
-  	
+  	<update id="updateAlarm" parameterType="int">
+  	 update alarm set readCheck=1 where ano=#{ano}
   	</update>
   
   </mapper>

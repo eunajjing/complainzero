@@ -77,8 +77,8 @@
               <input type="hidden" class="hide" value="${report.rContent }">
               <c:if test="${report.processCode == 'R00' }">
               <td>대기</td>
-              <td><button class="btn btn-primary"><label class="approve">승인</label></button>
-              <button class="btn btn-primary"><label class="refuse">거절</label></button></td>
+              <td><button class="btn btn-outline-primary"><label class="approve">승인</label></button>
+              <button class="btn btn-outline-danger"><label class="refuse">거절</label></button></td>
               </c:if>
               <c:if test="${report.processCode == 'R01' }">
               <td>반려</td><td><input type="hidden"></td>

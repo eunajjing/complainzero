@@ -88,35 +88,14 @@ Date : 19-01-23
             id="alarmToggle" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="far fa-bell"></i> 
-            <span class="badge">0</span>
+            <span class="badge" style="color: yellow;">0</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right"
-                aria-labelledby="alarmToggle" id="div">
-<%--                 <c:forEach var="alarm" items="${alarmList }"> --%>
-<%--                   <c:if test="${alarm.alarmCode == 'A00' }"> --%>
-<!--                   <a class="dropdown-item" href="javascript:;">신고가 접수되었습니다</a> -->
-<%--                   </c:if> --%>
-<%--                   <c:if test="${alarm.alarmCode == 'A01' }"> --%>
-<!--                   <a class="dropdown-item" href="javascript:;">게시물에 댓글이 달렸습니다</a> -->
-<%--                   </c:if> --%>
-<%--                   <c:if test="${alarm.alarmCode == 'A02-1' }"> --%>
-<!--                   <a class="dropdown-item" href="javascript:;">제안이 승인되었습니다</a> -->
-<%--                   </c:if> --%>
-<%--                   <c:if test="${alarm.alarmCode == 'A02-2' }"> --%>
-<!--                   <a class="dropdown-item" href="javascript:;">제안이 거절되었습니다</a> -->
-<%--                   </c:if> --%>
-<%--                   <c:if test="${alarm.alarmCode == 'A03' }"> --%>
-<!--                   <a class="dropdown-item" href="javascript:;">공감글에 대한 제안이 도착했습니다</a> -->
-<%--                   </c:if> --%>
-                  
-<%--                 </c:forEach> --%>
-              </div>
+                aria-labelledby="alarmToggle" id="div" 
+                style="overflow:scroll; width:300px; height:500px; padding:10px;">
+            </div>
             </li>
             <!-- 알림 끝 -->
-
-<!-- 						<li class="nav-item"><a class="nav-link" href="#"> <i -->
-<!-- 								class="far fa-comments"></i> <span class="badge">0</span> -->
-<!-- 						</a></li> -->
 					</c:if>
 				</ul>
 			</div>
@@ -139,26 +118,59 @@ Date : 19-01-23
 				 socket.emit('login', id);
 				 
 				 socket.on('alarmList', function(alarmList) {
+					 var cnt = 1;
+					 
 					 $('.badge').text(alarmList.count);
 					 $('#alarm').click(function() {
 						 $.each(alarmList.data, function(i, alarm) {
-							 $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmCode + "</a>");
+							 var code;
+							 
+							 if(alarm.alarmCode == 'A00') {
+								 if(cnt == 1) {
+								  code = alarmList.count + '건의 새로운 신고가 접수되었습니다';
+								  $('#div').append("<a class='dropdown-item' href='selectReport.do''>" + code + "</a>");
+								  $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+								  cnt = 0;
+								 }
+							 } if(alarm.alarmCode == 'A01') {
+								 code = '게시물에 댓글이 달렸습니다';
+								 $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
+								 $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>")
+								
+							 } if(alarm.alarmCode == 'A02-1') {
+								 code = '제안이 승인되었습니다';
+								 $('#div').append("<a class='dropdown-item' href='mySuggest.do''>" + code + "</a>");
+								 $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+				       } if(alarm.alarmCode == 'A02-2') {
+				    	   code = '제안이 거절되었습니다';
+				    	   $('#div').append("<a class='dropdown-item' href='mySuggest.do''>" + code + "</a>");
+				    	   $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+				       } if(alarm.alarmCode == 'A03') {
+				    	   code = '공감글에 대한 승인된 제안서가 도착했습니다';
+				    	   $('#div').append("<a class='dropdown-item' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
+				    	   $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+				       }
+				       $('#div').append("<input type='hidden' class='hide' value=" + alarm.ano + ">");
 						 });
 					 });
          });
 			 });
 			}
-					
-			if($('#temp').val() == 1) {
-			  alarmOpen();
-			}
 			
-			function alarmOpen() {
-				$('#alarmToggle').dropdown('toggle');
-			}
-
-			$('#alarm').mouseleave(function() {
+			$(document).on('click', 'a[name=name]', function() {
+				var no = $(this).next().next().attr('value');
 				
-			});
+				$.ajax({
+			          url : 'updateAlarm.do/' + no,
+			          type : 'PUT',
+			          contentType : 'application/json;charset=UTF-8',
+//			          data : parameter,
+			          success : function(data) {
+			            alert("삭제");
+			          }, error :  function(xhr, status, error) {
+			            alert(error);
+			          }
+			  });
+			})
 		});
 	</script>
