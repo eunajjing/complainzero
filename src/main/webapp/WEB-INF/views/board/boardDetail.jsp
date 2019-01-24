@@ -31,15 +31,14 @@ date : 2019-01-22
 				<h4 class="modal-title">신고하기</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
-			<input type="hidden" id="targetCode" value="${boardDetail.bno}">
 			<div class="modal-body">
 			<form id="reportForm">
-				<input type="hidden" id="targetCode" name="targetCode"> <input
-					type="hidden" id="targetTypeCode" name="targetTypeCode">
+				<input type="hidden" id="targetCode" name="targetCode" value="${boardDetail.bno}"> 
+				<input type="hidden" id="targetTypeCode" name="targetTypeCode">
 
 				<div class="form-group">
 					<label for="reasonCode">신고사유</label> <select class="form-control"
-					id="reasonCode">
+					id="reasonCode" name="reasonCode">
 						<option>신고사유 선택</option>
 						<option value = "RC01">무분별한 비속어 사용</option>
 						<option value = "RC02">광고성 게시물</option>
@@ -61,7 +60,7 @@ date : 2019-01-22
 				<strong>허위 신고 시</strong> 회원 활동에 있어 불이익이 발생할 수 있습니다.
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="report" class="btn btn-danger">전송</button>
+				<button type="button" id="reportBtn" class="btn btn-danger">전송</button>
 
 
 			</div>
@@ -115,9 +114,47 @@ date : 2019-01-22
 <!-- 제안 모달 끝  -->
 
 <div class="container">
-
-	<h1 class="mt-4 mb-3">
-		${boardDetail.title} <small>by <a href="#"> 카테고리</a>
+   <h1 class="mt-4 mb-3">
+      ${boardDetail.title} <small>by <a href="boardForm.do?categorycode=${boardDetail.categoryCode}">
+      <c:choose>
+         <c:when test="${boardDetail.categoryCode eq 'C01'}">
+            식품
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C02'}">
+            보건/의료
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C03'}">
+            주거/시설
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C04'}">
+            가전/생활용품
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C05'}">
+            의류/세탁
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C06'}">
+            자동차/기계류
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C07'}">
+            정보통신
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C08'}">
+            금융/보험
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C09'}">
+            교육/문화
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C10'}">
+            레져/스포츠
+         </c:when>
+         <c:when test="${boardDetail.categoryCode eq 'C11'}">
+            관광/운송
+         </c:when>
+         <c:otherwise>
+            기타
+         </c:otherwise>
+      </c:choose>
+      </a>
 		</small>
 	</h1>
 	<div class="row">
@@ -143,7 +180,7 @@ date : 2019-01-22
 
 			<div class="rightOutDiv">
 				<button class="btn btn-outline-danger btn-sm" data-toggle="modal"
-			data-target="#reportModal" targetTypeCode="BOARD">신고</button>
+			data-target="#reportModal" id="reportBoardBtn" targetTypeCode="BOARD">신고</button>
 
 				
 
@@ -554,18 +591,22 @@ $("#deleteBoard").click(function(){
 });
  */
  
-/* $('#reportBoardBtn').click(function() {
+$('#reportBoardBtn').click(function() {
+	alert("게시판 신고");
 	$('#targetTypeCode').val("BOARD");
-	$('#targetCode').val(${boardDetail.bno});
-}) */
+	let targetCode = $(this).prev().attr("id").substring(4);
+	$('#targetCode').val(targetCode);
+})
 
 $('#reportCommBtn').click(function() {
+	alert("댓글 신고");
 	$('#targetTypeCode').val("COMM");
 	let targetCode = $(this).prev().attr("id").substring(4);
 	$('#targetCode').val(targetCode);
 })
 
 $('#reportBtn').click(function() {
+	alert('전송');
 	var report = $('#reportForm').serialize();
 	
 	$.ajax({

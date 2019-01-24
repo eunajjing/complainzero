@@ -65,9 +65,11 @@ public class mainController {
 		return mav;
 	}
 
-	@RequestMapping("insertReport.do")
+	@RequestMapping(value="insertReport.do", method= RequestMethod.POST)
 	public @ResponseBody boolean insertReport(@ModelAttribute Report report, Principal principal) {
+		
 		report.setIsFrom(principal.getName());
+		
 		return reportService.insertReport(report);
 	}
 
