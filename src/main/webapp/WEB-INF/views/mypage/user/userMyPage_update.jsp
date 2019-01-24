@@ -17,10 +17,13 @@ date : 19-01-21
     </style>
     
         <!-- Content Column -->
-        <div>
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
           <h2>정보 수정</h2>
+        </div>
           
-          	<div>
+          	<div class="modal-body">
           		<form action="updateMember.do" id="formdata" method="post" enctype="multipart/form-data">
 		          <label>아이디: </label>
 		          	<input type="text" class="form-control" id="id" name="id" value="${member.id}" readonly>
@@ -55,10 +58,10 @@ date : 19-01-21
             </div>
         </div>
       </div>
-      <!-- /.row -->
+<!--       /.row
 
     </div>
-    <!-- /.container -->
+    /.container -->
     
     <script>
     $('#input_img').change(function(){
