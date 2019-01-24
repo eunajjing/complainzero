@@ -2,14 +2,6 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
-    <style>
-    #eshowImg{
-		width:300px;
-    }
-    input[name="img"]{
-    	opacity: 0;
-    }
-    </style>
         <!-- Content Column -->
         <div>
           <h2>정보 수정</h2>
