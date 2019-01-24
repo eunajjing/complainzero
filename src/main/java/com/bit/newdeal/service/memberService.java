@@ -53,13 +53,14 @@ public class memberService {
 	  long fileSize = profile.getSize();
 	  
 	  if(fileSize > 0) {
+		  int index = profile.getOriginalFilename().lastIndexOf(".");
+		  String ext = profile.getOriginalFilename().substring(index + 1);
 		  String originFileName = member.getId();
 		  String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");
-		  String saveFile = path + originFileName + ".jpg";
-		  System.out.println(path);
+		  String saveFile = path + originFileName + '.' + ext;
 		  profile.transferTo(new File(saveFile));
 		  
-		  dbProfile = originFileName;
+		  dbProfile = originFileName + '.' + ext;
 		  member.setProfile(dbProfile);
 	  }
 	  

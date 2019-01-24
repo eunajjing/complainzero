@@ -35,7 +35,7 @@
 	            			<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            		</c:when>
 	            		<c:otherwise>
-			           		<center><img src="http://localhost:8888/img/profile/${member.profile}.jpg" id="eshowImg"></center><br>
+			           		<center><img src="http://localhost:8888/img/profile/${member.profile}" id="eshowImg"></center><br>
 			            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            		</c:otherwise>
 	            	</c:choose>

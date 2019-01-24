@@ -94,7 +94,11 @@ Date : 19-01-15
     				"success" : function(data){
   
     					$('#hnickname').text(data.nickname);
-    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile+'.jpg');
+    					if(data.profile == null){
+    						$('#profile').attr('src', 'http://localhost:8888/img/profile/profile.jpeg');
+    					}else{
+	    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile);    						
+    					}
     					
     					
 					}

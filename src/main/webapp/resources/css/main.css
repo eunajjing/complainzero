@@ -5,8 +5,6 @@ Date : 19-01-16
 내용 : 글꼴 추가
 Date : 19-01-19
 내용 : 게시판 목록 단 img 태그 제어
-Date : 19-01-23
-내용 : 가운데 정렬 클래스 생성
 작성자 : 고은아
 */
 
@@ -23,6 +21,11 @@ input[type=password] {
 .rightOutDiv {
 	text-align: right;
 }
+
+.userupdate { 
+	text-align: center;
+}
+
 
 .rightInDiv {
 	display: inline-block;
@@ -51,8 +54,4 @@ input[type=password] {
 
 .card-text {
 	text-align: justify;
-}
-
-.centerOutDiv {
-	text-align: center;
 }
