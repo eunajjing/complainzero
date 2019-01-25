@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!--
 date : 19-01-10
 내용 : 뷰단 초기 설정 진행
@@ -61,42 +62,54 @@ date : 19-01-24
 <div class="container">
 
 <br>
-	<!-- 최근 게시글 시작 -->
-	<h2>최근 게시글</h2>
-	<hr>
-	<div class="row">
-		<c:forEach items="${boardList}" var="boardList">
-			<br>
-			<br>
-			<div class="col-lg-4 col-sm-6 portfolio-item">
-				<div class="card h-100">
-					<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
-						src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
-						class="card-img-top" alt=""></a>
-					<div class="card-body">
-						<h4 class="card-title">
-							<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
-						</h4>
-						<p class="centerOutDiv">
-							<strong>${boardList.nickname}</strong> 님의 불만
-						</p>
-						<p class="rightOutDiv">이 불만을 ${boardList.readCount} 명이
-							읽었습니다.</p>
-					</div>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
-	<div class="rightOutDiv">
-		<div class="rightInDiv">
-			<a class="btn btn-secondary" href="boardForm.do">더보기</a>
-		</div>
-	</div>
-</div>
+       <!-- 최근 게시글 시작 -->
+      <hr>
+      <h2>최근 게시글</h2>
+        <div class="row">
+      <c:forEach items="${boardList}" var="boardList">
+      <c:if test="${boardList.thumbNail != null }">
+      <br>
+      <br>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+          	<c:choose>
+          		<c:when test="${empty boardList.thumbNail}">
+          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+                     src="http://localhost:8888/img/boardThumbNail/thumbnail.png"
+                     class="card-img-top" alt=""></a>
+          		</c:when>
+          		<c:otherwise>
+          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+                     src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
+                     class="card-img-top" alt=""></a>
+          		</c:otherwise>
+          	</c:choose>
+            <div class="card-body">
+              <h4 class="card-title">
+              	<c:choose>
+              		<c:when test="${fn:length(boardList.title) >= 12}">
+                		<a href="selectOneBoard.do?bno=${boardList.bno}"><c:out value="${fn:substring(boardList.title,0,12)}"/>..</a>              		
+              		</c:when>
+              		<c:otherwise>
+              			<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
+              		</c:otherwise>
+              	</c:choose>
 
-<!-- 최근 게시글 끝 -->
+              </h4>
+              <p class="card-text">${boardList.mid}</p>
+              <p class="card-text">${boardList.readCount}</p>
+            </div>
+          </div>
+       </div>
+       </c:if>
+    </c:forEach>
+        </div>
+      </div>
+        <div class="rightOutDiv">
+	        <div class="rightInDiv">
+	          	<a class="btn btn-secondary" href="boardForm.do">더보기</a>
+	      	</div>
+        </div>
+      <!-- 최근 게시글 끝 -->
 <br>
 <br>
-
-
-

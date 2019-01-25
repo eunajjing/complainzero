@@ -191,7 +191,7 @@ date : 2019-01-23
 					<c:choose>
 					<c:when test="${empty boardDetail.link}">
 						<c:choose>
-							<c:when test="${boardDetail.mid == principal.username}">
+							<c:when test="${boardDetail.mid != principal.username}">
 							<!-- 만약 내가 쓴 글이면 -->
 									<div class="btn-group btn-group-sm">
 										<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
@@ -263,11 +263,17 @@ date : 2019-01-23
 							</c:choose>
 						
 								
-								
 							<div class="media-body">
+								<c:if test="${commentList.id != pageContext.request.userPrincipal.name}">
 								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
+<<<<<<< HEAD
 								    <button class="btn btn-outline-danger btn-sm reportCommBtn"
 									   data-toggle="modal" data-target="#reportModal">신고</button>
+=======
+								<button class="btn btn-outline-danger btn-sm reportCommBtn"
+									data-toggle="modal" data-target="#reportModal">신고</button>
+								</c:if>
+>>>>>>> jh
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
 								<c:if
 									test="${pageContext.request.userPrincipal.name == commentList.id}">
@@ -312,41 +318,6 @@ date : 2019-01-23
 
 
 </div>
-
-<!-- //신고하기 -->
-<script>
-
-
-
-$('#report').click(function() {
-	console.log("targetTypeCode"+$('this').data("targetTypeCode"));
-	console.log($('#reasonCode').val());
-	console.log($('#rContent').val());
-  
-/*     $.ajax({
-        type: "POST",
-        url: "insertReport.do",
-        data: { 
-            "isTo" : ${boardDetail.mid},
-            /* "targetTypeCode" : $('targetTypeCode').val(), 
-            "targetCode" :$('#tagetCode').val(),
-            "reasonCode" :$('#reasonCode').val(),
-            "rContent" :$('#rContent').val()
-        },
-        success: function() {
-            alert('신고 처리가 완료되었습니다.');
-            location.reload();
-        }, error: function() {
-            alert('신고처리가 실패되었습니다.');
-        }
-    }); */
-});
-
-
-
-
-
-</script>
 
 <script>
 $(document).ready(function(){
@@ -434,16 +405,23 @@ function makeList(memos) {
 				output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
 				output += 'src="http://localhost:8888/img/profile/profile.jpeg" alt="">';
 				output += '<div class="media-body">';
-				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
-				output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
-				output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+				if('${session}' != memos[i].id){
+					output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+					output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
+					output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+
+				}
 	 		}else{
 	 			output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
 				output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '" alt="">';
 				output += '<div class="media-body">';
-				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
-				output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
-				output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+
+				if('${session}' != memos[i].id){
+					output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+					output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
+					output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+				}
+
 	 		}
 
 			if('${session}' == memos[i].id){
@@ -626,6 +604,7 @@ $('#reportBoardBtn').click(function() {
 	let targetCode = ${boardDetail.bno};
 	$('#targetCode').val(targetCode);
 })
+
 
 $('.reportCommBtn').click(function() {
 	$('#targetTypeCode').val("COMM");

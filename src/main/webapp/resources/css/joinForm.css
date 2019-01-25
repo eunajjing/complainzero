@@ -3,18 +3,11 @@ Date : 19-01-11
 내용 : joinForm css 커스터마이징
 Date : 19-01-15
 내용 : joinForm css 에러 메시지 스타일 추가
+Date : 19-01-24
+내용 : 중복 css 변경
 작성자 : 고은아
 
 */
-
-#profilePrew {
-	width: 100px;
-	height:100px;
-	border-radius: 50px;
-	object-fit: cover;
-	display: inline-block;
-}
-
 .validateDiv {
 	color: red;
 }

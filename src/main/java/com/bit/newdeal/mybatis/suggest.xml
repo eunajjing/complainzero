@@ -15,7 +15,7 @@
 
 	<insert id="insertSuggest" parameterType="Suggest">
     insert into suggestion (id, bno, link, tel, etc) 
-    values(#{mid}, #{bno}, #{link}, #{tel}, #{etc, jdbcType=VARCHAR})
+    values(#{id}, #{bno}, #{link}, #{tel}, #{etc, jdbcType=VARCHAR})
   </insert>
 
   	<update id="updateSuggest" parameterType="java.util.Map">

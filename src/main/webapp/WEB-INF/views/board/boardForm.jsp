@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="se" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- 
 Date : 19-01-11
 내용 : 게시판 뷰 초기 작성
@@ -68,12 +69,28 @@ Date : 19-01-24
 				<c:forEach items="${boardList}" var="boardList">
 						<div class="col-lg-4 col-sm-6 portfolio-item">
 							<div class="card h-100">
-						<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
-							src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
-							class="card-img-top" alt=""></a>
+						<c:choose>
+			          		<c:when test="${empty boardList.thumbNail}">
+			          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+			                     src="http://localhost:8888/img/boardThumbNail/thumbnail.png"
+			                     class="card-img-top" alt=""></a>
+			          		</c:when>
+			          		<c:otherwise>
+			          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+			                     src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
+			                     class="card-img-top" alt=""></a>
+			          		</c:otherwise>
+			          	</c:choose>
 						<div class="card-body">
 							<h4 class="card-title">
-								<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
+								<c:choose>
+				              		<c:when test="${fn:length(boardList.title) >= 12}">
+				                		<a href="selectOneBoard.do?bno=${boardList.bno}"><c:out value="${fn:substring(boardList.title,0,12)}"/>..</a>              		
+				              		</c:when>
+				              		<c:otherwise>
+				              			<a href="selectOneBoard.do?bno=${boardList.bno}">${boardList.title}</a>
+				              		</c:otherwise>
+				              	</c:choose>
 							</h4>
 							<p class="centerOutDiv"><strong>${boardList.nickname}</strong> 님의 불만</p>
 							<p class="rightOutDiv">

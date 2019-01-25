@@ -39,7 +39,7 @@ public class adminController {
 	@RequestMapping("selectAllSuggest.do")
 	public ModelAndView selectAllSuggest() {
 		ModelAndView mav = new ModelAndView();
-
+		
 		mav.addObject("suggestList", suggestService.selectAllSuggest());
 		mav.setViewName("mypage/admin/adminForm_suggest");
 
