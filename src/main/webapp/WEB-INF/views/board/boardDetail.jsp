@@ -196,10 +196,6 @@ date : 2019-01-23
                     <!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
                     <button type="button" class="btn btn-outline-danger"
                       onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
-                    <sec:authorize ifAnyGranted="ROLE_COMPANY">
-                      <button type="button" class="btn btn-outline-primary"
-                        data-toggle="modal" data-target="#suggestModal">제안</button>
-                    </sec:authorize>
                   </div>
               </c:when>
               <c:otherwise>
@@ -212,6 +208,10 @@ date : 2019-01-23
                   <c:if test="${like == 1}">
                     <i id="like" class="fas fa-heart"></i>
                   </c:if>
+                    <sec:authorize ifAnyGranted="ROLE_COMPANY">
+                      <button type="button" class="btn btn-outline-primary"
+                        data-toggle="modal" data-target="#suggestModal">제안</button>
+                    </sec:authorize>
                   <!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
                   <br> <input type="hidden" id="bno" value="${boardDetail.bno}">
                   </c:otherwise>

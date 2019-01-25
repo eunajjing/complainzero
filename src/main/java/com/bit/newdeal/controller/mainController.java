@@ -79,8 +79,6 @@ public class mainController {
 	public @ResponseBody void deleteLikes(Principal principal, @RequestParam("bno") int bno) {
 		boardService.deleteLike(principal.getName(), bno);
 	}
-
-  
   
   @RequestMapping(value = "updateAlarm.do/{ano}", method = RequestMethod.PUT)
   public void updateAlarm(@PathVariable int ano) {
