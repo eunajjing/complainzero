@@ -9,6 +9,12 @@ Date : 19-01-10
 Date : 19-01-15
 내용 : 시큐리티 권한 설정
 작성자 : 고은아
+<<<<<<< HEAD
+=======
+Date : 19-01-24
+내용 : 알림 구현
+작성자 : 조영규
+>>>>>>> cho
 -->
 <!DOCTYPE html>
 
@@ -76,6 +82,43 @@ Date : 19-01-15
 					<li class="nav-item"><a class="nav-link" href="#"> <i
 							class="far fa-comments"></i><span class="badge">0</span>
 					</a></li>
+					<input type="hidden" value="${principal.username }" id="session">
+						<li class="nav-item dropdown"><a
+            class="nav-link dropdown-toggle" href="#"
+            id="navbarDropdownPortfolio" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"> <img alt=""
+              src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
+              id="profile" name="profile">&nbsp&nbsp<span id="hnickname"name="hnickname">님</span> 
+          </a>
+            <div class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="navbarDropdownPortfolio">
+              <se:authorize ifAnyGranted="ROLE_USER">
+             <a class="dropdown-item" href="userMyPage.do">마이페이지</a> 
+              </se:authorize>
+              <se:authorize ifAnyGranted="ROLE_COMPANY">
+              <a class="dropdown-item" href="enterUserMyPage.do">마이페이지</a>  
+              </se:authorize>
+              <se:authorize ifAnyGranted="ROLE_ADMIN">
+              <a class="dropdown-item" href="adminForm.do">마이페이지</a> 
+              </se:authorize>
+              <a class="dropdown-item" href="j_spring_security_logout">로그아웃</a>
+            </div></li>
+
+            <!-- 알림 시작 -->
+            <input type="hidden" value="${temp }" id="temp">
+            <li class="nav-item dropdown" id="alarm">
+            <a class="nav-link dropdown-toggle" href="#"
+            id="alarmToggle" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="far fa-bell"></i> 
+            <span class="badge" style="color: yellow;">0</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="alarmToggle" id="div" 
+                style="overflow:scroll; width:300px; height:500px; padding:10px;">
+            </div>
+            </li>
+            <!-- 알림 끝 -->
 					</c:if>
 				</ul>
 			</div>
@@ -83,6 +126,67 @@ Date : 19-01-15
 	</nav>
 	
 	<script type="text/javascript">
+			if($('#session').val() != null) {
+			 var socket = io("http://localhost:3000");
+			 var id = $('#session').val();
+			 
+			 socket.on('connect', function() {
+				 socket.emit('login', id);
+				 
+				 socket.on('alarmList', function(alarmList) {
+// 					 var cnt = 1;
+					 
+					 $('.badge').text(alarmList.count);
+					 $('#alarm').click(function() {
+						 $.each(alarmList.data, function(i, alarm) {
+							 var code;
+							 
+							 if(alarm.alarmCode == 'A00') {
+// 								 if(cnt == 1) {
+								  code = '새로운 신고가 접수되었습니다';
+								  $('#div').append("<a class='dropdown-item' name='name' href='selectReport.do''>" + code + "</a>");
+// 								  cnt = 0;
+// 								 }
+							 } if(alarm.alarmCode == 'A01') {
+								 code = '게시물에 댓글이 달렸습니다';
+								 $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
+							 } if(alarm.alarmCode == 'A02-1') {
+								 code = '제안이 승인되었습니다';
+								 $('#div').append("<a class='dropdown-item' name='name' href='mySuggest.do''>" + code + "</a>");
+				       } if(alarm.alarmCode == 'A02-2') {
+				    	   code = '제안이 거절되었습니다';
+				    	   $('#div').append("<a class='dropdown-item' name='name' href='mySuggest.do''>" + code + "</a>");
+				       } if(alarm.alarmCode == 'A03') {
+				    	   code = '공감글에 대한 승인된 제안서가 도착했습니다';
+				    	   $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
+				       }
+				       $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+				       $('#div').append("<input type='hidden' class='hide' value=" + alarm.ano + ">");
+						 });
+					 });
+         });
+			 });
+			}
+			
+			$(document).on('click', 'a[name=name]', function() {
+				var no = $(this).next().next().attr('value');
+				
+				$.ajax({
+			          url : 'updateAlarm.do/' + no,
+			          type : 'PUT',
+			          contentType : 'application/json;charset=UTF-8',
+//			          data : parameter,
+			          success : function(data) {
+			            alert("삭제");
+			          }, error :  function(xhr, status, error) {
+			            alert(error);
+			          }
+			  });
+			});
+
+	var session  = ('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}');
+
+>>>>>>> cho
 	$(function() {
 		var session  = '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}';
 		if (session != null) {
@@ -106,5 +210,8 @@ Date : 19-01-15
 		}
    	
     });
+<<<<<<< HEAD
 	
+=======
+>>>>>>> cho
 	</script>

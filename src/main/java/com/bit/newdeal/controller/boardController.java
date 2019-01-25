@@ -66,7 +66,8 @@ public class boardController {
   }
   
   @RequestMapping("selectOneBoard.do")
-  public ModelAndView selectOneBoard(int bno, Principal principal) {
+  public ModelAndView selectOneBoard(int bno, Principal principal, 
+                                     @RequestParam(required=false) String type) {
     ModelAndView mav = new ModelAndView();
     
     mav.addObject("boardDetail", boardService.selectOneBoard(bno));
@@ -74,8 +75,7 @@ public class boardController {
     mav.addObject("readCount", boardService.readCount(bno));
     mav.addObject("likeCount", boardService.likeCount(bno));
     mav.addObject("like", boardService.selectLike(principal.getName(), bno));
-
-    
+    mav.addObject("type", type);
 
     mav.setViewName("board/boardDetail");
     

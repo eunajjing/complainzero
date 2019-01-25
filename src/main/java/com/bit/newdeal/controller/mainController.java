@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,11 +46,6 @@ public class mainController {
 		alarmService.insertAlarm(alarm);
 	}
 
-	@RequestMapping(value = "updateAlarm.do", method = RequestMethod.PUT)
-	public void updateAlarm(int ano) {
-		// alarmService.updateAlarm(alarm); 생각해봐야함
-	}
-
 	@RequestMapping(value = "selectAlarm.do", method = RequestMethod.GET)
 	public List<Alarm> selectAlarm(String id) {
 		return alarmService.selectAlarm(id);
@@ -69,7 +65,6 @@ public class mainController {
 	public @ResponseBody boolean insertReport(@ModelAttribute Report report, Principal principal) {
 		
 		report.setIsFrom(principal.getName());
-		System.out.println(report.toString());
 		
 		return reportService.insertReport(report);
 	}
@@ -85,4 +80,10 @@ public class mainController {
 		boardService.deleteLike(principal.getName(), bno);
 	}
 
+  
+  
+  @RequestMapping(value = "updateAlarm.do/{ano}", method = RequestMethod.PUT)
+  public void updateAlarm(@PathVariable int ano) {
+    alarmService.updateAlarm(ano);
+  }
 }

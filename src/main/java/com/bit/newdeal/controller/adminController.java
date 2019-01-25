@@ -73,16 +73,6 @@ public class adminController {
 		return mav;
 	}
 
-	@RequestMapping("searchMember.do")
-	public void searchMember() {
-		// 보류
-	}
-
-	@RequestMapping("searchAllMember.do")
-	public void searchAllMember() {
-		// 보류
-	}
-
 	@RequestMapping(value = "blackList.do/{id}/{rno}/{num}", method = RequestMethod.PUT)
 	public void blackList(@PathVariable String id, @PathVariable int rno, @PathVariable int num) {
 		Map<String, Object> params = new HashMap<>();
@@ -93,6 +83,8 @@ public class adminController {
 		if (num == 2) {
 			memberService.blackList(id);
 		}
-		reportService.updateReport(params);
+		
+		int temp = reportService.updateReport(params);
+		System.out.println(temp);
 	} 
 }
