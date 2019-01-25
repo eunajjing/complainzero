@@ -7,13 +7,13 @@
 
 <mapper namespace="com.bit.newdeal.dao.reportDao">
 
-	<select id="selectReport" resultType="Report">
-		select rno, isFrom, targetTypeCode, targetCode,
-		reasoncode, rContent,
-		if (targetTypeCode='BOARD',
-		(select mid from board where bno=targetCode),
-		(select id from comment where cno=targetCode)) "isTo"
-		from report;
+	<select id="selectReport" resultType="HashMap">
+		select r.rno, r.isFrom, r.targetTypeCode, r.targetCode,
+		r.reasonCode, r.rContent, r.processCode,
+		if (r.targetTypeCode='BOARD',
+		(select mid from board where bno=r.targetCode),
+		(select id from comment where cno=r.targetCode)) "isTo",
+		b.title from report r join board b on r.targetCode=b.bno;
 	</select>
 
 	<insert id="insertReport" parameterType="Report">

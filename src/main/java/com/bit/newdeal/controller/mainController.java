@@ -43,7 +43,6 @@ public class mainController {
   
   @RequestMapping(value="insertReport.do", method= RequestMethod.POST)
   public @ResponseBody boolean insertReport(@ModelAttribute Report report, Principal principal) {
-      
       report.setIsFrom(principal.getName());
       
       return reportService.insertReport(report);
@@ -51,7 +50,6 @@ public class mainController {
   
   @RequestMapping(value="insertLikes.do", method=RequestMethod.POST)
   public @ResponseBody void insertLikes(Principal principal, @RequestParam("bno") int bno) {
-      
       boardService.insertLike(principal.getName(), bno);
   }
   

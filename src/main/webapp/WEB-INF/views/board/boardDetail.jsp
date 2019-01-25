@@ -118,6 +118,7 @@ date : 2019-01-23
 <div class="container">
    <h1 class="mt-4 mb-3">
       ${boardDetail.title} <small>by <a href="boardForm.do?categorycode=${boardDetail.categoryCode}">
+      <c:if test="${type == 'BOARD' }"><span style="color: red;">신고된 게시물입니다</span></c:if>
       <c:choose>
          <c:when test="${boardDetail.categoryCode eq 'C01'}">
             식품
@@ -265,9 +266,8 @@ date : 2019-01-23
 								
 							<div class="media-body">
 								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
-								<button class="btn btn-outline-danger btn-sm reportCommBtn"
-									data-toggle="modal" data-target="#reportModal">신고</button>
-
+								    <button class="btn btn-outline-danger btn-sm reportCommBtn"
+									   data-toggle="modal" data-target="#reportModal">신고</button>
 								<!-- 세션 처리 해서 만약 본인이 쓴 댓글이면 -->
 								<c:if
 									test="${pageContext.request.userPrincipal.name == commentList.id}">

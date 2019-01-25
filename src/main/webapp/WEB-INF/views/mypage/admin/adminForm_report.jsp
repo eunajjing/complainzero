@@ -44,7 +44,7 @@
               <th class="text-center">신고 번호</th>
               <th class="text-center">신고당한 아이디</th>          
               <th class="text-center">게시글/댓글</th>              
-              <th class="text-center">게시글 번호</th>              
+              <th class="text-center">게시글 제목</th>              
               <th class="text-center">신고 사유</th>
               <th class="text-center">처리 상태</th>              
               <th class="text-center">신고 처리</th>              
@@ -58,7 +58,8 @@
               <td id="id">${report.isTo }</td>
               <input type="hidden" class="hide" value="${report.isFrom }">
               <td>${report.targetTypeCode }</td>
-              <td>${report.targetCode }</td>
+              <td><a href="selectOneBoard.do?bno=${report.targetCode}
+                          &type=${report.targetTypeCode}">${report.title }</a></td>
               <c:if test="${report.reasonCode == 'RC01' }">
               <td>욕설</td>
               </c:if>
@@ -165,7 +166,7 @@
 		var id = $(this).parents('tr').children().eq(1).text();
 		var no = $(this).parents('tr').children().eq(0).text();
 		var me = this;
-
+	
     	  $.ajax({
     		  url : 'blackList.do/' + id + '/' + no + '/' + 1,
     		  type : 'PUT',

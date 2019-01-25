@@ -9,8 +9,8 @@
 
 	</select>
 
-	<select id="selectAllSuggest" resultType="Suggest">
-		select * from suggestion
+	<select id="selectAllSuggest" resultType="HashMap">
+		select * from suggestion s join board b on s.bno=b.bno 
 	</select>
 
 	<insert id="insertSuggest" parameterType="Suggest">
@@ -19,7 +19,6 @@
   </insert>
 
   	<update id="updateSuggest" parameterType="java.util.Map">
-
 		update suggestion set
 		<if test="num == 1">
 			statusCode='S01'

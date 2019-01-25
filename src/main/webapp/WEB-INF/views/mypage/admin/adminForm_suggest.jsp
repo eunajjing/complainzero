@@ -53,7 +53,7 @@ Date : 19-01-19
       <tr>
         <th class="text-center">제안서 번호</th>
         <th class="text-center">작성자</th>
-        <th class="text-center">게시글 번호</th>
+        <th class="text-center">게시글 제목</th>
         <!--               <th class="text-center">회사명</th>               -->
         <th class="text-center">제안 상태</th>
         <th class="text-center">신고 처리</th>
@@ -66,7 +66,7 @@ Date : 19-01-19
         <tr class="table-primary">
           <td>${suggest.sno }</td>
           <td>${suggest.mid }</td>
-          <td>${suggest.bno }</td>
+          <td><a href="selectOneBoard.do?bno=${suggest.bno}">${suggest.title }</a></td>
           <%--               <td>${suggest.companyName }</td> --%>
           <input type="hidden" class="hide" value="${suggest.link }">
           <input type="hidden" class="hide" value="${suggest.tel }">

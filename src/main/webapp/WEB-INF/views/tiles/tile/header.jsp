@@ -57,29 +57,27 @@ Date : 19-01-24
 
 					<c:if test="${not empty pageContext.request.userPrincipal}">
 					<input type="hidden" value="${principal.username }" id="session">
-						<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownPortfolio" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> 
-							<img alt=""
-								src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
-								id="profile">&nbsp<span id="nickname"></span> 님
-						</a>
-							<div class="dropdown-menu dropdown-menu-right"
-								aria-labelledby="navbarDropdownPortfolio">
-								<se:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
-									<a class="dropdown-item" href="#">작성 글 확인</a>
-								</se:authorize>
-								<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
-								<se:authorize ifAnyGranted="ROLE_COMPANY">
-									<a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>
-								</se:authorize>
-								<se:authorize ifAnyGranted="ROLE_ADMIN">
-									<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a>
-								</se:authorize>
-								<a class="dropdown-item" href="j_spring_security_logout">로그아웃</a>
-							</div>
-							</li>
+						<li class="nav-item dropdown"><a
+            class="nav-link dropdown-toggle" href="#"
+            id="navbarDropdownPortfolio" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false"> <img alt=""
+              src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
+              id="profile" name="profile">&nbsp&nbsp<span id="hnickname"name="hnickname">님</span> 
+          </a>
+            <div class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="navbarDropdownPortfolio">
+              <se:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
+              <a class="dropdown-item" href="#">작성 글 확인</a> 
+              </se:authorize>
+              <a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
+              <se:authorize ifAnyGranted="ROLE_COMPANY">
+              <a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
+              </se:authorize>
+              <se:authorize ifAnyGranted="ROLE_ADMIN">
+              <a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
+              </se:authorize>
+              <a class="dropdown-item" href="j_spring_security_logout">로그아웃</a>
+            </div></li>
 
             <!-- 알림 시작 -->
             <input type="hidden" value="${temp }" id="temp">
@@ -96,36 +94,6 @@ Date : 19-01-24
             </div>
             </li>
             <!-- 알림 끝 -->
-
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="navbarDropdownPortfolio" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> <img alt=""
-							src="https://github.githubassets.com/images/modules/open_graph/github-octocat.png"
-							id="profile" name="profile">&nbsp&nbsp<span id="hnickname"name="hnickname">님</span> 
-					</a>
-						<div class="dropdown-menu dropdown-menu-right"
-							aria-labelledby="navbarDropdownPortfolio">
-							<se:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
-							<a class="dropdown-item" href="#">작성 글 확인</a> 
-							</se:authorize>
-							<a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
-							<se:authorize ifAnyGranted="ROLE_COMPANY">
-							<a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
-							</se:authorize>
-							<se:authorize ifAnyGranted="ROLE_ADMIN">
-							<a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
-							</se:authorize>
-							<a class="dropdown-item" href="j_spring_security_logout">로그아웃</a>
-						</div></li>
-						
-											<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="far fa-bell"></i><span class="badge">0</span>
-					</a>
-					<li class="nav-item"><a class="nav-link" href="#"> <i
-							class="far fa-comments"></i><span class="badge">0</span>
-					</a></li>
->>>>>>> master
 					</c:if>
 				</ul>
 			</div>
@@ -134,7 +102,7 @@ Date : 19-01-24
 
   <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
-<<<<<<< HEAD
+
 		var session = ('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}');
 		$(function() {
 			if (session != null) {
@@ -149,7 +117,7 @@ Date : 19-01-24
 				 socket.emit('login', id);
 				 
 				 socket.on('alarmList', function(alarmList) {
-					 var cnt = 1;
+// 					 var cnt = 1;
 					 
 					 $('.badge').text(alarmList.count);
 					 $('#alarm').click(function() {
@@ -157,30 +125,25 @@ Date : 19-01-24
 							 var code;
 							 
 							 if(alarm.alarmCode == 'A00') {
-								 if(cnt == 1) {
-								  code = alarmList.count + '건의 새로운 신고가 접수되었습니다';
-								  $('#div').append("<a class='dropdown-item' href='selectReport.do''>" + code + "</a>");
-								  $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
-								  cnt = 0;
-								 }
+// 								 if(cnt == 1) {
+								  code = '새로운 신고가 접수되었습니다';
+								  $('#div').append("<a class='dropdown-item' name='name' href='selectReport.do''>" + code + "</a>");
+// 								  cnt = 0;
+// 								 }
 							 } if(alarm.alarmCode == 'A01') {
 								 code = '게시물에 댓글이 달렸습니다';
 								 $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
-								 $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>")
-								
 							 } if(alarm.alarmCode == 'A02-1') {
 								 code = '제안이 승인되었습니다';
-								 $('#div').append("<a class='dropdown-item' href='mySuggest.do''>" + code + "</a>");
-								 $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+								 $('#div').append("<a class='dropdown-item' name='name' href='mySuggest.do''>" + code + "</a>");
 				       } if(alarm.alarmCode == 'A02-2') {
 				    	   code = '제안이 거절되었습니다';
-				    	   $('#div').append("<a class='dropdown-item' href='mySuggest.do''>" + code + "</a>");
-				    	   $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+				    	   $('#div').append("<a class='dropdown-item' name='name' href='mySuggest.do''>" + code + "</a>");
 				       } if(alarm.alarmCode == 'A03') {
 				    	   code = '공감글에 대한 승인된 제안서가 도착했습니다';
-				    	   $('#div').append("<a class='dropdown-item' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
-				    	   $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
+				    	   $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
 				       }
+				       $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
 				       $('#div').append("<input type='hidden' class='hide' value=" + alarm.ano + ">");
 						 });
 					 });
