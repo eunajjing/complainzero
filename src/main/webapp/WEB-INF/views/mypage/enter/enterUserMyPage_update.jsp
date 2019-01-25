@@ -23,11 +23,11 @@
 	            <label>
 	            	<c:choose>
 	            		<c:when test="${empty member.profile}">
-							<center><img src="http://localhost:8888/img/profile/profile.jpeg" id="eshowImg"></center><br>
+							<center><img src="http://localhost:8888/img/profile/profile.jpeg" id="showImg"></center><br>
 	            			<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            		</c:when>
 	            		<c:otherwise>
-			           		<center><img src="http://localhost:8888/img/profile/${member.profile}" id="eshowImg"></center><br>
+			           		<center><img src="http://localhost:8888/img/profile/${member.profile}" id="showImg"></center><br>
 			            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            		</c:otherwise>
 	            	</c:choose>
@@ -54,7 +54,7 @@
     function filePreShow(e){
     	var reader = new FileReader();
     	reader.onload = function(e){
-    		$('#eshowImg').attr('src',e.target.result);
+    		$('#showImg').attr('src',e.target.result);
     	}
     	reader.readAsDataURL(e.files[0]);
     }

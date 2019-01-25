@@ -263,8 +263,8 @@ date : 2019-01-23
 						
 								
 							<div class="media-body">
-								<c:if test="${commentList.id != pageContext.request.userPrincipal.name}">
 								<span id="nick${commentList.cno}">${commentList.nickname}</span>&nbsp;
+								<c:if test="${commentList.id != pageContext.request.userPrincipal.name}">
 								<button class="btn btn-outline-danger btn-sm reportCommBtn"
 									data-toggle="modal" data-target="#reportModal">신고</button>
 								</c:if>
@@ -386,9 +386,9 @@ function makeList(memos) {
 	 			output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
 				output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '" alt="">';
 				output += '<div class="media-body">';
+				output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
 
 				if('${session}' != memos[i].id){
-					output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
 					output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
 					output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
 				}

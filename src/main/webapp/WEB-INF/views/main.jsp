@@ -74,12 +74,12 @@ date : 19-01-24
           <div class="card h-100">
           	<c:choose>
           		<c:when test="${empty boardList.thumbNail}">
-          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+          			<a href="loginForm.do"> <img
                      src="http://localhost:8888/img/boardThumbNail/thumbnail.png"
                      class="card-img-top" alt=""></a>
           		</c:when>
           		<c:otherwise>
-          			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
+          			<a href="loginForm.do"> <img
                      src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
                      class="card-img-top" alt=""></a>
           		</c:otherwise>
@@ -96,8 +96,9 @@ date : 19-01-24
               	</c:choose>
 
               </h4>
-              <p class="card-text">${boardList.mid}</p>
-              <p class="card-text">${boardList.readCount}</p>
+              <p class="centerOutDiv"><strong>${boardList.nickname}</strong> 님의 불만</p>
+                     <p class="rightOutDiv">
+                     이 불만을 ${boardList.readCount} 명이 읽었습니다.</p>
             </div>
           </div>
        </div>
