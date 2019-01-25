@@ -5,10 +5,8 @@
 
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
-          <h2>제안서</h2>
-          
+          <h2>제안서</h2>        
           	<br>
-          	<h3>댓글</h3>
           	<div class="boardTable">
 	          	<table class="dt">
 	          	<thead>

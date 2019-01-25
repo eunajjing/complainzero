@@ -18,7 +18,6 @@ import com.bit.newdeal.service.reportService;
 
 @Controller
 public class mainController {
-<<<<<<< HEAD
   @Autowired
   private boardService boardService;
   @Autowired
@@ -44,7 +43,9 @@ public class mainController {
   
   @RequestMapping(value="insertReport.do", method= RequestMethod.POST)
   public @ResponseBody boolean insertReport(@ModelAttribute Report report, Principal principal) {
+      
       report.setIsFrom(principal.getName());
+      System.out.println(report.toString());
       
       return reportService.insertReport(report);
   }
@@ -58,70 +59,4 @@ public class mainController {
   public @ResponseBody void deleteLikes(Principal principal, @RequestParam("bno") int bno) {
       boardService.deleteLike(principal.getName(), bno);
   }
-=======
-
-	@Autowired
-	private boardService boardService;
-	@Autowired
-	private alarmService alarmService;
-	@Autowired
-	private reportService reportService;
-
-	@RequestMapping(value = { "main.do", "/" })
-	public ModelAndView main(SearchCriteria cri) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("boardList", boardService.selectAllBoard(cri));
-		
-		mav.setViewName("main");
-
-		return mav;
-	}
-
-	@RequestMapping(value = "insertAlarm.do", method = RequestMethod.POST)
-	public void insertAlarm(Alarm alarm) {
-		alarmService.insertAlarm(alarm);
-	}
-
-	@RequestMapping(value = "updateAlarm.do", method = RequestMethod.PUT)
-	public void updateAlarm(int ano) {
-		// alarmService.updateAlarm(alarm); 생각해봐야함
-	}
-
-	@RequestMapping(value = "selectAlarm.do", method = RequestMethod.GET)
-	public List<Alarm> selectAlarm(String id) {
-		return alarmService.selectAlarm(id);
-	}
-
-	@RequestMapping(value = "selectAllAlarm.do", method = RequestMethod.GET)
-	public ModelAndView selectAllAlarm(String id) {
-		ModelAndView mav = new ModelAndView();
-
-		mav.addObject("alarmList", alarmService.selectAlarm(id));
-		mav.setViewName("alarmForm");
-
-		return mav;
-	}
-
-	@RequestMapping(value="insertReport.do", method= RequestMethod.POST)
-	public @ResponseBody boolean insertReport(@ModelAttribute Report report, Principal principal) {
-		
-		report.setIsFrom(principal.getName());
-		System.out.println(report.toString());
-		
-		return reportService.insertReport(report);
-	}
-
-	@RequestMapping(value = "insertLikes.do", method = RequestMethod.POST)
-	public @ResponseBody void insertLikes(Principal principal, @RequestParam("bno") int bno) {
-
-		boardService.insertLike(principal.getName(), bno);
-	}
-
-	@RequestMapping(value = "deleteLikes.do", method = RequestMethod.POST)
-	public @ResponseBody void deleteLikes(Principal principal, @RequestParam("bno") int bno) {
-		boardService.deleteLike(principal.getName(), bno);
-	}
-
->>>>>>> jh
 }

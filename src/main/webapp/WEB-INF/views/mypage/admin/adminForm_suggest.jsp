@@ -44,7 +44,6 @@ Date : 19-01-19
   </div>
 </div>
 <!-- 제안모달 끝 -->
-<<<<<<< HEAD
 
 <!-- Content Column -->
 <div class="col-lg-9 mb-4">
@@ -61,56 +60,41 @@ Date : 19-01-19
         <th class="text-center">상세 보기</th>
       </tr>
     </thead>
-    <tbody>
-      <c:forEach var="suggest" items="${suggestList }">
-=======
- 
-        <!-- Content Column -->
-        <div class="col-lg-9 mb-4">
-        <table class="table table-striped table-bordered table-hover" id="dt"
-        style="display: inline-block;">
-          <thead>
-            <tr>
-              <th class="text-center">제안서 번호</th>
-              <th class="text-center">작성자</th>
-              <th class="text-center">게시글 번호</th>       
-              <th class="text-center">링크</th>              
-<!--               <th class="text-center">회사명</th>               -->
-              <th class="text-center">연락처</th>              
-              <th class="text-center">기타사항</th>     
-              <th class="text-center">제안 상태</th> 
-              <th class="text-center">신고 처리</th>           
-            </tr>
-          </thead>
           <tbody>    
             <c:forEach var="suggest" items="${suggestList }">
             <tr class="table-primary">
-              <td>${suggest.sno }</td>
-              <td>${suggest.id }</td>
-              <td>${suggest.bno }</td>
-              <td>${suggest.link }</td>
-<%--               <td>${suggest.companyName }</td> --%>
-              <td>${suggest.tel }</td>
-              <td>${suggest.etc }</td>
-              <c:if test="${suggest.statusCode == 'S00' }">
-              <td>대기</td>
-              <td><button class="btn btn-outline-primary"><label class="approve">승인</label></button>
-              <button class="btn btn-primary"><label class="refuse">거절</label></button></td>
-              </c:if>
-              <c:if test="${suggest.statusCode == 'S01' }">
-              <td>반려</td><td><input type="hidden"></td>
-              </c:if>
-              <c:if test="${suggest.statusCode == 'S02' }">
-              <td>승인</td><td><input type="hidden"></td>
-              </c:if>
-            </tr>
+          <td>${suggest.sno }</td>
+          <td>${suggest.id }</td>
+          <td><a href="selectOneBoard.do?bno=${suggest.bno}">${suggest.title }</a></td>
+          <%--               <td>${suggest.companyName }</td> --%>
+          <input type="hidden" class="hide" value="${suggest.link }">
+          <input type="hidden" class="hide" value="${suggest.tel }">
+          <input type="hidden" class="hide" value="${suggest.etc }">
+          <c:if test="${suggest.statusCode == 'S00' }">
+            <td>대기</td>
+            <td><button class="btn btn-outline-primary">
+                <label class="approve">승인</label>
+              </button>
+              <button class="btn btn-outline-danger">
+                <label class="refuse">거절</label>
+              </button></td>
+          </c:if>
+          <c:if test="${suggest.statusCode == 'S01' }">
+            <td>반려</td>
+            <td><input type="hidden"></td>
+          </c:if>
+          <c:if test="${suggest.statusCode == 'S02' }">
+            <td>승인</td>
+            <td><input type="hidden"></td>
+          </c:if>
+          <td><button type="button" class="btn btn-outline-primary" name="btn">상세 보기</button></td>
+        </tr>
             </c:forEach>
           </tbody>
         </table>
       </div>
       <!-- /.row -->
-<button type="button" class="btn btn-outline-primary"
-								data-toggle="modal" data-target="#suggestModal">제안</button>
+
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
@@ -152,40 +136,6 @@ Date : 19-01-19
         language : lang_kor
 //     	  pageLength:3
       }); 
->>>>>>> jh
-      
-        <tr class="table-primary">
-          <td>${suggest.sno }</td>
-          <td>${suggest.mid }</td>
-          <td><a href="selectOneBoard.do?bno=${suggest.bno}">${suggest.title }</a></td>
-          <%--               <td>${suggest.companyName }</td> --%>
-          <input type="hidden" class="hide" value="${suggest.link }">
-          <input type="hidden" class="hide" value="${suggest.tel }">
-          <input type="hidden" class="hide" value="${suggest.etc }">
-          <c:if test="${suggest.statusCode == 'S00' }">
-            <td>대기</td>
-            <td><button class="btn btn-outline-primary">
-                <label class="approve">승인</label>
-              </button>
-              <button class="btn btn-outline-danger">
-                <label class="refuse">거절</label>
-              </button></td>
-          </c:if>
-          <c:if test="${suggest.statusCode == 'S01' }">
-            <td>반려</td>
-            <td><input type="hidden"></td>
-          </c:if>
-          <c:if test="${suggest.statusCode == 'S02' }">
-            <td>승인</td>
-            <td><input type="hidden"></td>
-          </c:if>
-          <td><button type="button" class="btn btn-outline-primary" name="btn">상세 보기</button></td>
-        </tr>
-      </c:forEach>
-    </tbody>
-  </table>
-</div>
-<!-- /.row -->
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.js"></script>

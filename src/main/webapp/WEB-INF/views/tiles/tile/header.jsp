@@ -66,15 +66,14 @@ Date : 19-01-24
           </a>
             <div class="dropdown-menu dropdown-menu-right"
               aria-labelledby="navbarDropdownPortfolio">
-              <se:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
-              <a class="dropdown-item" href="#">작성 글 확인</a> 
+              <se:authorize ifAnyGranted="ROLE_USER">
+             <a class="dropdown-item" href="userMyPage.do">마이페이지</a> 
               </se:authorize>
-              <a class="dropdown-item" href="userMyPage.do">내 정보 수정</a>
               <se:authorize ifAnyGranted="ROLE_COMPANY">
-              <a class="dropdown-item" href="enterUserMyPage.do">상인유저 테스트</a>  
+              <a class="dropdown-item" href="enterUserMyPage.do">마이페이지</a>  
               </se:authorize>
               <se:authorize ifAnyGranted="ROLE_ADMIN">
-              <a class="dropdown-item" href="adminForm.do">관리자 - 마이페이지</a> 
+              <a class="dropdown-item" href="adminForm.do">마이페이지</a> 
               </se:authorize>
               <a class="dropdown-item" href="j_spring_security_logout">로그아웃</a>
             </div></li>
@@ -158,8 +157,7 @@ Date : 19-01-24
 			            alert(error);
 			          }
 			  });
-			})
-		});
+			});
 
 	var session  = ('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal}');
 
