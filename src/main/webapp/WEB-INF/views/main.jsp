@@ -74,12 +74,28 @@ date : 19-01-24
           <div class="card h-100">
           	<c:choose>
           		<c:when test="${empty boardList.thumbNail}">
-          			<a href="loginForm.do"> <img
+          			<c:choose>
+          				<c:when test="${not empty pageContext.request.userPrincipal.name}">
+          					<a href="selectOneBoard.do?bno=${boardList.bno}">
+          				</c:when>
+          				<c:otherwise>
+          					<a href="loginForm.do">	
+          				</c:otherwise>
+          			</c:choose>
+          			 <img
                      src="http://localhost:8888/img/boardThumbNail/thumbnail.png"
                      class="card-img-top" alt=""></a>
           		</c:when>
           		<c:otherwise>
-          			<a href="loginForm.do"> <img
+          			<c:choose>
+          				<c:when test="${not empty pageContext.request.userPrincipal.name}">
+          					<a href="selectOneBoard.do?bno=${boardList.bno}">
+          				</c:when>
+          				<c:otherwise>
+          					<a href="loginForm.do">	
+          				</c:otherwise>
+          			</c:choose>
+          			<img
                      src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
                      class="card-img-top" alt=""></a>
           		</c:otherwise>
