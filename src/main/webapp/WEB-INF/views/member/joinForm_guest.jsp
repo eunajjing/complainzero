@@ -20,7 +20,7 @@ date : 19-01-24
 			<div class="modal-header">
 				<h4 class="modal-title">회원가입</h4>
 			</div>
-			<form action="join.do" method="post">
+			<form action="join.do" method="post" enctype="multipart/form-data">
 			<!-- 멀티파트! -->
 			<div class="modal-body">
 			<div class="centerOutDiv">
@@ -73,7 +73,7 @@ date : 19-01-24
 						</div>
 						<div class="centerOutDiv">
 						<label>
-						<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
+						<input multiple="multiple" type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 						
 							<img src="http://localhost:8888/img/profile/profile.jpeg" id="profilePrew">
 							
@@ -228,9 +228,9 @@ $('#validateBtn').click(function() {
 });
 
 // 프로필 사진 업로드
-$(function() {
-	$('#input_img').on('change',handleImgFileSelect);
-})
+$('#input_img').change(function(){
+	handleImgFileSelect(this);
+});
 
 // 프로필 사진 핸들러
 function handleImgFileSelect(e){
@@ -239,7 +239,7 @@ function handleImgFileSelect(e){
 		$('#profilePrew').attr('src',e.target.result);
 	}
 	reader.readAsDataURL(e.files[0]);
-    }
+}
 
 $('#joinForm').keyup(function() {
 	id() // 이메일 인증 해야함

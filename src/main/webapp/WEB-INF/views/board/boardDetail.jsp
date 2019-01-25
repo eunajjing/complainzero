@@ -179,10 +179,10 @@ date : 2019-01-23
 			<hr>
 
 			<div class="rightOutDiv">
+			<c:if test="${boardDetail.mid != principal.username}">
 				<button class="btn btn-outline-danger btn-sm" data-toggle="modal"
 			data-target="#reportModal" id="reportBoardBtn" targetTypeCode="BOARD">신고</button>
-
-				
+			</c:if>
 
 			</div>
 			<div class="card my-4">
@@ -190,16 +190,12 @@ date : 2019-01-23
 					<c:choose>
 					<c:when test="${empty boardDetail.link}">
 						<c:choose>
-							<c:when test="${boardDetail.mid != principal.username}">
+							<c:when test="${boardDetail.mid == principal.username}">
 							<!-- 만약 내가 쓴 글이면 -->
 									<div class="btn-group btn-group-sm">
 										<!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
 										<button type="button" class="btn btn-outline-danger"
 											onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
-										<sec:authorize ifAnyGranted="ROLE_COMPANY">
-											<button type="button" class="btn btn-outline-primary"
-												data-toggle="modal" data-target="#suggestModal">제안</button>
-										</sec:authorize>
 									</div>
 							</c:when>
 							<c:otherwise>
@@ -213,7 +209,11 @@ date : 2019-01-23
 										<i id="like" class="fas fa-heart"></i>
 									</c:if>
 									<!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
-									<br> <input type="hidden" id="bno" value="${boardDetail.bno}">
+									<br> 
+									<sec:authorize ifAnyGranted="ROLE_COMPANY">
+											<button type="button" class="btn btn-outline-primary"
+												data-toggle="modal" data-target="#suggestModal">제안</button>
+										</sec:authorize>
 									</c:otherwise>
 			</c:choose>
 					</c:when>
@@ -226,7 +226,7 @@ date : 2019-01-23
 			</div>
 
 
-
+			<sec:authorize ifAnyGranted="ROLE_USER">
 			<!-- 댓글 작성 폼 -->
 			<div class="card my-4">
 				<h5 class="card-header">댓글을 남겨보세요</h5>
@@ -243,7 +243,9 @@ date : 2019-01-23
 					<!-- </form> -->
 				</div>
 			</div>
+			</sec:authorize>
 
+			<input type="hidden" id="bno" value="${boardDetail.bno}">
 			<!-- 기존에 달렸던 댓글들 뿌려주기 -->
 			<c:set var="session" value="${pageContext.request.userPrincipal.name}"/>
 			<div class="commentList">

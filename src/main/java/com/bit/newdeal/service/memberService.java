@@ -1,24 +1,24 @@
 package com.bit.newdeal.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
-import javax.inject.Inject;
+
 import javax.mail.MessagingException;
-import java.io.File;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.bit.newdeal.dao.memberDao;
 import com.bit.newdeal.dto.Member;
-import com.bit.newdeal.util.MailHandler;
-import com.bit.newdeal.util.TempKey;
 
 @Service
 public class memberService {
@@ -38,8 +38,24 @@ public class memberService {
   }
   
   @Transactional
-  public int insertMember(Member member) {
-	  //, MultipartHttpServletRequest request
+  public int insertMember(Member member, MultipartHttpServletRequest multipart) throws IllegalStateException, IOException {
+
+	  String dbProfile = "";
+	  MultipartFile profile = multipart.getFile("img");
+	  long fileSize = profile.getSize();
+	  
+	  if(fileSize > 0) {
+		  int index = profile.getOriginalFilename().lastIndexOf(".");
+		  String ext = profile.getOriginalFilename().substring(index + 1);
+		  String originFileName = member.getId();
+		  String path = multipart.getSession().getServletContext().getRealPath("resources/img/profile/");
+		  String saveFile = path + originFileName + '.' + ext;
+		  profile.transferTo(new File(saveFile));
+		  
+		  dbProfile = originFileName + '.' + ext;
+		  member.setProfile(dbProfile);
+	  }
+	  
 	  member.setPw(bCryptPasswordEncoder.encode(member.getPw()));
 	  int result = session.getMapper(memberDao.class).insertMember(member);
 	  result += session.getMapper(memberDao.class).insertrole(member);
@@ -106,4 +122,5 @@ public class memberService {
 	  return key;*/
 	  return "";
   }
+  
 }

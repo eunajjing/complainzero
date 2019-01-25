@@ -8,7 +8,6 @@
           <h2>제안서</h2>
           
           	<br>
-          	<h3>댓글</h3>
           	<div class="boardTable">
 	          	<table class="dt">
 	          	<thead>
