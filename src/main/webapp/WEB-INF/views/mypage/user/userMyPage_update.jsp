@@ -33,11 +33,11 @@ date : 19-01-24
 	            <label>
 	            	<c:choose>
 	            		<c:when test="${empty member.profile}">
-							<center><img src="http://localhost:8888/img/profile/profile.jpeg" id="showImg"></center><br>
+							<center><img src="http://192.168.0.85:8888/img/profile/profile.jpeg" id="showImg"></center><br>
 	            			<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            		</c:when>
 	            		<c:otherwise>
-			           		<center><img src="http://localhost:8888/img/profile/${member.profile}" id="showImg"></center><br>
+			           		<center><img src="http://192.168.0.85:8888/img/profile/${member.profile}" id="showImg"></center><br>
 			            	<input type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 	            		</c:otherwise>
 	            	</c:choose>

@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.bit.newdeal.dao.boardDao;
 import com.bit.newdeal.dao.suggestDao;
 import com.bit.newdeal.dto.Board;
@@ -65,11 +65,13 @@ public class boardService {
 	
 
 	
-
+	@Transactional
 	public int insertBoard(Board board, MultipartFile uFile, String path, Principal principal) {
 		board.setMid(principal.getName());
 		path += "resources" + File.separator + "img" + File.separator + "boardThumbNail" + File.separator;
-
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		boardDao boardDao = session.getMapper(boardDao.class);
+		
 		File dir = new File(path);
 
 		if (!dir.exists()) {
@@ -87,8 +89,19 @@ public class boardService {
 			}
 			board.setThumbNail(fileName);
 		}
-
-		return session.getMapper(boardDao.class).insertBoard(board);
+				
+		if(boardDao.insertBoard(board) == 1) {
+		  Board board2 = boardDao.selectOne(board.getMid());
+		  
+		  params.put("id", board2.getMid());
+		  params.put("bno", board2.getBno());
+		  
+		  boardDao.insertLike(params);
+		  
+		  return 1;
+		} else {
+		  return 0;
+		}
 	}
 
 
@@ -110,7 +123,7 @@ public class boardService {
 			System.out.println("board.getThumbNail() : " + board.getThumbNail());
 			fileName = board.getThumbNail();
 			System.out.println("fileName : " + fileName);
-			path = "http://localhost:8888/img/boardThumbNail/";
+			path = "http://192.168.0.85:8888/img/boardThumbNail/";
 			System.out.println("path : " + path);
 			
 		} 

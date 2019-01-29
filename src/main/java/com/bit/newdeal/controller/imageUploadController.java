@@ -73,7 +73,7 @@ public class imageUploadController {
 	         sFileInfo += "&bNewLine=false";
 	         // img 태그의 title 속성을 원본파일명으로 적용시켜주기 위함
 	         sFileInfo += "&sFileName="+ filename;;
-	         sFileInfo += "&sFileURL=" + "http://localhost:8888/img/boardContent/" + realFileNm;
+	         sFileInfo += "&sFileURL=" + "http://192.168.0.85:8888/img/boardContent/" + realFileNm;
 	         
 	         System.out.println("sFileInfo : " + sFileInfo);
 	         PrintWriter out = response.getWriter();

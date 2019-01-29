@@ -124,7 +124,7 @@ Date : 19-01-24
 // 								 }
 							 } if(alarm.alarmCode == 'A01') {
 								 code = '게시물에 댓글이 달렸습니다';
-								 $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
+								 $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno=" + alarm.bno + "'>" + code + "</a>");
 							 } if(alarm.alarmCode == 'A02-1') {
 								 code = '제안이 승인되었습니다';
 								 $('#div').append("<a class='dropdown-item' name='name' href='mySuggest.do''>" + code + "</a>");
@@ -133,7 +133,7 @@ Date : 19-01-24
 				    	   $('#div').append("<a class='dropdown-item' name='name' href='mySuggest.do''>" + code + "</a>");
 				       } if(alarm.alarmCode == 'A03') {
 				    	   code = '공감글에 대한 승인된 제안서가 도착했습니다';
-				    	   $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno='" + alarm.bno + ">" + code + "</a>");
+				    	   $('#div').append("<a class='dropdown-item' name='name' href='selectOneBoard.do?bno=" + alarm.bno + "'>" + code + "</a>");
 				       }
 				       $('#div').append("<a class='dropdown-item' href='javascript:;''>" + alarm.alarmDate + "</a>");
 				       $('#div').append("<input type='hidden' class='hide' value=" + alarm.ano + ">");
@@ -152,9 +152,9 @@ Date : 19-01-24
 			          contentType : 'application/json;charset=UTF-8',
 //			          data : parameter,
 			          success : function(data) {
-			            alert("삭제");
+// 			            alert("삭제");
 			          }, error :  function(xhr, status, error) {
-			            alert(error);
+// 			            alert(error);
 			          }
 			  });
 			});
@@ -173,9 +173,9 @@ Date : 19-01-24
   
     					$('#hnickname').text(data.nickname);
     					if(data.profile == null){
-    						$('#profile').attr('src', 'http://localhost:8888/img/profile/profile.jpeg');
+    						$('#profile').attr('src', 'http://192.168.0.85:8888/img/profile/profile.jpeg');
     					}else{
-	    					$('#profile').attr('src', 'http://localhost:8888/img/profile/'+data.profile);    						
+	    					$('#profile').attr('src', 'http://192.168.0.85:8888/img/profile/'+data.profile);    						
     					}
     					
     					

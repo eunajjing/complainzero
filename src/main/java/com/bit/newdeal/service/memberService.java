@@ -91,17 +91,15 @@ public class memberService {
     return session.getMapper(memberDao.class).blacklist(id);
   }
 
-
   public int deleteMember(String id) {
 	  return session.getMapper(memberDao.class).deleteMember(id);
   }
   
   public String pwCheck(String id) {
 	  return session.getMapper(memberDao.class).pwCheck(id);
-
   }
 
-	  public boolean idcheck(String id) {
+  public boolean idcheck(String id) {
 	Member member = session.getMapper(memberDao.class).selectOneMember(id);
 	return (member == null) ? true : false;
   }

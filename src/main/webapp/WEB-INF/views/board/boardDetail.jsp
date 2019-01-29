@@ -162,7 +162,7 @@ date : 2019-01-23
   <div class="row">
     <div class="col-lg-8">
       <img class="img-fluid rounded"
-        src="http://localhost:8888/img/boardThumbNail/${boardDetail.thumbNail }"
+        src="http://192.168.0.85:8888/img/boardThumbNail/${boardDetail.thumbNail }"
         alt="http://placehold.it/50x50" width="200px" height="300px">
       <hr>
       <div class="rightOutDiv">
@@ -190,19 +190,17 @@ date : 2019-01-23
           <c:choose>
           <c:when test="${empty boardDetail.link}">
             <c:choose>
-              <c:when test="${boardDetail.mid != principal.username}">
+              <c:when test="${boardDetail.mid == principal.username}">
               <!-- 만약 내가 쓴 글이면 -->
                   <div class="btn-group btn-group-sm">
                     <!-- <button type="button" class="btn btn-outline-warning">수정</button> -->
                     <button type="button" class="btn btn-outline-danger"
                       onclick="location.href='deleteBoard.do?bno=${boardDetail.bno}'">삭제</button>
-                    <sec:authorize ifAnyGranted="ROLE_COMPANY">
-                      <button type="button" class="btn btn-outline-primary"
-                        data-toggle="modal" data-target="#suggestModal">제안</button>
-                    </sec:authorize>
+                    
                   </div>
               </c:when>
               <c:otherwise>
+              
               <!-- 만약 내가 쓴 글이 아니면 -->
                   이 글이 공감되시나요? 현재 이 글에 공감하신 분은 <span id="likeCount">${likeCount}</span>명 입니다.
                   <c:if test="${like == 0}">
@@ -212,8 +210,12 @@ date : 2019-01-23
                   <c:if test="${like == 1}">
                     <i id="like" class="fas fa-heart"></i>
                   </c:if>
+                  <sec:authorize ifAnyGranted="ROLE_COMPANY">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-primary"
+                        data-toggle="modal" data-target="#suggestModal">제안</button>
+                  </sec:authorize>
                   <!-- 토글했을 때 class가 fa-heart로 변경되어야 함 -->
-                  <br> <input type="hidden" id="bno" value="${boardDetail.bno}">
+                  <br> 
                   </c:otherwise>
       </c:choose>
           </c:when>
@@ -222,6 +224,7 @@ date : 2019-01-23
             <strong><a href="${boardDetail.link}">쇼핑몰로 이동</a></strong>
           </c:otherwise>
         </c:choose>
+        <input type="hidden" id="bno" value="${boardDetail.bno}">
         </div>
       </div>
 
@@ -253,11 +256,11 @@ date : 2019-01-23
               <c:choose>
                 <c:when test="${empty commentList.profile}">
                   <img class="d-flex mr-3 rounded-circle" id="cProfile"
-                    src="http://localhost:8888/img/profile/profile.jpeg" alt="">
+                    src="http://192.168.0.85:8888/img/profile/profile.jpeg" alt="">
                 </c:when>
                 <c:otherwise>
                   <img class="d-flex mr-3 rounded-circle" id="cProfile"
-                    src="http://localhost:8888/img/profile/${commentList.profile}" alt="">
+                    src="http://192.168.0.85:8888/img/profile/${commentList.profile}" alt="">
                 </c:otherwise>
               </c:choose>
             
@@ -309,7 +312,6 @@ date : 2019-01-23
   <div id="upBtn">
     <button class="btn btn-info btn-lg"><a id="upBtnLink" href="#"><i class="far fa-arrow-alt-circle-up"></i></a></button>
   </div>
-
 
 </div>
 
@@ -365,59 +367,59 @@ function getMemoList(bno) {
 }
 
 function makeList(memos) {
-    $(".commentList").empty();
-    var output = "";
-    var len = memos.length;
-    for(var i = 0; i < len; i++) {
-      output += '<div class="comment" seq="' + memos[i].cno + '">';
-      output += '<div class="media mb-4">';
-      
-      if(memos[i].profile == null){
-        output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
-        output += 'src="http://localhost:8888/img/profile/profile.jpeg" alt="">';
-        output += '<div class="media-body">';
-        if('${session}' != memos[i].id){
-          output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
-          output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
-          output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+     $(".commentList").empty();
+      var output = "";
+      var len = memos.length;
+      for(var i = 0; i < len; i++) {
+         output += '<div class="comment" seq="' + memos[i].cno + '">';
+          output += '<div class="media mb-4">';
+          
+          if(memos[i].profile == null){
+            output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
+            output += 'src="http://192.168.0.85:8888/img/profile/profile.jpeg" alt="">';
+            output += '<div class="media-body">';
+            if('${session}' != memos[i].id){
+               output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+               output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
+               output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
 
-        }
-      }else{
-        output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
-        output += 'src="http://localhost:8888/img/profile/' + memos[i].profile + '" alt="">';
-        output += '<div class="media-body">';
-        output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
+            }
+          }else{
+             output += '<img class="d-flex mr-3 rounded-circle" id="cProfile"';
+            output += 'src="http://192.168.0.85:8888/img/profile/' + memos[i].profile + '" alt="">';
+            output += '<div class="media-body">';
+            output += '<span id="nick' + memos[i].cno + '">' + memos[i].nickname + '</span>&nbsp;';
 
-        if('${session}' != memos[i].id){
-          output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
-          output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
-        }
+            if('${session}' != memos[i].id){
+               output += '<button class="btn btn-outline-danger btn-sm reportCommBtn"';
+               output += 'data-toggle="modal" data-target="#reportModal">신고</button>';
+            }
 
+          }
+
+         if('${session}' == memos[i].id){
+            output += '<div class="btn-group btn-group-sm">';
+            output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
+            output += 'class="btn btn-outline-warning">수정</button>';
+            output += '<button type="button" onclick="deleteComment(this)"';
+            output += 'class="btn btn-outline-danger">삭제</button>';
+            output += '</div>';
+         }
+         output += '<br>';
+         output += '<div id="updateText' + memos[i].cno + '" style="display: none;">';
+         output += '<textarea class="form-control" rows="2">' + memos[i].cContent + '</textarea>';
+         output += '<button input="button"';
+         output += 'onclick="updateComment(' + memos[i].cno + ')"';
+         output += 'class="btn btn-outline-warning">수정</button>';
+         output += '</div>';
+         output += '<span id="originText' + memos[i].cno + '">' + memos[i].cContent + '</span>';
+         output += '</div>';
+         output += '</div>';
+         output += '</div>';
+         
       }
-
-      if('${session}' == memos[i].id){
-        output += '<div class="btn-group btn-group-sm">';
-        output += '<button type="button" onclick="updateBtn(' + memos[i].cno + ')"';
-        output += 'class="btn btn-outline-warning">수정</button>';
-        output += '<button type="button" onclick="deleteComment(this)"';
-        output += 'class="btn btn-outline-danger">삭제</button>';
-        output += '</div>';
-      }
-      output += '<br>';
-      output += '<div id="updateText' + memos[i].cno + '" style="display: none;">';
-      output += '<textarea class="form-control" rows="2">' + memos[i].cContent + '</textarea>';
-      output += '<button input="button"';
-      output += 'onclick="updateComment(' + memos[i].cno + ')"';
-      output += 'class="btn btn-outline-warning">수정</button>';
-      output += '</div>';
-      output += '<span id="originText' + memos[i].cno + '">' + memos[i].cContent + '</span>';
-      output += '</div>';
-      output += '</div>';
-      output += '</div>';
       
-    }
-    
-    $(".commentList").append(output);
+      $(".commentList").append(output);
 }
 
 

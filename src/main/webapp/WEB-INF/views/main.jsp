@@ -75,12 +75,12 @@ date : 19-01-24
           	<c:choose>
           		<c:when test="${empty boardList.thumbNail}">
           			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
-                     src="http://localhost:8888/img/boardThumbNail/thumbnail.png"
+                     src="http://192.168.0.85:8888/img/boardThumbNail/thumbnail.png"
                      class="card-img-top" alt=""></a>
           		</c:when>
           		<c:otherwise>
           			<a href="selectOneBoard.do?bno=${boardList.bno}"> <img
-                     src="http://localhost:8888/img/boardThumbNail/${boardList.thumbNail }"
+                     src="http://192.168.0.85:8888/img/boardThumbNail/${boardList.thumbNail }"
                      class="card-img-top" alt=""></a>
           		</c:otherwise>
           	</c:choose>

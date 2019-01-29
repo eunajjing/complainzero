@@ -4,17 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.bit.newdeal.dao.alarmDao">
-  
-  	<select id="selectAlarm" parameterType="String" resultType="Alarm">
-  	
-  	</select>
-  	
-  	<insert id="insertAlarm" parameterType="Alarm">
-  	
-  	</insert>
-  	
   	<update id="updateAlarm" parameterType="int">
   	 update alarm set readCheck=1 where ano=#{ano}
   	</update>
-  
   </mapper>

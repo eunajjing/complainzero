@@ -175,6 +175,10 @@ and temp.bno = #{bno}
 		on m.id = temp.mid
 		WHERE temp.bDelete='0' and temp.bno = #{bno};
 	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Board">
+	 select * from board where mid=#{mid} order by bno desc limit 1
+	</select>
 </mapper>
 
 

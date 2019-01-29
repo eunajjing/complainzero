@@ -26,5 +26,5 @@ public int likeCount(int bno);
 public List<Board> listCriteria(Criteria cri);
   public int countPaging(SearchCriteria cri);
   public Board selectOneBoardAddSuggestion(int bno);
-
+  public Board selectOne(String mid);
 }

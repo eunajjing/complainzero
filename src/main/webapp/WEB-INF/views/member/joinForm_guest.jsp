@@ -75,7 +75,7 @@ date : 19-01-24
 						<label>
 						<input multiple="multiple" type="file" id="input_img" name="img" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
 						
-							<img src="http://localhost:8888/img/profile/profile.jpeg" id="profilePrew">
+							<img src="http://192.168.0.85:8888/img/profile/profile.jpeg" id="profilePrew">
 							
 						</label>
 					</div>
